@@ -173,7 +173,7 @@ public class Bill extends javax.swing.JInternalFrame {
     private javax.swing.JTable tablehoadon;
     private JavaSwingThuVien.TextField textField1;
     // End of variables declaration//GEN-END:variables
-  public void filltableHDCT() {
+  public void filsltableHDCT() {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.setRowCount(0);
         try {
