@@ -75,7 +75,7 @@ public class HoaDonDAO extends CoffeeDao<HoaDon, String> {
             while (rs.next()) {
                 HoaDon entity = new HoaDon();
                 entity.setMaHD(rs.getString("MaHD"));
-                entity.setMaKH(rs.getInt("MaKH"));
+                entity.setMaKH(rs.getString("MaKH"));
                 entity.setMaNV(rs.getString("MaNV"));
                 entity.setNgayDatHang(rs.getDate("NgayDonHang"));
                 entity.setMaBan(rs.getInt("MaBan"));

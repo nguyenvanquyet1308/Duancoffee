@@ -157,17 +157,17 @@ public class Custom extends javax.swing.JInternalFrame {
 
         tableKhachHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Mã KH", "Tên KH", "SDT", "DiaChi", "Bàn"
+                "Mã KH", "Tên KH", "SDT", "Bàn"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -342,7 +342,7 @@ public class Custom extends javax.swing.JInternalFrame {
         try {
             List<KhachHang> list = daokh.selectAll();
             for (KhachHang khachHang : list) {
-                Object[] row = {khachHang.getMaKH(), khachHang.getTenKH(), khachHang.getSDT(), khachHang.getDiaChi(), khachHang.getMaban()};
+                Object[] row = {khachHang.getMaKH(), khachHang.getTenKH(), khachHang.getSDT(), khachHang.getMaban()};
                 model.addRow(row);
             }
 
@@ -354,25 +354,20 @@ public class Custom extends javax.swing.JInternalFrame {
     }
 
     public void delete() {
-        if (!Auth.isManager()) {
-            DialogHelper.alert(this, "Bạn không có quyền xóa học viên!");
-
-        } else {
             try {
                 int[] rows = tableKhachHang.getSelectedRows();
-                if (rows.length > 0 && DialogHelper.confirm(this, "Bạn có muốn xóa học viên này không?")) {
+                if (rows.length > 0 && DialogHelper.confirm(this, "Bạn có muốn xóa Khách hàng này không?")) {
                     for (int row : rows) {
-                        int makh = (int) tableKhachHang.getValueAt(row, 0);
+                        String makh =  (String) tableKhachHang.getValueAt(row, 0);
                         daokh.delete(makh);
-                        DialogHelper.alert(this, "Xóa nhân viên thành công");
+                        DialogHelper.alert(this, "Xóa Khách hàng thành công");
                         filltableKhachHang();
                     }
                 }
             } catch (Exception e) {
-                DialogHelper.alert(this, "Lỗi khi xóa nhân viên");
+                DialogHelper.alert(this, "Lỗi khi xóa Khách hàng");
                 System.out.println(e);
 
             }
-        }
     }
 }

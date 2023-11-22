@@ -194,7 +194,7 @@ public class Bill extends javax.swing.JInternalFrame {
             List<HoaDon> list = daohd.selectAll();
             for (HoaDon hoaDon : list) {
                 Object[] row = {hoaDon.getMaHD(),hoaDon.getMaKH(),hoaDon.getMaNV(),XDate.toString(hoaDon.getNgayDatHang(),"dd-MM-YYYY"),hoaDon.getMaBan(),hoaDon.getThanhTien(),hoaDon.getTrangThai() ?"Đã Thanh toán":"Chưa thanh toán" };
-                model.addRow(row);
+                model.addRow(row);  
             }
         } catch (Exception e) {
             DialogHelper.alert(this, "Lỗi filltable Hóa đơn");

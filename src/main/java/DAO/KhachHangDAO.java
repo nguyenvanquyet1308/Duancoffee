@@ -16,10 +16,10 @@ import Entity.KhachHang;
  *
  * @author nguyenvanquyet
  */
-public class KhachHangDAO extends CoffeeDao<KhachHang, Integer> {
+public class KhachHangDAO extends CoffeeDao<KhachHang, String> {
 
-    String INSERT_SQL = "INSERT INTO KhachHang (MaKH,TenKH,SDT,DiaChi,Ban) VALUES (?,?,?,?,?)";
-    String UPDATE_SQL = "UPDATE KhachHang SET TenKH = ?,SDT =?,DiaChi=?,Ban=? where MaKH=?";
+    String INSERT_SQL = "INSERT INTO KhachHang (MaKH,TenKH,SDT,Ban) VALUES (?,?,?,?)";
+    String UPDATE_SQL = "UPDATE KhachHang SET TenKH = ?,SDT =?,Ban=? where MaKH=?";
     String DELETE_SQL = "DELETE FROM KhachHang WHERE MaKH=?";
     String SELECT_ALL_SQL = "SELECT * FROM KhachHang";
     String SELECT_BY_ID_SQL = "SELECT * FROM KhachHang WHERE MaKH=?";
@@ -30,7 +30,6 @@ public class KhachHangDAO extends CoffeeDao<KhachHang, Integer> {
                 entity.getMaKH(),
                 entity.getTenKH(),
                 entity.getSDT(),
-                entity.getDiaChi(),
                 entity.getMaban()
         );
     }
@@ -40,19 +39,18 @@ public class KhachHangDAO extends CoffeeDao<KhachHang, Integer> {
         JdbcHelper.executeUpdate(UPDATE_SQL,
                 entity.getTenKH(),
                 entity.getSDT(),
-                entity.getDiaChi(),
                 entity.getMaKH(),
                 entity.getMaKH()
         );
     }
 
     @Override
-    public void delete(Integer MaKH) {
+    public void delete(String MaKH) {
         JdbcHelper.executeUpdate(DELETE_SQL, MaKH);
     }
 
     @Override
-    public KhachHang selectById(Integer MaKH) {
+    public KhachHang selectById(String MaKH) {
         List<KhachHang> list = this.selectBySQL(SELECT_BY_ID_SQL, MaKH);
         if (list.isEmpty()) {
             return null;
@@ -72,10 +70,9 @@ public class KhachHangDAO extends CoffeeDao<KhachHang, Integer> {
             ResultSet rs = JdbcHelper.executeQuery(sql, args);
             while (rs.next()) {
                 KhachHang entity = new KhachHang();
-                entity.setMaKH(rs.getInt("MaKH"));
+                entity.setMaKH(rs.getString("MaKH"));
                 entity.setTenKH(rs.getString("TenKH"));
                 entity.setSDT(rs.getString("SDT"));
-                entity.setDiaChi(rs.getString("DiaChi"));
                 entity.setMaban(rs.getInt("Ban"));
                 list.add(entity);
             }

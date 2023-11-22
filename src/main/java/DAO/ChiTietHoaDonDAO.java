@@ -18,8 +18,8 @@ import java.util.List;
  */
 public class ChiTietHoaDonDAO extends CoffeeDao<ChiTietHoaDon, Integer> {
 
-    String INSERT_SQL = "INSERT INTO ChiTietHoaDon (MaHDCT,MaHD,MaSP,SoLuong,TongTien) VALUES (?,?,?,?,?)";
-    String UPDATE_SQL = "UPDATE ChiTietHoaDon SET MaHD = ?,MaSP =?,SoLuong=?,TongTien=? where ChiTietHoaDon=?";
+    String INSERT_SQL = "INSERT INTO ChiTietHoaDon (MaHDCT,MaHD,MaSP,SoLuong,GiaTien) VALUES (?,?,?,?,?)";
+    String UPDATE_SQL = "UPDATE ChiTietHoaDon SET MaHD = ?,MaSP =?,SoLuong=?,GiaTien =? where ChiTietHoaDon=?";
     String DELETE_SQL = "DELETE FROM ChiTietHoaDon WHERE MaHDCT=?";
     String SELECT_ALL_SQL = "SELECT * FROM ChiTietHoaDon";
     String SELECT_BY_ID_SQL = "SELECT * FROM ChiTietHoaDon WHERE ChiTietHoaDon=?";
@@ -48,7 +48,7 @@ public class ChiTietHoaDonDAO extends CoffeeDao<ChiTietHoaDon, Integer> {
 
     @Override
     public void delete(Integer maHDCT) {
-         JdbcHelper.executeUpdate(INSERT_SQL, maHDCT);
+         JdbcHelper.executeUpdate(DELETE_SQL, maHDCT);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class ChiTietHoaDonDAO extends CoffeeDao<ChiTietHoaDon, Integer> {
                 entity.setMaHD(rs.getString("MaHD"));
                 entity.setMaSP(rs.getString("MaSP"));
                 entity.setSoLuong(rs.getInt("SoLuong"));
-                entity.setGiaTien(rs.getFloat("TongTien"));
+                entity.setGiaTien(rs.getFloat("GiaTien"));
                 list.add(entity);
             }
             rs.getStatement().getConnection().close();

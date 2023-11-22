@@ -9,28 +9,26 @@ package Entity;
  * @author nguyenvanquyet
  */
 public class KhachHang {
-    public int MaKH;
+    public String MaKH;
     public String TenKH;
     public String SDT;
-    public String DiaChi;
     public int Maban;
 
     public KhachHang() {
     }
 
-    public KhachHang(int MaKH, String TenKH, String SDT, String DiaChi, int Maban) {
+    public KhachHang(String MaKH, String TenKH, String SDT, int Maban) {
         this.MaKH = MaKH;
         this.TenKH = TenKH;
         this.SDT = SDT;
-        this.DiaChi = DiaChi;
         this.Maban = Maban;
     }
 
-    public int getMaKH() {
+    public String getMaKH() {
         return MaKH;
     }
 
-    public void setMaKH(int MaKH) {
+    public void setMaKH(String MaKH) {
         this.MaKH = MaKH;
     }
 
@@ -50,14 +48,6 @@ public class KhachHang {
         this.SDT = SDT;
     }
 
-    public String getDiaChi() {
-        return DiaChi;
-    }
-
-    public void setDiaChi(String DiaChi) {
-        this.DiaChi = DiaChi;
-    }
-
     public int getMaban() {
         return Maban;
     }
@@ -65,5 +55,8 @@ public class KhachHang {
     public void setMaban(int Maban) {
         this.Maban = Maban;
     }
+
+  
+ 
     
 }

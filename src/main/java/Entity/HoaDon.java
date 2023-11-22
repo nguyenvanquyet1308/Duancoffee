@@ -7,7 +7,7 @@ package Entity;
 import java.util.Date;
 public class HoaDon {
     public String MaHD;
-    public int MaKH;
+    public String MaKH;
     public String MaNV;
     public Date NgayDatHang;
     public int MaBan;
@@ -17,7 +17,7 @@ public class HoaDon {
     public HoaDon() {
     }
 
-    public HoaDon(String MaHD, int MaKH, String MaNV, Date NgayDatHang, int MaBan, float ThanhTien, Boolean TrangThai) {
+    public HoaDon(String MaHD, String MaKH, String MaNV, Date NgayDatHang, int MaBan, float ThanhTien, Boolean TrangThai) {
         this.MaHD = MaHD;
         this.MaKH = MaKH;
         this.MaNV = MaNV;
@@ -35,11 +35,11 @@ public class HoaDon {
         this.MaHD = MaHD;
     }
 
-    public int getMaKH() {
+    public String getMaKH() {
         return MaKH;
     }
 
-    public void setMaKH(int MaKH) {
+    public void setMaKH(String MaKH) {
         this.MaKH = MaKH;
     }
 
@@ -82,6 +82,8 @@ public class HoaDon {
     public void setTrangThai(Boolean TrangThai) {
         this.TrangThai = TrangThai;
     }
+
+   
 
     
 }
