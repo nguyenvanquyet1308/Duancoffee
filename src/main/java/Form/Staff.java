@@ -247,7 +247,6 @@ public class Staff extends javax.swing.JInternalFrame {
                         dao.delete(MaNV);
                         DialogHelper.alert(this, "Xóa nhân viên thành công");
                         filltable();
-
                     }
                 }
             } catch (Exception e) {

@@ -7,6 +7,7 @@ package Form;
 import DAO.KhachHangDAO;
 import Entity.KhachHang;
 import FormImport.addStaff;
+import ThuVien.Auth;
 import ThuVien.DialogHelper;
 import java.awt.Color;
 import java.util.List;
@@ -23,6 +24,7 @@ public class Custom extends javax.swing.JInternalFrame {
      * Creates new form Promotion
      */
     KhachHangDAO daokh = new KhachHangDAO();
+
     public Custom() {
         initComponents();
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -57,9 +59,9 @@ public class Custom extends javax.swing.JInternalFrame {
         textField1 = new JavaSwingThuVien.TextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableKhachHang = new javax.swing.JTable();
-        myButton1 = new JavaSwingThuVien.MyButton();
-        myButton2 = new JavaSwingThuVien.MyButton();
-        myButton3 = new JavaSwingThuVien.MyButton();
+        btnThem = new JavaSwingThuVien.MyButton();
+        btnSUa = new JavaSwingThuVien.MyButton();
+        btnXoa = new JavaSwingThuVien.MyButton();
         jButton13 = new javax.swing.JButton();
         jButton14 = new javax.swing.JButton();
         jButton15 = new javax.swing.JButton();
@@ -174,14 +176,24 @@ public class Custom extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tableKhachHang);
 
-        myButton1.setText("Thêm");
-        myButton1.setRadius(20);
+        btnThem.setText("Thêm");
+        btnThem.setRadius(20);
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
 
-        myButton2.setText("Sửa");
-        myButton2.setRadius(20);
+        btnSUa.setText("Sửa");
+        btnSUa.setRadius(20);
 
-        myButton3.setText("Xóa");
-        myButton3.setRadius(20);
+        btnXoa.setText("Xóa");
+        btnXoa.setRadius(20);
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
 
         jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Left Arrow.png"))); // NOI18N
 
@@ -195,30 +207,26 @@ public class Custom extends javax.swing.JInternalFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(textField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 922, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 718, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(223, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
-                                .addComponent(myButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(myButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton14)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton15)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton16)))
-                        .addGap(19, 19, 19))))
+                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(btnSUa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton14)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton16)))
+                .addGap(19, 19, 19))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,9 +238,9 @@ public class Custom extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(myButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(myButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSUa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jButton13)
                         .addComponent(jButton14)
@@ -290,8 +298,21 @@ public class Custom extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        delete();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnXoaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private JavaSwingThuVien.MyButton btnSUa;
+    private JavaSwingThuVien.MyButton btnThem;
+    private JavaSwingThuVien.MyButton btnXoa;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
@@ -311,9 +332,6 @@ public class Custom extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
-    private JavaSwingThuVien.MyButton myButton1;
-    private JavaSwingThuVien.MyButton myButton2;
-    private JavaSwingThuVien.MyButton myButton3;
     private javax.swing.JTable tableKhachHang;
     private JavaSwingThuVien.TextField textField1;
     // End of variables declaration//GEN-END:variables
@@ -324,14 +342,37 @@ public class Custom extends javax.swing.JInternalFrame {
         try {
             List<KhachHang> list = daokh.selectAll();
             for (KhachHang khachHang : list) {
-                Object[] row = {khachHang.getMaKH(),khachHang.getTenKH(),khachHang.getSDT(),khachHang.getDiaChi(),khachHang.getMaban()};
+                Object[] row = {khachHang.getMaKH(), khachHang.getTenKH(), khachHang.getSDT(), khachHang.getDiaChi(), khachHang.getMaban()};
                 model.addRow(row);
             }
-            
+
         } catch (Exception e) {
             DialogHelper.alert(this, "Lỗi filltable Khách hàng");
             System.out.println(e);
         }
 
+    }
+
+    public void delete() {
+        if (!Auth.isManager()) {
+            DialogHelper.alert(this, "Bạn không có quyền xóa học viên!");
+
+        } else {
+            try {
+                int[] rows = tableKhachHang.getSelectedRows();
+                if (rows.length > 0 && DialogHelper.confirm(this, "Bạn có muốn xóa học viên này không?")) {
+                    for (int row : rows) {
+                        int makh = (int) tableKhachHang.getValueAt(row, 0);
+                        daokh.delete(makh);
+                        DialogHelper.alert(this, "Xóa nhân viên thành công");
+                        filltableKhachHang();
+                    }
+                }
+            } catch (Exception e) {
+                DialogHelper.alert(this, "Lỗi khi xóa nhân viên");
+                System.out.println(e);
+
+            }
+        }
     }
 }

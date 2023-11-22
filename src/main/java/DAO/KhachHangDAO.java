@@ -48,7 +48,7 @@ public class KhachHangDAO extends CoffeeDao<KhachHang, Integer> {
 
     @Override
     public void delete(Integer MaKH) {
-        JdbcHelper.executeUpdate(INSERT_SQL, MaKH);
+        JdbcHelper.executeUpdate(DELETE_SQL, MaKH);
     }
 
     @Override
