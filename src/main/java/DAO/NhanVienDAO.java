@@ -27,6 +27,7 @@ public class NhanVienDAO extends CoffeeDao<NhanVien, String> {
     public void insert(NhanVien entity) {
         JdbcHelper.executeUpdate(INSERT_SQL,
                 entity.getMaNV(),
+                entity.getMatKhau(),
                 entity.getTenNV(),
                 entity.getSDT(),
                 entity.getDiaChi(),
@@ -39,6 +40,7 @@ public class NhanVienDAO extends CoffeeDao<NhanVien, String> {
     @Override
     public void update(NhanVien entity) {
         JdbcHelper.executeUpdate(UPDATE_SQL,
+                entity.getMatKhau(),
                 entity.getTenNV(),
                 entity.getSDT(),
                 entity.getDiaChi(),
@@ -50,7 +52,7 @@ public class NhanVienDAO extends CoffeeDao<NhanVien, String> {
     }
     @Override
     public void delete(String MaNV) {
-        JdbcHelper.executeUpdate(INSERT_SQL, MaNV);
+        JdbcHelper.executeUpdate(DELETE_SQL, MaNV);
     }
 
     @Override

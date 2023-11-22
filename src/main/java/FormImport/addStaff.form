@@ -56,13 +56,13 @@
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="102" attributes="0">
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  <Component id="myButton1" min="-2" pref="70" max="-2" attributes="0"/>
+                                  <Component id="btnThem" min="-2" pref="70" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="myButton4" min="-2" pref="70" max="-2" attributes="0"/>
+                                  <Component id="btnSua" min="-2" pref="70" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="myButton2" min="-2" pref="70" max="-2" attributes="0"/>
+                                  <Component id="btnMoi" min="-2" pref="70" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="myButton3" min="-2" pref="70" max="-2" attributes="0"/>
+                                  <Component id="btnHuy" min="-2" pref="70" max="-2" attributes="0"/>
                               </Group>
                               <Component id="txtdiaChi" max="32767" attributes="0"/>
                               <Component id="txtsdt" alignment="0" max="32767" attributes="0"/>
@@ -134,10 +134,10 @@
                   </Group>
                   <EmptySpace pref="34" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="myButton1" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                      <Component id="myButton2" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                      <Component id="myButton3" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                      <Component id="myButton4" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="btnThem" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="btnMoi" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="btnHuy" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="btnSua" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
@@ -162,7 +162,7 @@
         <Component class="javax.swing.JRadioButton" name="rdoquanLy">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="buttonGroup1"/>
+              <ComponentRef name="buttonGroup2"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd;"/>
           </Properties>
@@ -170,7 +170,7 @@
         <Component class="javax.swing.JRadioButton" name="rdonhanVien">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="buttonGroup1"/>
+              <ComponentRef name="buttonGroup2"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Nh&#xe2;n vi&#xea;n"/>
           </Properties>
@@ -186,7 +186,7 @@
             <Property name="text" type="java.lang.String" value="Gioi t&#xed;nh: "/>
           </Properties>
         </Component>
-        <Component class="JavaSwingThuVien.MyButton" name="myButton1">
+        <Component class="JavaSwingThuVien.MyButton" name="btnThem">
           <Properties>
             <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -194,8 +194,11 @@
             </Property>
             <Property name="radius" type="int" value="20"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThemActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="JavaSwingThuVien.MyButton" name="myButton2">
+        <Component class="JavaSwingThuVien.MyButton" name="btnMoi">
           <Properties>
             <Property name="text" type="java.lang.String" value="M&#x1edb;i"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -204,7 +207,7 @@
             <Property name="radius" type="int" value="20"/>
           </Properties>
         </Component>
-        <Component class="JavaSwingThuVien.MyButton" name="myButton3">
+        <Component class="JavaSwingThuVien.MyButton" name="btnHuy">
           <Properties>
             <Property name="text" type="java.lang.String" value="H&#x1ee7;y "/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -213,7 +216,7 @@
             <Property name="radius" type="int" value="20"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="myButton3ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHuyActionPerformed"/>
           </Events>
         </Component>
         <Component class="JavaSwingThuVien.TextField" name="txtmaNhanVien">
@@ -251,6 +254,9 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblhinhAnhMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="rdoNam">
           <Properties>
@@ -268,7 +274,7 @@
             <Property name="text" type="java.lang.String" value="N&#x1eef;"/>
           </Properties>
         </Component>
-        <Component class="JavaSwingThuVien.MyButton" name="myButton4">
+        <Component class="JavaSwingThuVien.MyButton" name="btnSua">
           <Properties>
             <Property name="text" type="java.lang.String" value="S&#x1eed;a"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">

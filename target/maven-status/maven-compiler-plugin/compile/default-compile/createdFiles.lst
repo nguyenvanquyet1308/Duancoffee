@@ -12,13 +12,14 @@ Main\Main$8.class
 FormImport\addProduct$1.class
 FormImport\addProduct$4.class
 Form\Custom$2.class
-FormImport\addStaff$2$1.class
+FormImport\addStaff$4.class
 Form\Staff$1.class
 Main\Main$2.class
 FormImport\addtable1$1.class
 FormLogin\HelloApp.class
 Form\Statistical.class
 JavaSwingThuVien\TextField$2.class
+Form\Staff$4.class
 DAO\CoffeeDao.class
 FormImport\addtable1.class
 FormImport\addtable$6.class
@@ -68,6 +69,7 @@ FormImport\addNewBill.class
 Main\Main$9.class
 DAO\LoaiDAO.class
 Form\Menu$5.class
+FormImport\addStaff$4$1.class
 FormLogin\Login$4.class
 Form\Bill$1.class
 Main\Main$10.class
@@ -90,6 +92,7 @@ FormImport\addProduct$3.class
 JavaSwingThuVien\MyButton$1.class
 DAO\ChiTietHoaDonDAO.class
 Entity\HoaDon.class
+FormImport\addStaff$3.class
 ThuVien\JdbcHelper.class
 FormImport\addtable$2.class
 Form\Menu$4.class
