@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class ChiTietHoaDonDAO extends CoffeeDao<ChiTietHoaDon, Integer> {
 
-    String INSERT_SQL = "INSERT INTO ChiTietHoaDon (MaHDCT,MaHD,MaSP,SoLuong,GiaTien) VALUES (?,?,?,?,?)";
+    String INSERT_SQL = "INSERT INTO ChiTietHoaDon (MaHD,MaSP,SoLuong,GiaTien) VALUES (?,?,?,?)";
     String UPDATE_SQL = "UPDATE ChiTietHoaDon SET MaHD = ?,MaSP =?,SoLuong=?,GiaTien =? where ChiTietHoaDon=?";
     String DELETE_SQL = "DELETE FROM ChiTietHoaDon WHERE MaHDCT=?";
     String SELECT_ALL_SQL = "SELECT * FROM ChiTietHoaDon";
@@ -27,7 +27,6 @@ public class ChiTietHoaDonDAO extends CoffeeDao<ChiTietHoaDon, Integer> {
     @Override
     public void insert(ChiTietHoaDon entity) {
         JdbcHelper.executeUpdate(INSERT_SQL,
-                entity.getHoaDonCT(),
                 entity.getMaHD(),
                 entity.getMaSP(),
                 entity.getSoLuong(),

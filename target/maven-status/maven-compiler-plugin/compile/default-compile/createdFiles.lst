@@ -11,6 +11,7 @@ Entity\NhanVien.class
 Main\Main$8.class
 FormImport\addProduct$1.class
 Form\Custom$5.class
+Form\Menu$9.class
 FormImport\addProduct$4.class
 Form\Custom$2.class
 FormImport\addStaff$4.class
@@ -54,6 +55,7 @@ Form\Product$1.class
 FormImport\addtable1$3$1.class
 Form\Menu$8.class
 JavaSwingThuVien\TextField.class
+Form\Menu$10.class
 FormImport\addProduct$5.class
 Form\Staff.class
 FormLogin\Login$1.class
