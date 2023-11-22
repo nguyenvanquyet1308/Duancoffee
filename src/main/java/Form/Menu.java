@@ -1,11 +1,13 @@
 package Form;
 
 import DAO.BanDAO;
+import DAO.ChiTietHoaDonDAO;
 import DAO.HoaDonDAO;
 import DAO.KhachHangDAO;
 import DAO.LoaiDAO;
 import DAO.SanPhamDAO;
 import Entity.Ban;
+import Entity.ChiTietHoaDon;
 import Entity.HoaDon;
 import Entity.KhachHang;
 import Entity.Loai;
@@ -19,8 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -36,6 +38,7 @@ public class Menu extends javax.swing.JInternalFrame {
     LoaiDAO daoloai = new LoaiDAO();
     HoaDonDAO daohd = new HoaDonDAO();
     KhachHangDAO daokh = new KhachHangDAO();
+    ChiTietHoaDonDAO daohdct = new ChiTietHoaDonDAO();
     addtable showAddtable;
     int width = 421;
     int height = 374;
@@ -47,7 +50,7 @@ public class Menu extends javax.swing.JInternalFrame {
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
         fillcomboBoxBan();
-        filltable();
+        filltableSanPham();
         fillcomboboxLoai();
     }
 
@@ -94,7 +97,7 @@ public class Menu extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         txtsdt = new JavaSwingThuVien.TextField();
         jScrollPane4 = new javax.swing.JScrollPane();
-        tableSanPham1 = new javax.swing.JTable();
+        tableHDCT = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
 
         setBorder(null);
@@ -167,6 +170,7 @@ public class Menu extends javax.swing.JInternalFrame {
         panelHoaDon.setBackground(new java.awt.Color(255, 255, 255));
         panelHoaDon.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        txtmaHoaDon.setText("HD01");
         txtmaHoaDon.setLabelText("Mã Hóa đơn");
 
         txtmaKH.setLabelText("Mã khách hàng");
@@ -237,7 +241,7 @@ public class Menu extends javax.swing.JInternalFrame {
                         .addGroup(panelHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtmaHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtmaKH, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(panelHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnXoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -246,9 +250,9 @@ public class Menu extends javax.swing.JInternalFrame {
                             .addComponent(jLabel1)
                             .addComponent(jLabel4)
                             .addComponent(jLabel7))
-                        .addGap(16, 16, 16)
                         .addGroup(panelHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelHoaDonLayout.createSequentialGroup()
+                                .addGap(16, 16, 16)
                                 .addGroup(panelHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblGia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(panelHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -263,6 +267,7 @@ public class Menu extends javax.swing.JInternalFrame {
                                         .addComponent(lblLoai)))
                                 .addGap(94, 94, 94))
                             .addGroup(panelHoaDonLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
                                 .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelHoaDonLayout.createSequentialGroup()
@@ -277,7 +282,7 @@ public class Menu extends javax.swing.JInternalFrame {
                             .addComponent(txttenKh, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)
                             .addComponent(txtsdt, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 132, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelHoaDonLayout.setVerticalGroup(
@@ -296,11 +301,11 @@ public class Menu extends javax.swing.JInternalFrame {
                     .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtsdt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
                 .addGroup(panelHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(lblmaSP)
@@ -323,7 +328,7 @@ public class Menu extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3))
         );
 
-        tableSanPham1.setModel(new javax.swing.table.DefaultTableModel(
+        tableHDCT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -334,7 +339,7 @@ public class Menu extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
             }
         ));
-        jScrollPane4.setViewportView(tableSanPham1);
+        jScrollPane4.setViewportView(tableHDCT);
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Left.png"))); // NOI18N
         jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -393,7 +398,7 @@ public class Menu extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(panelHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(14, Short.MAX_VALUE))
@@ -472,8 +477,8 @@ public class Menu extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblmaSP;
     private javax.swing.JLabel lbltenSP;
     private javax.swing.JPanel panelHoaDon;
+    private javax.swing.JTable tableHDCT;
     private javax.swing.JTable tableSanPham;
-    private javax.swing.JTable tableSanPham1;
     private javax.swing.JTextField txtTimKiem;
     private JavaSwingThuVien.TextField txtmaHoaDon;
     private JavaSwingThuVien.TextField txtmaKH;
@@ -489,8 +494,7 @@ public class Menu extends javax.swing.JInternalFrame {
             model.addElement(kh);
         }
     }
-
-    void filltable() {
+    void filltableSanPham() {
         ArrayList<SanPham> list = daosp.BindTable();
         String[] columnName = {"MaSP", "TenSP", "Gia", "MaLoai", "MoTa", "HinhAnh"};
         Object[][] rows = new Object[list.size()][6];
@@ -512,7 +516,27 @@ public class Menu extends javax.swing.JInternalFrame {
         tableSanPham.setRowHeight(120);
         tableSanPham.getColumnModel().getColumn(5).setPreferredWidth(150);
     }
-
+    void fillTableHDCT(){
+        DefaultTableModel model = (DefaultTableModel) tableHDCT.getModel();
+        model.setRowCount(0);
+        try {
+            String mahd = txtmaHoaDon.getText();
+            List<ChiTietHoaDon> list = daohdct.selectMaHD(mahd);
+            for (ChiTietHoaDon hdct : list) {
+                Object[] row = {hdct.getHoaDonCT(),hdct.getMaHD(),hdct.getMaSP(),hdct.getSoLuong(),hdct.getGiaTien()};
+                model.addRow(row);
+            }
+        } catch (Exception e) {
+        }
+    }
+       public void fillcomboboxLoai() {
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cbxLoai.getModel();
+        model.removeAllElements();
+        List<Loai> list = daoloai.selectAll();
+        for (Loai kh : list) {
+            model.addElement(kh);
+        }
+    }
     void OpenMenu() {
         new Thread(new Runnable() {
             @Override
@@ -527,7 +551,6 @@ public class Menu extends javax.swing.JInternalFrame {
             }
         }).start();
     }
-
     void CloseMenu() {
         new Thread(new Runnable() {
             @Override
@@ -542,9 +565,7 @@ public class Menu extends javax.swing.JInternalFrame {
                 }
             }
         }).start();
-
     }
-
     public void setForm(SanPham sp) {
         lblGia.setText(String.valueOf(sp.getGia()));
         lblLoai.setText(sp.getMaLoai());
@@ -573,7 +594,7 @@ public class Menu extends javax.swing.JInternalFrame {
         KhachHang kh = getFormKhachHang();
         try {
             daokh.insert(kh);
-            filltable();
+            filltableSanPham();
             fillcomboBoxBan();
             fillcomboboxLoai();
         } catch (Exception e) {
@@ -581,13 +602,13 @@ public class Menu extends javax.swing.JInternalFrame {
             System.out.println(e);
         }
     }
-
     public void InsertHoaDon() {
         InsertKhachang();
         HoaDon hd = getFormHoaDon();
         try {
             daohd.insert(hd);
-            filltable();
+            fillTableHDCT();
+            filltableSanPham();
             fillcomboBoxBan();
             fillcomboboxLoai();
             DialogHelper.alert(this, "Tạo hóa đơn thành công");
@@ -597,23 +618,12 @@ public class Menu extends javax.swing.JInternalFrame {
 
         }
     }
-
     public void edit() {
         String maSp = (String) tableSanPham.getValueAt(row, 0);
         SanPham sp = daosp.selectById(maSp);
         this.setForm(sp);
 
     }
-
-    public void fillcomboboxLoai() {
-        DefaultComboBoxModel model = (DefaultComboBoxModel) cbxLoai.getModel();
-        model.removeAllElements();
-        List<Loai> list = daoloai.selectAll();
-        for (Loai kh : list) {
-            model.addElement(kh);
-        }
-    }
-
     public void TaoHoaDonMoi() {
 
     }

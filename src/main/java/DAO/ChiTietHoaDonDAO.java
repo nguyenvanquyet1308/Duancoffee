@@ -64,7 +64,6 @@ public class ChiTietHoaDonDAO extends CoffeeDao<ChiTietHoaDon, Integer> {
     public List<ChiTietHoaDon> selectAll() {
          return this.selectBySQL(SELECT_ALL_SQL);
     }
-
     @Override
     protected List<ChiTietHoaDon> selectBySQL(String sql, Object... args) {
           List<ChiTietHoaDon> list = new ArrayList<>();
@@ -86,5 +85,10 @@ public class ChiTietHoaDonDAO extends CoffeeDao<ChiTietHoaDon, Integer> {
             throw new RuntimeException(e);
         }
     }
+    public List<ChiTietHoaDon> selectMaHD(String maHD) {
+        String SQL = "SELECT * FROM ChiTietHoaDon WHERE MaHD = ?";
+        return selectBySQL(SQL, maHD);
+    }
+    
 
 }
