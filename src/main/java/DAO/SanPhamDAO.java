@@ -50,7 +50,7 @@ public class SanPhamDAO extends CoffeeDao<SanPham, String> {
 
     @Override
     public void delete(String String) {
-        JdbcHelper.executeUpdate(INSERT_SQL, String);
+        JdbcHelper.executeUpdate(DELETE_SQL, String);
     }
 
     @Override

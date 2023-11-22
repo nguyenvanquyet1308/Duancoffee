@@ -29,6 +29,7 @@ ThuVien\DialogHelper.class
 Form\Staff$3.class
 Form\Menu$6.class
 JavaSwingThuVien\TextField$1.class
+Form\Product$6.class
 Main\Main$3.class
 FormLogin\Login$3.class
 Entity\KhachHang.class
@@ -46,6 +47,7 @@ Form\Bill.class
 FormLogin\HelloApp$2.class
 ThuVien\XDate.class
 Main\Main$4.class
+Form\Product$5.class
 FormImport\addStaff.class
 Form\Custom$4.class
 Form\Product$1.class
@@ -56,6 +58,7 @@ FormImport\addProduct$5.class
 Form\Staff.class
 FormLogin\Login$1.class
 FormImport\addtype$3$1.class
+Form\Product$4.class
 Form\Custom$3.class
 JavaSwingThuVien\TextField$3.class
 FormLogin\HelloApp$1.class

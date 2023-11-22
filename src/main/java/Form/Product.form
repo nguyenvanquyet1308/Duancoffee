@@ -81,18 +81,18 @@
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jScrollPane2" alignment="0" min="-2" pref="421" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="myButton3" min="-2" pref="87" max="-2" attributes="0"/>
+                                  <Component id="btnThemSP" min="-2" pref="87" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="myButton2" min="-2" pref="87" max="-2" attributes="0"/>
+                                  <Component id="btnXoaSP" min="-2" pref="87" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                  <Component id="myButton4" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnThemLoai" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="myButton5" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnXoaLoai" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="319" max="32767" attributes="0"/>
                               </Group>
                               <Component id="jPanel2" max="32767" attributes="0"/>
@@ -117,16 +117,16 @@
                           <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="myButton4" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="myButton5" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnThemLoai" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnXoaLoai" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Component id="jScrollPane2" min="-2" pref="394" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="myButton3" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                      <Component id="myButton2" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="btnThemSP" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="btnXoaSP" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="113" max="32767" attributes="0"/>
               </Group>
@@ -145,47 +145,53 @@
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="6" rowCount="4">
-                    <Column editable="true" title="Title 1" type="java.lang.Object"/>
-                    <Column editable="true" title="Title 2" type="java.lang.Object"/>
-                    <Column editable="true" title="Title 3" type="java.lang.Object"/>
-                    <Column editable="true" title="Title 4" type="java.lang.Object"/>
-                    <Column editable="true" title="Title 5" type="java.lang.Object"/>
-                    <Column editable="true" title="Title 6" type="java.lang.Object"/>
+                    <Column editable="false" title="MaSP" type="java.lang.Object"/>
+                    <Column editable="false" title="TenSP" type="java.lang.Object"/>
+                    <Column editable="false" title="Gia" type="java.lang.Object"/>
+                    <Column editable="false" title="MaLoai" type="java.lang.Object"/>
+                    <Column editable="false" title="MoTa" type="java.lang.Object"/>
+                    <Column editable="false" title="Hinhanh" type="java.lang.Object"/>
                   </Table>
                 </Property>
               </Properties>
             </Component>
           </SubComponents>
         </Container>
-        <Component class="JavaSwingThuVien.MyButton" name="myButton3">
+        <Component class="JavaSwingThuVien.MyButton" name="btnThemSP">
           <Properties>
             <Property name="text" type="java.lang.String" value="TH&#xca;M SP"/>
             <Property name="radius" type="int" value="20"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="myButton3ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThemSPActionPerformed"/>
           </Events>
         </Component>
-        <Component class="JavaSwingThuVien.MyButton" name="myButton2">
+        <Component class="JavaSwingThuVien.MyButton" name="btnXoaSP">
           <Properties>
             <Property name="text" type="java.lang.String" value="X&#xd3;A SP"/>
             <Property name="radius" type="int" value="20"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXoaSPActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="JavaSwingThuVien.MyButton" name="myButton4">
+        <Component class="JavaSwingThuVien.MyButton" name="btnThemLoai">
           <Properties>
             <Property name="text" type="java.lang.String" value="TH&#xca;M LO&#x1ea0;I"/>
             <Property name="radius" type="int" value="20"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="myButton4ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThemLoaiActionPerformed"/>
           </Events>
         </Component>
-        <Component class="JavaSwingThuVien.MyButton" name="myButton5">
+        <Component class="JavaSwingThuVien.MyButton" name="btnXoaLoai">
           <Properties>
             <Property name="text" type="java.lang.String" value="X&#xd3;A LO&#x1ea0;I"/>
             <Property name="radius" type="int" value="20"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXoaLoaiActionPerformed"/>
+          </Events>
         </Component>
         <Component class="JavaSwingThuVien.TextField" name="textField1">
           <Properties>

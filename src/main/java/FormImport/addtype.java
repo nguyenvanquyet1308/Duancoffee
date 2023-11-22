@@ -176,7 +176,6 @@ public class addtype extends javax.swing.JDialog {
         loai.setTenLoai(txtTenLoai.getText());
         return loai;
     }
-
     public void Insert() {
         Loai loai = getForm();
         List<Loai> list = dao.selectAll();

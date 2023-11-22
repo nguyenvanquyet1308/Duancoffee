@@ -11,6 +11,7 @@ import Entity.SanPham;
 import FormImport.addProduct;
 import FormImport.addtype;
 import JavaSwingThuVien.TheModel;
+import ThuVien.Auth;
 import ThuVien.DialogHelper;
 import java.awt.Image;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class Product extends javax.swing.JInternalFrame {
      */
     LoaiDAO daoloai = new LoaiDAO();
     SanPhamDAO dao = new SanPhamDAO();
-    
+
     public Product() {
         initComponents();
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -55,10 +56,10 @@ public class Product extends javax.swing.JInternalFrame {
         jPanel5 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableSanPham = new javax.swing.JTable();
-        myButton3 = new JavaSwingThuVien.MyButton();
-        myButton2 = new JavaSwingThuVien.MyButton();
-        myButton4 = new JavaSwingThuVien.MyButton();
-        myButton5 = new JavaSwingThuVien.MyButton();
+        btnThemSP = new JavaSwingThuVien.MyButton();
+        btnXoaSP = new JavaSwingThuVien.MyButton();
+        btnThemLoai = new JavaSwingThuVien.MyButton();
+        btnXoaLoai = new JavaSwingThuVien.MyButton();
         textField1 = new JavaSwingThuVien.TextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -93,32 +94,50 @@ public class Product extends javax.swing.JInternalFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
+                "MaSP", "TenSP", "Gia", "MaLoai", "MoTa", "Hinhanh"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(tableSanPham);
 
-        myButton3.setText("THÊM SP");
-        myButton3.setRadius(20);
-        myButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnThemSP.setText("THÊM SP");
+        btnThemSP.setRadius(20);
+        btnThemSP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                myButton3ActionPerformed(evt);
+                btnThemSPActionPerformed(evt);
             }
         });
 
-        myButton2.setText("XÓA SP");
-        myButton2.setRadius(20);
-
-        myButton4.setText("THÊM LOẠI");
-        myButton4.setRadius(20);
-        myButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnXoaSP.setText("XÓA SP");
+        btnXoaSP.setRadius(20);
+        btnXoaSP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                myButton4ActionPerformed(evt);
+                btnXoaSPActionPerformed(evt);
             }
         });
 
-        myButton5.setText("XÓA LOẠI");
-        myButton5.setRadius(20);
+        btnThemLoai.setText("THÊM LOẠI");
+        btnThemLoai.setRadius(20);
+        btnThemLoai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemLoaiActionPerformed(evt);
+            }
+        });
+
+        btnXoaLoai.setText("XÓA LOẠI");
+        btnXoaLoai.setRadius(20);
+        btnXoaLoai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaLoaiActionPerformed(evt);
+            }
+        });
 
         textField1.setLabelText("Tìm kiếm sản phẩm");
 
@@ -173,16 +192,16 @@ public class Product extends javax.swing.JInternalFrame {
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
-                                .addComponent(myButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnThemSP, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(myButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnXoaSP, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
-                                .addComponent(myButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnThemLoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(myButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnXoaLoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 319, Short.MAX_VALUE))
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())
@@ -200,13 +219,13 @@ public class Product extends javax.swing.JInternalFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(myButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(myButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnThemLoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnXoaLoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(myButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(myButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnThemSP, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnXoaSP, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(113, Short.MAX_VALUE))
         );
 
@@ -224,18 +243,32 @@ public class Product extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void myButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton3ActionPerformed
+    private void btnThemSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemSPActionPerformed
         new addProduct().setVisible(true);
         // TODO add your handling code here:
-    }//GEN-LAST:event_myButton3ActionPerformed
+    }//GEN-LAST:event_btnThemSPActionPerformed
 
-    private void myButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton4ActionPerformed
+    private void btnThemLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemLoaiActionPerformed
         new addtype().setVisible(true);
         // TODO add your handling code here:
-    }//GEN-LAST:event_myButton4ActionPerformed
+    }//GEN-LAST:event_btnThemLoaiActionPerformed
+
+    private void btnXoaSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaSPActionPerformed
+        deleteProduct();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnXoaSPActionPerformed
+
+    private void btnXoaLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaLoaiActionPerformed
+        deleteType();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnXoaLoaiActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private JavaSwingThuVien.MyButton btnThemLoai;
+    private JavaSwingThuVien.MyButton btnThemSP;
+    private JavaSwingThuVien.MyButton btnXoaLoai;
+    private JavaSwingThuVien.MyButton btnXoaSP;
     private javax.swing.JButton jButton2;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JPanel jPanel2;
@@ -243,10 +276,6 @@ public class Product extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JToggleButton jToggleButton1;
-    private JavaSwingThuVien.MyButton myButton2;
-    private JavaSwingThuVien.MyButton myButton3;
-    private JavaSwingThuVien.MyButton myButton4;
-    private JavaSwingThuVien.MyButton myButton5;
     private javax.swing.JTable tableLoaiSP;
     private javax.swing.JTable tableSanPham;
     private JavaSwingThuVien.TextField textField1;
@@ -273,7 +302,7 @@ public class Product extends javax.swing.JInternalFrame {
         tableSanPham.setRowHeight(120);
         tableSanPham.getColumnModel().getColumn(5).setPreferredWidth(150);
     }
-    
+
     void filltableLoaiSP() {
         DefaultTableModel model = (DefaultTableModel) tableLoaiSP.getModel();
         model.setRowCount(0);
@@ -282,12 +311,56 @@ public class Product extends javax.swing.JInternalFrame {
             for (Loai loai : list) {
                 Object[] row = {loai.getMaLoai(), loai.getTenLoai()};
                 model.addRow(row);
-                
+
             }
         } catch (Exception e) {
             DialogHelper.alert(this, "Lỗi filltable Loại sản phẩm");
             System.out.println(e);
         }
     }
-    
+
+    public void deleteProduct() {
+        if (!Auth.isManager()) {
+            DialogHelper.alert(this, "Bạn không có quyền xóa học viên!");
+        } else {
+            try {
+                int[] rows = tableSanPham.getSelectedRows();
+                if (rows.length > 0 && DialogHelper.confirm(this, "Bạn có muốn xóa sản phẩm này không?")) {
+                    for (int row : rows) {
+                        String makh = (String) tableSanPham.getValueAt(row, 0);
+                        dao.delete(makh);
+                        DialogHelper.alert(this, "Xóa sản phẩm thành công");
+                        filltable();
+                        filltableLoaiSP();
+                    }
+                }
+            } catch (Exception e) {
+                DialogHelper.alert(this, "Lỗi khi xóa sản phẩm");
+                System.out.println(e);
+            }
+        }
+    }
+
+    public void deleteType() {
+        if (!Auth.isManager()) {
+            DialogHelper.alert(this, "Bạn không có quyền xóa học viên!");
+        } else {
+            try {
+                int[] rows = tableLoaiSP.getSelectedRows();
+                if (rows.length > 0 && DialogHelper.confirm(this, "Bạn có muốn xóa Loại này không?")) {
+                    for (int row : rows) {
+                        String maLoai = (String) tableLoaiSP.getValueAt(row, 0);
+                        daoloai.delete(maLoai);
+                        DialogHelper.alert(this, "Xóa Loại thành công");
+                        filltable();
+                        filltableLoaiSP();
+                    }
+                }
+            } catch (Exception e) {
+                DialogHelper.alert(this, "Lỗi khi xóa Loại");
+                System.out.println(e);
+            }
+        }
+    }
+
 }
