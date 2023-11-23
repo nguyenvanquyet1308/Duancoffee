@@ -341,27 +341,33 @@ public class addProduct extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     public void setForm(SanPham sp) {
+        String hinhanh = lblhinhAnh.getToolTipText();
+        byte[] hinhanh1 = hinhanh.getBytes();
         txtmaSanPham.setText(sp.getMaSP());
         txttenSP.setText(sp.getTenSP());
         txtGia.setText(String.valueOf(sp.getGia()));
         txtmaLoai.setText(sp.getMaLoai());
         txtmoTa.setText(sp.getMoTa());
         txttenSP.setText(sp.getTenSP());
-        if (sp.getHinhanh() != null) {
-            lblhinhAnh.setToolTipText((sp.getHinhanh()));
-            lblhinhAnh.setIcon(ThuVien.Xlmage.read((sp.getHinhanh())));
-        }
+//        if (sp.getHinhanh() != null) {
+//           lblhinhAnh.setToolTipText((sp.getHinhanh()));
+//           lblhinhAnh.setIcon(ThuVien.Xlmage.read((sp.getHinhanh())));
+//       }
     }
 
     public SanPham getForm() {
         SanPham sp = new SanPham();
+
         String hinhanh = lblhinhAnh.getToolTipText();
+        byte[] hinhanh1 = hinhanh.getBytes();
+        if (hinhanh != null) {
+            sp.setHinhanh(hinhanh1);
+        }
         sp.setMaSP(txtmaSanPham.getText());
         sp.setTenSP(txttenSP.getText());
         sp.setGia(Float.parseFloat(txtGia.getText()));
         sp.setMoTa(txtmoTa.getText());
         sp.setMaLoai(txtmaLoai.getText());
-        sp.setHinhanh(lblhinhAnh.getToolTipText());
         return sp;
 
     }
@@ -377,11 +383,12 @@ public class addProduct extends javax.swing.JDialog {
             System.out.println(e);
         }
     }
+
     void filltable() {
         try {
             ArrayList<SanPham> list = dao.BindTable();
             String[] columnName = {"MaSP", "TenSP", "Gia", "MaLoai", "MoTa", "HinhAnh"};
-                Object[][] rows = new Object[list.size()][6];
+            Object[][] rows = new Object[list.size()][6];
             for (int i = 0; i < list.size(); i++) {
                 rows[i][0] = list.get(i).getMaSP();
                 rows[i][1] = list.get(i).getTenSP();

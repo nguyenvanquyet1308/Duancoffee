@@ -17,7 +17,7 @@ import javax.swing.JTable;
  */
 public class SanPhamDAO extends CoffeeDao<SanPham, String> {
 
-    String INSERT_SQL = "INSERT INTO SanPham (MaSP,TenSP,Gia,MaLoai,MoTa,HinhAnh) VALUES (?,?,?,?,?,?)";
+    String INSERT_SQL = "INSERT INTO SanPham (MaSP,TenSP,Gia,MaLoai,MoTa,HinhAnh) VALUES (?,?,?,?,?,cast(? as varbinary(max)))";
     String UPDATE_SQL = "UPDATE SanPham SET TenSP = ?,Gia =?,MaLoai=?,MoTa=?,HinhAnh=? where MaSP=?";
     String DELETE_SQL = "DELETE FROM SanPham WHERE MaSP=?";
     String SELECT_ALL_SQL = "SELECT * FROM SanPham";
@@ -79,7 +79,7 @@ public class SanPhamDAO extends CoffeeDao<SanPham, String> {
                 entity.setGia(rs.getFloat("Gia"));
                 entity.setMaLoai(rs.getString("MaLoai"));
                 entity.setMoTa(rs.getString("MoTa"));
-                entity.setHinhanh(rs.getString("HinhAnh"));
+                entity.setHinhanh(rs.getBytes("HinhAnh"));
                 list.add(entity);
             }
             rs.getStatement().getConnection().close();
@@ -108,7 +108,7 @@ public class SanPhamDAO extends CoffeeDao<SanPham, String> {
                             rs.getFloat("Gia"),
                             rs.getString("MaLoai"),
                             rs.getString("MoTa"),
-                            rs.getString("HinhAnh"));
+                            rs.getBytes("HinhAnh"));
                     list.add(p);
                 }
 

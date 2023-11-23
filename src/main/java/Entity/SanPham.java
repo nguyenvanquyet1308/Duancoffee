@@ -14,12 +14,12 @@ public class SanPham {
     public float Gia;
     public String MaLoai;
     public String MoTa;
-    public String hinhanh;
+    public byte[] hinhanh;
 
     public SanPham() {
     }
 
-    public SanPham(String MaSP, String TenSP, float Gia, String MaLoai, String MoTa, String hinhanh) {
+    public SanPham(String MaSP, String TenSP, float Gia, String MaLoai, String MoTa, byte[] hinhanh) {
         this.MaSP = MaSP;
         this.TenSP = TenSP;
         this.Gia = Gia;
@@ -68,13 +68,15 @@ public class SanPham {
         this.MoTa = MoTa;
     }
 
-    public String getHinhanh() {
+    public byte[] getHinhanh() {
         return hinhanh;
     }
 
-    public void setHinhanh(String hinhanh) {
+    public void setHinhanh(byte[] hinhanh) {
         this.hinhanh = hinhanh;
     }
+
+   
 
    
 
