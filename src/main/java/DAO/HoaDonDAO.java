@@ -18,8 +18,8 @@ import java.util.List;
  */
 public class HoaDonDAO extends CoffeeDao<HoaDon, String> {
 
-    String INSERT_SQL = "INSERT INTO HoaDon (MaHD,MaKH,MaNV,NgayDatHang,MaBan,ThanhTien,TrangThai) VALUES (?,?,?,?,?,?,?)";
-    String UPDATE_SQL = "UPDATE HoaDon SET MaKH = ?,MaNV =?,NgayDatHang=?,MaBan=?,ThanhTien=? where MaHD=?";
+    String INSERT_SQL = "INSERT INTO HoaDon (MaHD,MaKH,MaNV,NgayDonHang,MaBan,ThanhTien,TrangThai) VALUES (?,?,?,?,?,?,?)";
+    String UPDATE_SQL = "UPDATE HoaDon SET MaKH = ?,MaNV =?,NgayDonHang=?,MaBan=?,ThanhTien=? where MaHD=?";
     String DELETE_SQL = "DELETE FROM HoaDon WHERE MaHD=?";
     String SELECT_ALL_SQL = "SELECT * FROM HoaDon";
     String SELECT_BY_ID_SQL = "SELECT * FROM HoaDon WHERE MaHD=?";
@@ -32,7 +32,8 @@ public class HoaDonDAO extends CoffeeDao<HoaDon, String> {
                 entity.getMaNV(),
                 entity.getNgayDatHang(),
                 entity.getMaBan(),
-                entity.getThanhTien()
+                entity.getThanhTien(),
+                entity.getTrangThai()
         );
     }
 

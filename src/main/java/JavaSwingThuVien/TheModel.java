@@ -20,7 +20,7 @@ public class TheModel extends AbstractTableModel{
     }
     public TheModel(Object[][] data, String[] columname){
          this.rows = data;
-        this.columns = columname;
+         this.columns = columname;
     }
     @Override
     public Class getColumnClass(int column){

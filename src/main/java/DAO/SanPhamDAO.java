@@ -90,7 +90,6 @@ public class SanPhamDAO extends CoffeeDao<SanPham, String> {
     }
 
     public ArrayList<SanPham> BindTable() {
-
         ArrayList<SanPham> list = new ArrayList<SanPham>();
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
