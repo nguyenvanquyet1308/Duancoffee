@@ -56,7 +56,7 @@ public class Custom extends javax.swing.JInternalFrame {
         jButton9 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        textField1 = new JavaSwingThuVien.TextField();
+        txtTimkiem = new JavaSwingThuVien.TextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableKhachHang = new javax.swing.JTable();
         btnThem = new JavaSwingThuVien.MyButton();
@@ -153,7 +153,12 @@ public class Custom extends javax.swing.JInternalFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        textField1.setLabelText("Tìm kiếm khách hàng");
+        txtTimkiem.setLabelText("Tìm kiếm khách hàng");
+        txtTimkiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTimkiemActionPerformed(evt);
+            }
+        });
 
         tableKhachHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -210,7 +215,7 @@ public class Custom extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(textField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtTimkiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 922, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -232,7 +237,7 @@ public class Custom extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtTimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -308,6 +313,11 @@ public class Custom extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnXoaActionPerformed
 
+    private void txtTimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimkiemActionPerformed
+        filltableKhachHang();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTimkiemActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JavaSwingThuVien.MyButton btnSUa;
@@ -333,19 +343,19 @@ public class Custom extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable tableKhachHang;
-    private JavaSwingThuVien.TextField textField1;
+    private JavaSwingThuVien.TextField txtTimkiem;
     // End of variables declaration//GEN-END:variables
 
     public void filltableKhachHang() {
         DefaultTableModel model = (DefaultTableModel) tableKhachHang.getModel();
         model.setRowCount(0);
         try {
-            List<KhachHang> list = daokh.selectAll();
+            String keyword = txtTimkiem.getText();
+            List<KhachHang> list = daokh.selectByKeyword(keyword);
             for (KhachHang khachHang : list) {
                 Object[] row = {khachHang.getMaKH(), khachHang.getTenKH(), khachHang.getSDT(), khachHang.getMaban()};
                 model.addRow(row);
             }
-
         } catch (Exception e) {
             DialogHelper.alert(this, "Lỗi filltable Khách hàng");
             System.out.println(e);
@@ -354,20 +364,20 @@ public class Custom extends javax.swing.JInternalFrame {
     }
 
     public void delete() {
-            try {
-                int[] rows = tableKhachHang.getSelectedRows();
-                if (rows.length > 0 && DialogHelper.confirm(this, "Bạn có muốn xóa Khách hàng này không?")) {
-                    for (int row : rows) {
-                        String makh =  (String) tableKhachHang.getValueAt(row, 0);
-                        daokh.delete(makh);
-                        DialogHelper.alert(this, "Xóa Khách hàng thành công");
-                        filltableKhachHang();
-                    }
+        try {
+            int[] rows = tableKhachHang.getSelectedRows();
+            if (rows.length > 0 && DialogHelper.confirm(this, "Bạn có muốn xóa Khách hàng này không?")) {
+                for (int row : rows) {
+                    String makh = (String) tableKhachHang.getValueAt(row, 0);
+                    daokh.delete(makh);
+                    DialogHelper.alert(this, "Xóa Khách hàng thành công");
+                    filltableKhachHang();
                 }
-            } catch (Exception e) {
-                DialogHelper.alert(this, "Lỗi khi xóa Khách hàng");
-                System.out.println(e);
-
             }
+        } catch (Exception e) {
+            DialogHelper.alert(this, "Lỗi khi xóa Khách hàng");
+            System.out.println(e);
+
+        }
     }
 }

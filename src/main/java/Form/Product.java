@@ -140,6 +140,11 @@ public class Product extends javax.swing.JInternalFrame {
         });
 
         textField1.setLabelText("Tìm kiếm sản phẩm");
+        textField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textField1ActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Loại sản phẩm"));
@@ -261,6 +266,10 @@ public class Product extends javax.swing.JInternalFrame {
         deleteType();
         // TODO add your handling code here:
     }//GEN-LAST:event_btnXoaLoaiActionPerformed
+
+    private void textField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textField1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

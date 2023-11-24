@@ -23,6 +23,7 @@ public class SanPhamDAO extends CoffeeDao<SanPham, String> {
     String SELECT_ALL_SQL = "SELECT * FROM SanPham";
     String SELECT_BY_ID_SQL = "SELECT * FROM SanPham WHERE MaSP=?";
     String SELECT_BY_ID_SQL1 = "select MaSP,TenSP,Gia,MaLoai,MoTa,HinhAnh from SanPham";
+    String SELECT_SEACH = "SELECT * FROM SanPham WHERE TenSP LIKE ?";
 
     @Override
     public void insert(SanPham entity) {
@@ -111,7 +112,6 @@ public class SanPhamDAO extends CoffeeDao<SanPham, String> {
                             rs.getBytes("HinhAnh"));
                     list.add(p);
                 }
-
             } catch (Exception e) {
             }
         } catch (Exception e) {
@@ -119,5 +119,10 @@ public class SanPhamDAO extends CoffeeDao<SanPham, String> {
         return list;
 
     }
+    public List<SanPham> selectByKeyword(String keyword) {
+        String SQL = "SELECT * FROM SanPham WHERE TenSP LIKE ?";
+        return this.selectBySQL(SQL, "%" + keyword + "%");
+    }
+
 
 }

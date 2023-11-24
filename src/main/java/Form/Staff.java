@@ -49,7 +49,7 @@ public class Staff extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableNhanVien = new javax.swing.JTable();
-        textField1 = new JavaSwingThuVien.TextField();
+        txtTimKiem = new JavaSwingThuVien.TextField();
         btnThem = new JavaSwingThuVien.MyButton();
         btnXoa = new JavaSwingThuVien.MyButton();
         jButton4 = new javax.swing.JButton();
@@ -89,7 +89,12 @@ public class Staff extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tableNhanVien);
 
-        textField1.setLabelText("Tìm kiếm nhân viên");
+        txtTimKiem.setLabelText("Tìm kiếm nhân viên");
+        txtTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTimKiemActionPerformed(evt);
+            }
+        });
 
         btnThem.setText("Thêm");
         btnThem.setRadius(20);
@@ -135,13 +140,13 @@ public class Staff extends javax.swing.JInternalFrame {
                         .addComponent(jButton5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton4))
-                    .addComponent(textField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -189,6 +194,11 @@ public class Staff extends javax.swing.JInternalFrame {
         delete();
     }//GEN-LAST:event_btnXoaActionPerformed
 
+    private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
+        filltable();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTimKiemActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JavaSwingThuVien.MyButton btnThem;
@@ -201,14 +211,15 @@ public class Staff extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableNhanVien;
-    private JavaSwingThuVien.TextField textField1;
+    private JavaSwingThuVien.TextField txtTimKiem;
     // End of variables declaration//GEN-END:variables
 
     void filltable() {
         DefaultTableModel model = (DefaultTableModel) tableNhanVien.getModel();
         model.setRowCount(0);
         try {
-            List<NhanVien> list = dao.selectAll();
+            String keyword = txtTimKiem.getText();
+            List<NhanVien> list = dao.selectByKeyword(keyword);
             for (NhanVien nhanVien : list) {
                 Object[] row = {nhanVien.getMaNV(), nhanVien.getMatKhau(), nhanVien.getTenNV(), nhanVien.getSDT(), nhanVien.getDiaChi(),
                     nhanVien.isChucVu() ? "Quản lý" : "Nhân viên", nhanVien.isGioiTinh() ? "Nam" : "Nữ", nhanVien.getHinhanh()};
@@ -257,5 +268,5 @@ public class Staff extends javax.swing.JInternalFrame {
 
         }
     }
-   
+
 }

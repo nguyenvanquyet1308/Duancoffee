@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import Entity.KhachHang;
+import Entity.SanPham;
 
 /**
  *
@@ -81,6 +82,10 @@ public class KhachHangDAO extends CoffeeDao<KhachHang, String> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+        public List<KhachHang> selectByKeyword(String keyword) {
+        String SQL = "SELECT * FROM Khachhang WHERE TenKH LIKE ?";
+        return this.selectBySQL(SQL, "%" + keyword + "%");
     }
 
 }

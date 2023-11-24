@@ -58,6 +58,7 @@ Form\Menu$8.class
 JavaSwingThuVien\TextField.class
 Form\Menu$10.class
 FormImport\addProduct$5.class
+Form\Custom$6.class
 Form\Staff.class
 FormLogin\Login$1.class
 FormImport\addtype$3$1.class
@@ -68,6 +69,7 @@ FormLogin\HelloApp$1.class
 DAO\BanDAO.class
 FormLogin\HelloApp$1$1.class
 Entity\SanPham.class
+Form\Product$7.class
 FormLogin\Login.class
 Main\Main$6.class
 FormImport\addtable.class
@@ -102,6 +104,7 @@ DAO\ChiTietHoaDonDAO.class
 Entity\HoaDon.class
 FormImport\addStaff$3.class
 ThuVien\JdbcHelper.class
+Form\Staff$5.class
 FormImport\addtable$2.class
 Form\Menu$4.class
 FormImport\addtable1$2.class
