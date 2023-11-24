@@ -17,12 +17,13 @@ import javax.swing.JTable;
  */
 public class SanPhamDAO extends CoffeeDao<SanPham, String> {
 
-    String INSERT_SQL = "INSERT INTO SanPham (MaSP,TenSP,Gia,MaLoai,MoTa,HinhAnh) VALUES (?,?,?,?,?,?)";
+    String INSERT_SQL = "INSERT INTO SanPham (MaSP,TenSP,Gia,MaLoai,MoTa,HinhAnh) VALUES (?,?,?,?,?,cast(? as varbinary(max)))";
     String UPDATE_SQL = "UPDATE SanPham SET TenSP = ?,Gia =?,MaLoai=?,MoTa=?,HinhAnh=? where MaSP=?";
     String DELETE_SQL = "DELETE FROM SanPham WHERE MaSP=?";
     String SELECT_ALL_SQL = "SELECT * FROM SanPham";
     String SELECT_BY_ID_SQL = "SELECT * FROM SanPham WHERE MaSP=?";
     String SELECT_BY_ID_SQL1 = "select MaSP,TenSP,Gia,MaLoai,MoTa,HinhAnh from SanPham";
+    String SELECT_SEACH = "SELECT * FROM SanPham WHERE TenSP LIKE ?";
 
     @Override
     public void insert(SanPham entity) {
@@ -79,7 +80,7 @@ public class SanPhamDAO extends CoffeeDao<SanPham, String> {
                 entity.setGia(rs.getFloat("Gia"));
                 entity.setMaLoai(rs.getString("MaLoai"));
                 entity.setMoTa(rs.getString("MoTa"));
-                entity.setHinhanh(rs.getString("HinhAnh"));
+                entity.setHinhanh(rs.getBytes("HinhAnh"));
                 list.add(entity);
             }
             rs.getStatement().getConnection().close();
@@ -90,7 +91,6 @@ public class SanPhamDAO extends CoffeeDao<SanPham, String> {
     }
 
     public ArrayList<SanPham> BindTable() {
-
         ArrayList<SanPham> list = new ArrayList<SanPham>();
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -109,10 +109,9 @@ public class SanPhamDAO extends CoffeeDao<SanPham, String> {
                             rs.getFloat("Gia"),
                             rs.getString("MaLoai"),
                             rs.getString("MoTa"),
-                            rs.getString("HinhAnh"));
+                            rs.getBytes("HinhAnh"));
                     list.add(p);
                 }
-
             } catch (Exception e) {
             }
         } catch (Exception e) {
@@ -120,5 +119,10 @@ public class SanPhamDAO extends CoffeeDao<SanPham, String> {
         return list;
 
     }
+    public List<SanPham> selectByKeyword(String keyword) {
+        String SQL = "SELECT * FROM SanPham WHERE TenSP LIKE ?";
+        return this.selectBySQL(SQL, "%" + keyword + "%");
+    }
+
 
 }

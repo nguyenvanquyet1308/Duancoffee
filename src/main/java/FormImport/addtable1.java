@@ -130,7 +130,7 @@ public class addtable1 extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDongyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongyActionPerformed
-      //  themBan();
+        themBan();
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDongyActionPerformed
 

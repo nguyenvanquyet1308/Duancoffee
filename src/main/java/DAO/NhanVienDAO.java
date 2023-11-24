@@ -92,6 +92,10 @@ public class NhanVienDAO extends CoffeeDao<NhanVien, String> {
             throw new RuntimeException(e);
         }
     }
+      public List<NhanVien> selectByKeyword(String keyword) {
+        String SQL = "SELECT * FROM NhanVien WHERE TenNV LIKE ?";
+        return this.selectBySQL(SQL, "%" + keyword + "%");
+    }
 
    
 
