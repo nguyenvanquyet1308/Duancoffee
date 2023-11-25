@@ -4,19 +4,27 @@
  */
 package FormImport;
 
+import DAO.LoaiDAO;
 import DAO.SanPhamDAO;
-import Entity.NhanVien;
+import Entity.Loai;
 import Entity.SanPham;
+import JavaSwingThuVien.MyQuery;
+import JavaSwingThuVien.Product2;
 import JavaSwingThuVien.TheModel;
 import ThuVien.DialogHelper;
+import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.imageio.ImageIO;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.table.DefaultTableModel;
-import org.hobsoft.symmetry.ui.FileChooser;
 
 /**
  *
@@ -28,13 +36,16 @@ public class addProduct extends javax.swing.JDialog {
      * Creates new form addProduct
      */
     int row = -1;
-    SanPhamDAO dao = new SanPhamDAO();
+    SanPhamDAO daosp = new SanPhamDAO();
+    LoaiDAO daoloai = new LoaiDAO();
     JFileChooser fileChooser = new JFileChooser();
 
     public addProduct() {
         initComponents();
         setLocationRelativeTo(this);
-        filltable();
+        populateJTable();
+        //  filltable();
+        //     fillcomboboxLoai();
     }
 
     /**
@@ -49,11 +60,11 @@ public class addProduct extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         txtmaSanPham = new JavaSwingThuVien.TextField();
         txtGia = new JavaSwingThuVien.TextField();
-        txtmaLoai = new JavaSwingThuVien.TextField();
         txttenSP = new JavaSwingThuVien.TextField();
         lblhinhAnh = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         txtmoTa = new javax.swing.JTextArea();
+        txtmaloai = new JavaSwingThuVien.TextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         TableSP = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
@@ -77,9 +88,6 @@ public class addProduct extends javax.swing.JDialog {
         txtGia.setLabelText("Giá");
         txtGia.setSelectedTextColor(new java.awt.Color(0, 0, 0));
 
-        txtmaLoai.setLabelText("ID loại SP");
-        txtmaLoai.setSelectedTextColor(new java.awt.Color(0, 0, 0));
-
         txttenSP.setLabelText("Tên sản phẩm");
         txttenSP.setSelectedTextColor(new java.awt.Color(0, 0, 0));
 
@@ -96,6 +104,9 @@ public class addProduct extends javax.swing.JDialog {
         txtmoTa.setBorder(javax.swing.BorderFactory.createTitledBorder("Mô tả"));
         jScrollPane4.setViewportView(txtmoTa);
 
+        txtmaloai.setLabelText("Mã Loại");
+        txtmaloai.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -110,11 +121,11 @@ public class addProduct extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(lblhinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtmaLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txttenSP, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txttenSP, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtmaloai, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -133,14 +144,13 @@ public class addProduct extends javax.swing.JDialog {
                             .addComponent(lblhinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(8, 8, 8)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtmaLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addComponent(txttenSP, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 19, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane4)
-                        .addContainerGap())))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtmaloai, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         TableSP.setModel(new javax.swing.table.DefaultTableModel(
@@ -171,13 +181,21 @@ public class addProduct extends javax.swing.JDialog {
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
+        btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Edit.png"))); // NOI18N
         btnSua.setText("Sửa");
+        btnSua.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnSua.setRadius(20);
 
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Delete.png"))); // NOI18N
         btnXoa.setText("Xóa");
+        btnXoa.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnXoa.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnXoa.setRadius(20);
 
+        btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Insert.png"))); // NOI18N
         btnThem.setText("Thêm");
+        btnThem.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnThem.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnThem.setRadius(20);
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,7 +203,10 @@ public class addProduct extends javax.swing.JDialog {
             }
         });
 
+        btnMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/New.png"))); // NOI18N
         btnMoi.setText("Mới");
+        btnMoi.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnMoi.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnMoi.setRadius(20);
         btnMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -200,15 +221,16 @@ public class addProduct extends javax.swing.JDialog {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,11 +239,11 @@ public class addProduct extends javax.swing.JDialog {
                 .addComponent(btnMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(20, 20, 20)
                 .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -230,10 +252,10 @@ public class addProduct extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, 0))
         );
@@ -254,14 +276,13 @@ public class addProduct extends javax.swing.JDialog {
         if (evt.getClickCount() == 2) {
             this.row = TableSP.getSelectedRow();
             this.edit();
-
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_TableSPMouseClicked
 
     private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
         txtGia.setText("");
-        txtmaLoai.setText("");
+        // txtmaLoai.setText("");
         txtmaSanPham.setText("");
         txtmoTa.setText("");
         txttenSP.setText("");
@@ -334,48 +355,90 @@ public class addProduct extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lblhinhAnh;
     private JavaSwingThuVien.TextField txtGia;
-    private JavaSwingThuVien.TextField txtmaLoai;
     private JavaSwingThuVien.TextField txtmaSanPham;
+    private JavaSwingThuVien.TextField txtmaloai;
     private javax.swing.JTextArea txtmoTa;
     private JavaSwingThuVien.TextField txttenSP;
     // End of variables declaration//GEN-END:variables
 
     public void setForm(SanPham sp) {
-        String hinhanh = lblhinhAnh.getToolTipText();
-        byte[] hinhanh1 = hinhanh.getBytes();
+//        String hinhanh = lblhinhAnh.getToolTipText();
+//        byte[] hinhanh1 = hinhanh.getBytes();
         txtmaSanPham.setText(sp.getMaSP());
         txttenSP.setText(sp.getTenSP());
         txtGia.setText(String.valueOf(sp.getGia()));
-        txtmaLoai.setText(sp.getMaLoai());
+        txtmaloai.setText(sp.getMaLoai());
         txtmoTa.setText(sp.getMoTa());
         txttenSP.setText(sp.getTenSP());
-//        if (sp.getHinhanh() != null) {
-//           lblhinhAnh.setToolTipText((sp.getHinhanh()));
-//           lblhinhAnh.setIcon(ThuVien.Xlmage.read((sp.getHinhanh())));
-//       }
+        ImageIcon imageIcon = new ImageIcon(sp.getHinhanh());
+        lblhinhAnh.setIcon(imageIcon);
     }
 
+    private static byte[] convertIconToByteArray(Icon icon) {
+        BufferedImage image = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics g = image.createGraphics();
+        icon.paintIcon(null, g, 0, 0);
+        g.dispose();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(image, "png", baos);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+        return baos.toByteArray();
+    }
     public SanPham getForm() {
         SanPham sp = new SanPham();
+//        String hinhanh = lblhinhAnh.getToolTipText();
+//        byte[] hinhanh1 = hinhanh.getBytes();
+//        if (hinhanh != null) {
+//            sp.setHinhanh(hinhanh1);
+//        }
 
-        String hinhanh = lblhinhAnh.getToolTipText();
-        byte[] hinhanh1 = hinhanh.getBytes();
-        if (hinhanh != null) {
-            sp.setHinhanh(hinhanh1);
-        }
         sp.setMaSP(txtmaSanPham.getText());
         sp.setTenSP(txttenSP.getText());
         sp.setGia(Float.parseFloat(txtGia.getText()));
         sp.setMoTa(txtmoTa.getText());
-        sp.setMaLoai(txtmaLoai.getText());
-        return sp;
+        sp.setMaLoai(txtmaloai.getText());
+        Icon icon = lblhinhAnh.getIcon();
+        byte[] imageBytes = convertIconToByteArray(lblhinhAnh.getIcon());
+        sp.setHinhanh(imageBytes);
+        System.out.println(icon);
+        System.out.println("chạy tới");
+        System.out.println("chạy tới icon");
+        System.out.println(imageBytes);
+        // Kiểm tra xem Icon có phải là ImageIcon không
+//        if (icon instanceof ImageIcon) {
+//            // Chuyển đổi ImageIcon thành mảng byte
+//            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//            try {
+//                BufferedImage bufferedImage = new BufferedImage(
+//                        icon.getIconWidth(),
+//                        icon.getIconHeight(),
+//                        BufferedImage.TYPE_INT_ARGB
+//                );
+//                Graphics g = bufferedImage.getGraphics();
+//                icon.paintIcon(null, g, 0, 0);
+//                g.dispose();
+//
+//                // Write the image data to the ByteArrayOutputStream
+//                ImageIO.write(bufferedImage, "png", byteArrayOutputStream);
+//            } catch (IOException e) {
+//                DialogHelper.alert(this, "Lỗi ");
+//                System.out.println(e);
+//            }
+//            byte[] imageData = byteArrayOutputStream.toByteArray();
+//            // Đặt mảng byte vào đối tượng SanPham
+//            sp.setHinhanh(imageData);
+//        }
 
+        return sp;
     }
 
     public void edit() {
         try {
             String maSP = (String) TableSP.getValueAt(this.row, 0);
-            SanPham sp = dao.selectById(maSP);
+            SanPham sp = daosp.selectById(maSP);
             if (sp != null) {
                 this.setForm(sp);
             }
@@ -386,7 +449,8 @@ public class addProduct extends javax.swing.JDialog {
 
     void filltable() {
         try {
-            ArrayList<SanPham> list = dao.BindTable();
+            SanPhamDAO sp = new SanPhamDAO();
+            ArrayList<SanPham> list = sp.BindTable();
             String[] columnName = {"MaSP", "TenSP", "Gia", "MaLoai", "MoTa", "HinhAnh"};
             Object[][] rows = new Object[list.size()][6];
             for (int i = 0; i < list.size(); i++) {
@@ -396,13 +460,14 @@ public class addProduct extends javax.swing.JDialog {
                 rows[i][3] = list.get(i).getMaLoai();
                 rows[i][4] = list.get(i).getMoTa();
                 if (list.get(i).getHinhanh() != null) {
-                    ImageIcon image = new ImageIcon(new ImageIcon(list.get(i).getHinhanh()).getImage().getScaledInstance(150, 120, Image.SCALE_SMOOTH));
+                    ImageIcon image = new ImageIcon(new ImageIcon(list.get(i).getHinhanh()).getImage()
+                            .getScaledInstance(150, 120, Image.SCALE_SMOOTH));
+                    System.out.println(list.get(i).getHinhanh().toString());
                     rows[i][5] = image;
-                    System.out.println("ko");
                 } else {
                     rows[i][5] = null;
-                    System.out.println("có");
                 }
+                //    rows[i][5] = list.get(i).getCatID();
             }
             TheModel model = new TheModel(rows, columnName);
             TableSP.setModel(model);
@@ -414,6 +479,14 @@ public class addProduct extends javax.swing.JDialog {
         }
     }
 
+//    void fillcomboboxLoai() {
+//        DefaultComboBoxModel model = (DefaultComboBoxModel) cbxLoai.getModel();
+//        model.removeAllElements();
+//        List<Loai> list = daoloai.selectAll();
+//        for (Loai kh : list) {
+//            model.addElement(kh);
+//        }
+//    }
     void chonAnh() {
         if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
@@ -426,12 +499,42 @@ public class addProduct extends javax.swing.JDialog {
 
     public void Insert() {
         SanPham sp = getForm();
-        List<SanPham> list = dao.selectAll();
+        List<SanPham> list = daosp.selectAll();
+        System.out.println("đã chạy tới dao");
         try {
-            dao.insert(sp);
+            daosp.insert(sp);
+            System.out.println("đã chạy tới insert");
             DialogHelper.alert(this, "Thêm SP thành công");
-            filltable();
+            populateJTable();
         } catch (Exception e) {
         }
     }
+
+    public void populateJTable() {
+        MyQuery mq = new MyQuery();
+        ArrayList<Product2> list = mq.BindTable();
+        String[] columnName = {"MaSP", "TenSP", "Gia", "MaLoai", "MoTa", "HinhAnh"};
+        Object[][] rows = new Object[list.size()][6];
+        for (int i = 0; i < list.size(); i++) {
+            rows[i][0] = list.get(i).getMaSP();
+            rows[i][1] = list.get(i).getTenSP();
+            rows[i][2] = list.get(i).getGia();
+            rows[i][3] = list.get(i).getMaLoai();
+            rows[i][4] = list.get(i).getMoTa();
+            if (list.get(i).getHinhanh() != null) {
+                ImageIcon image = new ImageIcon(new ImageIcon(list.get(i).getHinhanh()).getImage()
+                        .getScaledInstance(150, 120, Image.SCALE_SMOOTH));
+                System.out.println(list.get(i).getHinhanh().toString());
+                rows[i][5] = image;
+            } else {
+                rows[i][5] = null;
+            }
+            //    rows[i][5] = list.get(i).getCatID();
+        }
+        TheModel model = new TheModel(rows, columnName);
+        TableSP.setModel(model);
+        TableSP.setRowHeight(120);
+        TableSP.getColumnModel().getColumn(5).setPreferredWidth(150);
+    }
+
 }

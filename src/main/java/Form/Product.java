@@ -10,6 +10,8 @@ import Entity.Loai;
 import Entity.SanPham;
 import FormImport.addProduct;
 import FormImport.addtype;
+import JavaSwingThuVien.MyQuery;
+import JavaSwingThuVien.Product2;
 import JavaSwingThuVien.TheModel;
 import ThuVien.Auth;
 import ThuVien.DialogHelper;
@@ -289,7 +291,8 @@ public class Product extends javax.swing.JInternalFrame {
     private JavaSwingThuVien.TextField textField1;
     // End of variables declaration//GEN-END:variables
    void filltable() {
-        ArrayList<SanPham> list = dao.BindTable();
+        MyQuery mq = new MyQuery();
+        ArrayList<Product2> list = mq.BindTable();
         String[] columnName = {"MaSP", "TenSP", "Gia", "MaLoai", "MoTa", "HinhAnh"};
         Object[][] rows = new Object[list.size()][6];
         for (int i = 0; i < list.size(); i++) {

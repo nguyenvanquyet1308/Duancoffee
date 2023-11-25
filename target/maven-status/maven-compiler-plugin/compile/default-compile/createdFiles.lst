@@ -15,6 +15,7 @@ Form\Menu$9.class
 FormImport\addProduct$4.class
 Form\Custom$2.class
 FormImport\addStaff$4.class
+Form\Menu$12.class
 Form\Staff$1.class
 Main\Main$2.class
 FormImport\addtable1$1.class
@@ -25,6 +26,7 @@ Form\Staff$4.class
 DAO\CoffeeDao.class
 FormImport\addtable1.class
 FormImport\addtable$6.class
+JavaSwingThuVien\Product2.class
 FormImport\addtype$3.class
 Form\Menu$11.class
 ThuVien\DialogHelper.class
@@ -46,6 +48,7 @@ FormLogin\Login$6$1.class
 Form\Staff$2.class
 FormImport\addProduct.class
 Form\Bill.class
+JavaSwingThuVien\MyQuery.class
 FormLogin\HelloApp$2.class
 ThuVien\XDate.class
 Main\Main$4.class

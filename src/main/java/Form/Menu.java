@@ -13,10 +13,17 @@ import Entity.KhachHang;
 import Entity.Loai;
 import Entity.SanPham;
 import FormImport.addtable;
+import JavaSwingThuVien.MyQuery;
+import JavaSwingThuVien.Product2;
 import JavaSwingThuVien.TheModel;
 import ThuVien.Auth;
 import ThuVien.DialogHelper;
 import java.awt.Image;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -218,6 +225,11 @@ public class Menu extends javax.swing.JInternalFrame {
         btnDuavaohoadon.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
         btnDuavaohoadon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/addbill.png"))); // NOI18N
         btnDuavaohoadon.setText("Đưa vào hóa đơn");
+        btnDuavaohoadon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDuavaohoadonActionPerformed(evt);
+            }
+        });
 
         lblmaSP.setText("jLabel2");
 
@@ -483,6 +495,11 @@ public class Menu extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnXoaActionPerformed
 
+    private void btnDuavaohoadonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuavaohoadonActionPerformed
+        updateDuaVaohoadon();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDuavaohoadonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser JdatengayKG;
@@ -534,7 +551,8 @@ public class Menu extends javax.swing.JInternalFrame {
     }
 
     void filltableSanPham() {
-        ArrayList<SanPham> list = daosp.BindTable();
+        MyQuery mq = new MyQuery();
+        ArrayList<Product2> list = mq.BindTable();
         String[] columnName = {"MaSP", "TenSP", "Gia", "MaLoai", "MoTa", "HinhAnh"};
         Object[][] rows = new Object[list.size()][6];
         for (int i = 0; i < list.size(); i++) {
@@ -726,6 +744,34 @@ public class Menu extends javax.swing.JInternalFrame {
             tong += ((Number) gia).intValue();
         }
         System.out.println(tong);
-        lblthanhTien.setText(String.valueOf(tong)+ " " +"VND");
+        lblthanhTien.setText(String.valueOf(tong) + " " + "VND");
     }
+
+    void updateDuaVaohoadon() {
+        String mahd = txtmaHoaDon.getText();
+        int thanhtien = Integer.parseInt(lblthanhTien.getText());
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = "jdbc:sqlserver://localhost:1433;databaseName=DuanCoffee";
+            Connection con = DriverManager.getConnection(url, "sa", "123456");
+            String sql = "update HoaDon set ThanhTien = ? where MaHD =?";
+            PreparedStatement pstt = con.prepareStatement(sql);
+            pstt.setString(1, txtmaHoaDon.getText());
+            pstt.setInt(2, Integer.parseInt(lblthanhTien.getText()));
+            pstt.executeUpdate();
+            con.close();
+        } catch (Exception e) {
+        }
+    }
+
+//    void upadtethanhtien() {
+//        String mahd = txtmaHoaDon.getText();
+//        int thanhtien = Integer.parseInt(lblthanhTien.getText());
+//        try {
+//            List<HoaDon> list = daohd.updateDuaVaohoadon(mahd, thanhtien);
+//        } catch (Exception e) {
+//            DialogHelper.alert(this, "Lỗi khi đưa vào hóa đơn");
+//            System.out.println(e);
+//        }
+//    }
 }

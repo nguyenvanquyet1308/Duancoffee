@@ -10,6 +10,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.management.Query;
 import javax.swing.JTable;
 
 /**
@@ -17,7 +20,7 @@ import javax.swing.JTable;
  */
 public class SanPhamDAO extends CoffeeDao<SanPham, String> {
 
-    String INSERT_SQL = "INSERT INTO SanPham (MaSP,TenSP,Gia,MaLoai,MoTa,HinhAnh) VALUES (?,?,?,?,?,cast(? as varbinary(max)))";
+    String INSERT_SQL = "INSERT INTO SanPham (MaSP,TenSP,Gia,MaLoai,MoTa,HinhAnh) VALUES (?,?,?,?,?,?)";
     String UPDATE_SQL = "UPDATE SanPham SET TenSP = ?,Gia =?,MaLoai=?,MoTa=?,HinhAnh=? where MaSP=?";
     String DELETE_SQL = "DELETE FROM SanPham WHERE MaSP=?";
     String SELECT_ALL_SQL = "SELECT * FROM SanPham";
@@ -90,39 +93,43 @@ public class SanPhamDAO extends CoffeeDao<SanPham, String> {
         }
     }
 
+    public Connection getConnection() {
+        Connection con = null;
+        try {
+            con = DriverManager.getConnection("jdbc:sqlserver://localhost;database=Duancoffee1", "sa", "123456");
+        } catch (SQLException ex) {
+            Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return con;
+    }
     public ArrayList<SanPham> BindTable() {
         ArrayList<SanPham> list = new ArrayList<SanPham>();
+        Connection con = getConnection();
+        Statement st;
+        ResultSet rs;
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url = "jdbc:sqlserver://localhost:1433;databaseName=DuanCoffee";
-            Connection con = DriverManager.getConnection(url, "sa", "123456");
-            Statement st;
-            ResultSet rs;
-            try {
-                st = con.createStatement();
-                rs = st.executeQuery(SELECT_ALL_SQL);
-                SanPham p;
-                while (rs.next()) {
-                    p = new SanPham(
-                            rs.getString("MaSP"),
-                            rs.getString("TenSP"),
-                            rs.getFloat("Gia"),
-                            rs.getString("MaLoai"),
-                            rs.getString("MoTa"),
-                            rs.getBytes("HinhAnh"));
-                    list.add(p);
-                }
-            } catch (Exception e) {
+            st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM SanPham");
+            SanPham p;
+            while (rs.next()) {
+                p = new SanPham(
+                        rs.getString("MaSP"),
+                        rs.getString("TenSP"),
+                        rs.getFloat("Gia"),
+                        rs.getString("MaLoai"),
+                        rs.getString("Mota"),
+                        rs.getBytes("HinhAnh")
+                );
+                list.add(p);
             }
-        } catch (Exception e) {
+        } catch (SQLException ex) {
+            Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
-
     }
     public List<SanPham> selectByKeyword(String keyword) {
         String SQL = "SELECT * FROM SanPham WHERE TenSP LIKE ?";
         return this.selectBySQL(SQL, "%" + keyword + "%");
     }
-
 
 }

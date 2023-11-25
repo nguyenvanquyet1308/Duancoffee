@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Entity;
 
 /**
@@ -9,23 +6,22 @@ package Entity;
  * @author nguyenvanquyet
  */
 public class SanPham {
-    public String MaSP;
-    public String TenSP;
-    public float Gia;
-    public String MaLoai;
-    public String MoTa;
-    public byte[] hinhanh;
+    private String MaSP;
+    private String TenSP;
+    private float Gia;
+    private String MaLoai;
+    private String MoTa;
+    private byte [] hinhanh;
 
     public SanPham() {
     }
 
-    public SanPham(String MaSP, String TenSP, float Gia, String MaLoai, String MoTa, byte[] hinhanh) {
+    public SanPham(String MaSP, String TenSP, float Gia, String MaLoai, String MoTa, byte [] hinhanh) {
         this.MaSP = MaSP;
         this.TenSP = TenSP;
         this.Gia = Gia;
         this.MaLoai = MaLoai;
         this.MoTa = MoTa;
-        this.hinhanh = hinhanh;
     }
 
     public String getMaSP() {
@@ -67,21 +63,11 @@ public class SanPham {
     public void setMoTa(String MoTa) {
         this.MoTa = MoTa;
     }
-
-    public byte[] getHinhanh() {
+    public byte [] getHinhanh() {
         return hinhanh;
     }
 
-    public void setHinhanh(byte[] hinhanh) {
+    public void setHinhanh(byte [] hinhanh) {
         this.hinhanh = hinhanh;
     }
-
-   
-
-   
-
-
-    
-
-   
 }
