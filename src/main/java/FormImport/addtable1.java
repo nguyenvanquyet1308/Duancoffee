@@ -129,15 +129,15 @@ public class addtable1 extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnDongyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongyActionPerformed
-        themBan();
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDongyActionPerformed
-
     private void btnHuyBoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyBoActionPerformed
         this.dispose();
         // TODO add your handling code here:
     }//GEN-LAST:event_btnHuyBoActionPerformed
+
+    private void btnDongyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongyActionPerformed
+        themBan();  
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDongyActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -179,7 +179,9 @@ public class addtable1 extends javax.swing.JDialog {
                 });
                 dialog.setVisible(true);
             }
+
         });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -194,7 +196,7 @@ public class addtable1 extends javax.swing.JDialog {
     private JavaSwingThuVien.TextField txttenBan;
     // End of variables declaration//GEN-END:variables
 
-   public  void themBan() {
+    public void themBan() {
         Ban ban = new Ban();
         ban.setTenBan(txttenBan.getText());
         ban.setTrangThai(RdoHoatDong.isSelected());
@@ -205,7 +207,6 @@ public class addtable1 extends javax.swing.JDialog {
         } catch (Exception e) {
             DialogHelper.alert(this, "Lỗi thêm bàn");
         }
-
     }
 
     public void addEvenFillTable(ActionListener evt) {

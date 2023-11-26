@@ -25,6 +25,7 @@ public class Bill extends javax.swing.JInternalFrame {
      */
     ChiTietHoaDonDAO daohdct = new ChiTietHoaDonDAO();
     HoaDonDAO daohd = new HoaDonDAO();
+    private Menu menu;
 
     public Bill() {
         initComponents();
@@ -61,6 +62,11 @@ public class Bill extends javax.swing.JInternalFrame {
 
         myButton1.setText("Thanh Toán");
         myButton1.setRadius(20);
+        myButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myButton1ActionPerformed(evt);
+            }
+        });
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -100,6 +106,11 @@ public class Bill extends javax.swing.JInternalFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tablehoadon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablehoadonMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(tablehoadon);
@@ -161,6 +172,20 @@ public class Bill extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tablehoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablehoadonMouseClicked
+       if(evt.getClickCount()==2){
+           
+       }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tablehoadonMouseClicked
+
+    private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
+       menu = new Menu();
+        menu.setVisible(true);
+        System.out.println("dưdcbuif");
+        // TODO add your handling code here:
+    }//GEN-LAST:event_myButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

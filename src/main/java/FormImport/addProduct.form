@@ -289,6 +289,9 @@
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="radius" type="int" value="20"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSuaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="JavaSwingThuVien.MyButton" name="btnXoa">
           <Properties>

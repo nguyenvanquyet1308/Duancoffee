@@ -38,12 +38,12 @@ public class addProduct extends javax.swing.JDialog {
     int row = -1;
     SanPhamDAO daosp = new SanPhamDAO();
     LoaiDAO daoloai = new LoaiDAO();
-    JFileChooser fileChooser = new JFileChooser();
+    JFileChooser fileChooser = new JFileChooser("H:\\MonDuAnMau\\BaiTap\\DuAnCoffee\\src\\main\\java\\ImageProduct");
 
     public addProduct() {
         initComponents();
         setLocationRelativeTo(this);
-        populateJTable();
+        filltable();
         //  filltable();
         //     fillcomboboxLoai();
     }
@@ -185,6 +185,11 @@ public class addProduct extends javax.swing.JDialog {
         btnSua.setText("Sửa");
         btnSua.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnSua.setRadius(20);
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
 
         btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Delete.png"))); // NOI18N
         btnXoa.setText("Xóa");
@@ -300,6 +305,11 @@ public class addProduct extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_lblhinhAnhMouseClicked
 
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        UpdateSanPham();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSuaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -361,6 +371,19 @@ public class addProduct extends javax.swing.JDialog {
     private JavaSwingThuVien.TextField txttenSP;
     // End of variables declaration//GEN-END:variables
 
+    public void UpdateSanPham() {
+        SanPham sp = getForm();
+        try {
+            daosp.update(sp);
+            DialogHelper.alert(this, "Chỉnh sữa thành công");
+            filltable();
+
+        } catch (Exception e) {
+            DialogHelper.alert(this, "Lỗi chỉnh sữa");
+        }
+
+    }
+
     public void setForm(SanPham sp) {
 //        String hinhanh = lblhinhAnh.getToolTipText();
 //        byte[] hinhanh1 = hinhanh.getBytes();
@@ -387,6 +410,7 @@ public class addProduct extends javax.swing.JDialog {
         }
         return baos.toByteArray();
     }
+
     public SanPham getForm() {
         SanPham sp = new SanPham();
 //        String hinhanh = lblhinhAnh.getToolTipText();
@@ -447,37 +471,37 @@ public class addProduct extends javax.swing.JDialog {
         }
     }
 
-    void filltable() {
-        try {
-            SanPhamDAO sp = new SanPhamDAO();
-            ArrayList<SanPham> list = sp.BindTable();
-            String[] columnName = {"MaSP", "TenSP", "Gia", "MaLoai", "MoTa", "HinhAnh"};
-            Object[][] rows = new Object[list.size()][6];
-            for (int i = 0; i < list.size(); i++) {
-                rows[i][0] = list.get(i).getMaSP();
-                rows[i][1] = list.get(i).getTenSP();
-                rows[i][2] = list.get(i).getGia();
-                rows[i][3] = list.get(i).getMaLoai();
-                rows[i][4] = list.get(i).getMoTa();
-                if (list.get(i).getHinhanh() != null) {
-                    ImageIcon image = new ImageIcon(new ImageIcon(list.get(i).getHinhanh()).getImage()
-                            .getScaledInstance(150, 120, Image.SCALE_SMOOTH));
-                    System.out.println(list.get(i).getHinhanh().toString());
-                    rows[i][5] = image;
-                } else {
-                    rows[i][5] = null;
-                }
-                //    rows[i][5] = list.get(i).getCatID();
-            }
-            TheModel model = new TheModel(rows, columnName);
-            TableSP.setModel(model);
-            TableSP.setRowHeight(120);
-            TableSP.getColumnModel().getColumn(5).setPreferredWidth(150);
-        } catch (Exception e) {
-            DialogHelper.alert(this, "Lỗi fill table");
-            System.out.println(e);
-        }
-    }
+//    void filltable() {
+//        try {
+//            SanPhamDAO sp = new SanPhamDAO();
+//            ArrayList<SanPham> list = sp.BindTable();
+//            String[] columnName = {"MaSP", "TenSP", "Gia", "MaLoai", "MoTa", "HinhAnh"};
+//            Object[][] rows = new Object[list.size()][6];
+//            for (int i = 0; i < list.size(); i++) {
+//                rows[i][0] = list.get(i).getMaSP();
+//                rows[i][1] = list.get(i).getTenSP();
+//                rows[i][2] = list.get(i).getGia();
+//                rows[i][3] = list.get(i).getMaLoai();
+//                rows[i][4] = list.get(i).getMoTa();
+//                if (list.get(i).getHinhanh() != null) {
+//                    ImageIcon image = new ImageIcon(new ImageIcon(list.get(i).getHinhanh()).getImage()
+//                            .getScaledInstance(150, 120, Image.SCALE_SMOOTH));
+//                    System.out.println(list.get(i).getHinhanh().toString());
+//                    rows[i][5] = image;
+//                } else {
+//                    rows[i][5] = null;
+//                }
+//                //    rows[i][5] = list.get(i).getCatID();
+//            }
+//            TheModel model = new TheModel(rows, columnName);
+//            TableSP.setModel(model);
+//            TableSP.setRowHeight(120);
+//            TableSP.getColumnModel().getColumn(5).setPreferredWidth(150);
+//        } catch (Exception e) {
+//            DialogHelper.alert(this, "Lỗi fill table");
+//            System.out.println(e);
+//        }
+//    }
 
 //    void fillcomboboxLoai() {
 //        DefaultComboBoxModel model = (DefaultComboBoxModel) cbxLoai.getModel();
@@ -505,12 +529,12 @@ public class addProduct extends javax.swing.JDialog {
             daosp.insert(sp);
             System.out.println("đã chạy tới insert");
             DialogHelper.alert(this, "Thêm SP thành công");
-            populateJTable();
+            filltable();
         } catch (Exception e) {
         }
     }
 
-    public void populateJTable() {
+    public void filltable() {
         MyQuery mq = new MyQuery();
         ArrayList<Product2> list = mq.BindTable();
         String[] columnName = {"MaSP", "TenSP", "Gia", "MaLoai", "MoTa", "HinhAnh"};

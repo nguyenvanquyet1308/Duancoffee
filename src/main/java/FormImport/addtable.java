@@ -25,31 +25,22 @@ public class addtable extends javax.swing.JDialog {
      * Creates new form addtable
      */
     BanDAO dao = new BanDAO();
-    addtable1 table1 = new addtable1();
+    private addtable1 add;
 
-        public addtable() {
+    public addtable() {
         initComponents();
-        addtable1 table1;
-        table1 = new addtable1();
         setLocationRelativeTo(this);
         filltable();
-//        table1.addEvenFillTable(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent evt) {
-//                table1.themBan();
-//                filltable();
-//            }
-//        });
-       table1.addEvenFillTable(new ActionListener() {
+        add = new addtable1();
+        add.addEvenFillTable(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("nguyeenx vanw ");
-                table1.themBan();
+                add.themBan();
                 filltable();
             }
-       } );
-        
-    
+        });
+
     }
 
     /**
@@ -163,8 +154,8 @@ public class addtable extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        table1 = new addtable1();
-        table1.setVisible(true);
+        add = new addtable1();
+        add.setVisible(true);
 // TODO add your handling code here:
     }//GEN-LAST:event_btnThemActionPerformed
 
@@ -237,7 +228,7 @@ public class addtable extends javax.swing.JDialog {
         try {
             List<Ban> list = dao.selectAll();
             for (Ban ban : list) {
-                Object[] row = {ban.getMaBan(), ban.getTenBan(),ban.getTrangThai() ? "Đang Hoạt động":"Không hoạt động"};
+                Object[] row = {ban.getMaBan(), ban.getTenBan(), ban.getTrangThai() ? "Đang Hoạt động" : "Không hoạt động"};
                 model.addRow(row);
             }
         } catch (Exception e) {
@@ -274,5 +265,5 @@ public class addtable extends javax.swing.JDialog {
         }
         filltable();
     }
-  
+
 }

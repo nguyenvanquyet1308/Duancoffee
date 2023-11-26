@@ -22,6 +22,7 @@ public class ChiTietHoaDonDAO extends CoffeeDao<ChiTietHoaDon, Integer> {
     String UPDATE_SQL = "UPDATE ChiTietHoaDon SET MaHD = ?,MaSP =?,SoLuong=?,GiaTien =? where ChiTietHoaDon=?";
     String DELETE_SQL = "DELETE FROM ChiTietHoaDon WHERE MaHDCT=?";
     String SELECT_ALL_SQL = "SELECT * FROM ChiTietHoaDon";
+    String SELETE_INNER_IOIN = "select mahdct,mahd,TenSp,soluong,giatien * soluong as GiaTien from ChiTietHoaDon inner join SanPham on ChiTietHoaDon.MaSP = SanPham.MaSP WHERE MaHD =?";
     String SELECT_BY_ID_SQL = "SELECT * FROM ChiTietHoaDon WHERE ChiTietHoaDon=?";
 
     @Override
@@ -61,7 +62,7 @@ public class ChiTietHoaDonDAO extends CoffeeDao<ChiTietHoaDon, Integer> {
 
     @Override
     public List<ChiTietHoaDon> selectAll() {
-         return this.selectBySQL(SELECT_ALL_SQL);
+         return this.selectBySQL(SELETE_INNER_IOIN);
     }
     @Override
     protected List<ChiTietHoaDon> selectBySQL(String sql, Object... args) {
@@ -72,7 +73,8 @@ public class ChiTietHoaDonDAO extends CoffeeDao<ChiTietHoaDon, Integer> {
                 ChiTietHoaDon entity = new ChiTietHoaDon();
                 entity.setHoaDonCT(rs.getInt("MaHDCT"));
                 entity.setMaHD(rs.getString("MaHD"));
-                entity.setMaSP(rs.getString("MaSP"));
+                entity.setTenSP(rs.getString("TenSP"));
+           //     entity.setMaSP(rs.getString("MaSP"));
                 entity.setSoLuong(rs.getInt("SoLuong"));
                 entity.setGiaTien(rs.getFloat("GiaTien"));
                 list.add(entity);
@@ -85,7 +87,7 @@ public class ChiTietHoaDonDAO extends CoffeeDao<ChiTietHoaDon, Integer> {
         }
     }
     public List<ChiTietHoaDon> selectMaHD(String maHD) {
-        String SQL = "SELECT * FROM ChiTietHoaDon WHERE MaHD = ?";
+        String SQL = SELETE_INNER_IOIN;
         return selectBySQL(SQL, maHD);
     }
     
