@@ -40,7 +40,6 @@ public class addtable extends javax.swing.JDialog {
                 filltable();
             }
         });
-
     }
 
     /**

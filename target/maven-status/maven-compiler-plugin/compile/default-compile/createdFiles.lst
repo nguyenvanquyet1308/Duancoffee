@@ -56,7 +56,6 @@ JavaSwingThuVien\MyButton$1.class
 DAO\ChiTietHoaDonDAO.class
 FormImport\addStaff$3.class
 ThuVien\JdbcHelper.class
-FormImport\NewJDialog$1$1.class
 FormImport\addtable$2.class
 Entity\Loai.class
 Main\Main$7.class
@@ -67,6 +66,7 @@ Main\Main$5.class
 Form\Menu$1.class
 FormImport\addtable$4.class
 Entity\NhanVien.class
+Form\Statistical$2.class
 Form\Custom$5.class
 FormImport\addProduct$4.class
 FormImport\addStaff$4.class
@@ -108,6 +108,7 @@ FormImport\addStaff$4$1.class
 FormLogin\Login$4.class
 Form\Bill$1.class
 Main\Main$10.class
+FormImport\NewJDialog$2$1.class
 Main\Main.class
 Form\Menu$2.class
 ThuVien\ImageAvatar.class
@@ -123,6 +124,7 @@ FormImport\addProduct$3.class
 Entity\HoaDon.class
 FormImport\NewJDialog.class
 Form\Staff$5.class
+FormImport\NewJDialog$2.class
 Form\Menu$4.class
 FormImport\addtable1$2.class
 Form\Menu$14.class

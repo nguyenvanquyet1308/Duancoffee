@@ -106,14 +106,18 @@
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="btnThoat" min="-2" pref="85" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="txtPassword" alignment="0" pref="187" max="32767" attributes="0"/>
-                                  <Component id="txtUser" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="txtPassword" alignment="0" pref="187" max="32767" attributes="0"/>
+                                      <Component id="txtUser" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="38" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -133,9 +137,12 @@
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="txtPassword" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="txtPassword" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel5" alignment="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -214,6 +221,7 @@
         </Component>
         <Component class="JavaSwingThuVien.TextField" name="txtUser">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Quyetnv"/>
             <Property name="labelText" type="java.lang.String" value="T&#xe0;i kho&#x1ea3;n"/>
           </Properties>
           <Events>
@@ -222,11 +230,17 @@
         </Component>
         <Component class="JavaSwingThuVien.TextField" name="txtPassword">
           <Properties>
+            <Property name="text" type="java.lang.String" value="1234"/>
             <Property name="labelText" type="java.lang.String" value="M&#x1ead;t kh&#x1ea9;u"/>
           </Properties>
           <Events>
             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPasswordKeyPressed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel5">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="jLabel5"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

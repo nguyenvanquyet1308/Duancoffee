@@ -113,8 +113,8 @@ public class HoaDonDAO extends CoffeeDao<HoaDon, String> {
 //        }
 //        return list;
 //    }
-     public int getDoanhThu(int nam) {
-         int doanhthu =0;
+    public int getDoanhThu(int nam) {
+        int doanhthu = 0;
         try {
             ResultSet rs = null;
             try {
@@ -131,5 +131,99 @@ public class HoaDonDAO extends CoffeeDao<HoaDon, String> {
         }
         return doanhthu;
     }
-    
+
+    public int getTonghoadonNam(int nam) {
+        int tonghoadonnam = 0;
+        try {
+            ResultSet rs = null;
+            try {
+                String sql = "exec TonghoadonNam ?";
+                rs = JdbcHelper.executeQuery(sql, nam);
+                while (rs.next()) {
+                    tonghoadonnam = (int) rs.getInt("TonghoadonNam");
+                }
+            } finally {
+                rs.getStatement().getConnection().close();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return tonghoadonnam;
+    }
+
+    public int getkhachHangTheoNam(int nam) {
+        int tongkhachhangtheoNam = 0;
+        try {
+            ResultSet rs = null;
+            try {
+                String sql = "exec tongkhachhangtheoNam ?";
+                rs = JdbcHelper.executeQuery(sql, nam);
+                while (rs.next()) {
+                    tongkhachhangtheoNam = (int) rs.getInt("Tongkhachhang");
+                }
+            } finally {
+                rs.getStatement().getConnection().close();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return tongkhachhangtheoNam;
+    }
+
+    public int getdoanhThu(int ngay, int thang, int nam) {
+        int tongdoanhthu = 0;
+        try {
+            ResultSet rs = null;
+            try {
+                String sql = "exec TinhNgayThangNam ? ,?, ?";
+                rs = JdbcHelper.executeQuery(sql, ngay, thang, nam);
+                while (rs.next()) {
+                    tongdoanhthu = (int) rs.getInt("tongdoanhthu");
+                }
+            } finally {
+                rs.getStatement().getConnection().close();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return tongdoanhthu;
+    }
+
+    public int getkhachhang(int ngay, int thang, int nam) {
+        int tongkhachang = 0;
+        try {
+            ResultSet rs = null;
+            try {
+                String sql = "exec TinhNgayThangNam ? ,?, ?";
+                rs = JdbcHelper.executeQuery(sql, ngay, thang, nam);
+                while (rs.next()) {
+                    tongkhachang = (int) rs.getInt("tongkhachang");
+                }
+            } finally {
+                rs.getStatement().getConnection().close();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return tongkhachang;
+    }
+
+    public int gethoadon(int ngay, int thang, int nam) {
+        int tonghoadon = 0;
+        try {
+            ResultSet rs = null;
+            try {
+                String sql = "exec TinhNgayThangNam ? ,?, ?";
+                rs = JdbcHelper.executeQuery(sql, ngay, thang, nam);
+                while (rs.next()) {
+                    tonghoadon = (int) rs.getInt("tonghoadon");
+                }
+            } finally {
+                rs.getStatement().getConnection().close();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return tonghoadon;
+    }
 }

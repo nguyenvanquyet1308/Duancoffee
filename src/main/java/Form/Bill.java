@@ -181,7 +181,8 @@ public class Bill extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tablehoadonMouseClicked
 
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
-       menu = new Menu();
+        
+        menu = new Menu();
         menu.setVisible(true);
         System.out.println("dưdcbuif");
         // TODO add your handling code here:
