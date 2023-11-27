@@ -231,14 +231,6 @@ public class Menu extends javax.swing.JInternalFrame {
             }
         });
 
-        lblmaSP.setText("jLabel2");
-
-        lbltenSP.setText("jLabel3");
-
-        lblGia.setText("jLabel7");
-
-        lblLoai.setText("jLabel2");
-
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setText("Loại :");
 
@@ -248,7 +240,6 @@ public class Menu extends javax.swing.JInternalFrame {
 
         lblthanhTien.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblthanhTien.setForeground(new java.awt.Color(204, 0, 0));
-        lblthanhTien.setText("jLabel2");
 
         txtsdt.setLabelText("Số điện thoại");
 

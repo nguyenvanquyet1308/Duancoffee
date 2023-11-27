@@ -476,24 +476,12 @@
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblmaSP">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jLabel2"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbltenSP">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jLabel3"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblGia">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jLabel7"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblLoai">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jLabel2"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
@@ -522,7 +510,6 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="cc" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="jLabel2"/>
               </Properties>
             </Component>
             <Component class="JavaSwingThuVien.TextField" name="txtsdt">

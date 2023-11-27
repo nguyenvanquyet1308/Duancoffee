@@ -113,4 +113,23 @@ public class HoaDonDAO extends CoffeeDao<HoaDon, String> {
 //        }
 //        return list;
 //    }
+     public int getDoanhThu(int nam) {
+         int doanhthu =0;
+        try {
+            ResultSet rs = null;
+            try {
+                String sql = "exec doanhThu ?";
+                rs = JdbcHelper.executeQuery(sql, nam);
+                while (rs.next()) {
+                    doanhthu = (int) rs.getFloat("DoanhThuNam");
+                }
+            } finally {
+                rs.getStatement().getConnection().close();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return doanhthu;
+    }
+    
 }
