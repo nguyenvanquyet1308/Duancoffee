@@ -26,13 +26,14 @@ public class Bill extends javax.swing.JInternalFrame {
     ChiTietHoaDonDAO daohdct = new ChiTietHoaDonDAO();
     HoaDonDAO daohd = new HoaDonDAO();
     private Menu menu;
+    int row = -1;
 
     public Bill() {
         initComponents();
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
-    //    filltableHDCT();
+        //    filltableHDCT();
         filltableHoaDon();
 
     }
@@ -52,8 +53,8 @@ public class Bill extends javax.swing.JInternalFrame {
         table = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablehoadon = new javax.swing.JTable();
-        myButton2 = new JavaSwingThuVien.MyButton();
-        textField1 = new JavaSwingThuVien.TextField();
+        btnxoahd = new JavaSwingThuVien.MyButton();
+        txtTimKiem = new JavaSwingThuVien.TextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
@@ -115,10 +116,20 @@ public class Bill extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(tablehoadon);
 
-        myButton2.setText("Xóa hóa đơn");
-        myButton2.setRadius(20);
+        btnxoahd.setText("Xóa hóa đơn");
+        btnxoahd.setRadius(20);
+        btnxoahd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnxoahdActionPerformed(evt);
+            }
+        });
 
-        textField1.setLabelText("Tìm kiếm hóa đơn");
+        txtTimKiem.setLabelText("Tìm kiếm hóa đơn");
+        txtTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTimKiemActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -130,13 +141,13 @@ public class Bill extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
-                            .addComponent(textField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txtTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(myButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnxoahd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -146,16 +157,16 @@ public class Bill extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(myButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnxoahd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40))
         );
 
@@ -174,30 +185,41 @@ public class Bill extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tablehoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablehoadonMouseClicked
-       if(evt.getClickCount()==2){
-           
-       }
+//        if (evt.getClickCount() == 2) {
+//            this.row = tablehoadon.getSelectedRow();
+//            this.edit();
+//        }
         // TODO add your handling code here:
     }//GEN-LAST:event_tablehoadonMouseClicked
 
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
-        
+
         menu = new Menu();
         menu.setVisible(true);
         System.out.println("dưdcbuif");
         // TODO add your handling code here:
     }//GEN-LAST:event_myButton1ActionPerformed
 
+    private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
+        filltableHoaDon();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTimKiemActionPerformed
+
+    private void btnxoahdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxoahdActionPerformed
+        deleteHoaDon();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnxoahdActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private JavaSwingThuVien.MyButton btnxoahd;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private JavaSwingThuVien.MyButton myButton1;
-    private JavaSwingThuVien.MyButton myButton2;
     private javax.swing.JTable table;
     private javax.swing.JTable tablehoadon;
-    private JavaSwingThuVien.TextField textField1;
+    private JavaSwingThuVien.TextField txtTimKiem;
     // End of variables declaration//GEN-END:variables
   public void filsltableHDCT() {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
@@ -205,7 +227,7 @@ public class Bill extends javax.swing.JInternalFrame {
         try {
             List<ChiTietHoaDon> list = daohdct.selectAll();
             for (ChiTietHoaDon cthd : list) {
-                Object[] row = {cthd.getHoaDonCT(), cthd.getMaHD(), cthd.getMaSP(),cthd.getSoLuong(), cthd.getGiaTien()};
+                Object[] row = {cthd.getHoaDonCT(), cthd.getMaHD(), cthd.getMaSP(), cthd.getSoLuong(), cthd.getGiaTien()};
                 model.addRow(row);
             }
         } catch (Exception e) {
@@ -213,19 +235,46 @@ public class Bill extends javax.swing.JInternalFrame {
             System.out.println(e);
         }
     }
+
     public void filltableHoaDon() {
         DefaultTableModel model = (DefaultTableModel) tablehoadon.getModel();
         model.setRowCount(0);
         try {
-            List<HoaDon> list = daohd.selectAll();
+            String keyword = txtTimKiem.getText();
+            List<HoaDon> list = daohd.selectByKeyword(keyword);
             for (HoaDon hoaDon : list) {
-                Object[] row = {hoaDon.getMaHD(),hoaDon.getMaKH(),hoaDon.getMaNV(),XDate.toString(hoaDon.getNgayDatHang(),"dd-MM-YYYY"),hoaDon.getMaBan(),hoaDon.getThanhTien(),hoaDon.getTrangThai() ?"Đã Thanh toán":"Chưa thanh toán" };
-                model.addRow(row);  
+                Object[] row = {hoaDon.getMaHD(), hoaDon.getMaKH(), hoaDon.getMaNV(), XDate.toString(hoaDon.getNgayDatHang(), "dd-MM-YYYY"), hoaDon.getMaBan(), hoaDon.getThanhTien(), hoaDon.getTrangThai() ? "Đã Thanh toán" : "Chưa thanh toán"};
+                model.addRow(row);
             }
         } catch (Exception e) {
             DialogHelper.alert(this, "Lỗi filltable Hóa đơn");
             System.out.println(e);
         }
+    }
 
+    public void deleteHoaDon() {
+        try {
+            int[] rows = tablehoadon.getSelectedRows();
+            if (rows.length > 0 && DialogHelper.confirm(this, "Bạn có muốn xóa hóa đơn này không?")) {
+                for (int row : rows) {
+                    String Mahd = (String) tablehoadon.getValueAt(row, 0);
+                    daohd.delete(Mahd);
+                    DialogHelper.alert(this, "Xóa hóa đơn thành công");
+                    filltableHoaDon();
+                }
+            }
+        } catch (Exception e) {
+            DialogHelper.alert(this, "Lỗi khi xóa hóa đơn");
+            System.out.println(e);
+        }
+    }
+
+    void edit() {
+        try {
+            String maHD = (String) tablehoadon.getValueAt(this.row, 0);
+            HoaDon nv = daohd.selectById(maHD);
+        } catch (Exception e) {
+            DialogHelper.alert(this, "Lỗi truy vấn dữ liệu!");
+        }
     }
 }

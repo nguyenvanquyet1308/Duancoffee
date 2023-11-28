@@ -31,8 +31,8 @@ public class NhanVienDAO extends CoffeeDao<NhanVien, String> {
                 entity.getTenNV(),
                 entity.getSDT(),
                 entity.getDiaChi(),
-                entity.isChucVu(),
-                entity.isGioiTinh(),
+                entity.getChucVu(),
+                entity.getGioiTinh(),
                 entity.getHinhanh()
         );
     }
@@ -44,8 +44,8 @@ public class NhanVienDAO extends CoffeeDao<NhanVien, String> {
                 entity.getTenNV(),
                 entity.getSDT(),
                 entity.getDiaChi(),
-                entity.isChucVu(),
-                entity.isGioiTinh(),
+                entity.getGioiTinh(),
+                entity.getChucVu(),
                 entity.getHinhanh(),
                 entity.getMaNV()
         );
@@ -83,7 +83,7 @@ public class NhanVienDAO extends CoffeeDao<NhanVien, String> {
                 entity.setDiaChi(rs.getString("DiaChi"));
                 entity.setChucVu(rs.getBoolean("ChucVu"));
                 entity.setGioiTinh(rs.getBoolean("GioiTinh"));
-                entity.setHinhanh(rs.getString("HinhAnh"));
+                entity.setHinhanh(rs.getBytes("HinhAnh"));
                 list.add(entity);
             }
             rs.getStatement().getConnection().close();
@@ -96,7 +96,4 @@ public class NhanVienDAO extends CoffeeDao<NhanVien, String> {
         String SQL = "SELECT * FROM NhanVien WHERE TenNV LIKE ?";
         return this.selectBySQL(SQL, "%" + keyword + "%");
     }
-
-   
-
 }

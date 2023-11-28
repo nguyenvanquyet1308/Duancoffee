@@ -56,7 +56,7 @@ public class HoaDonDAO extends CoffeeDao<HoaDon, String> {
 
     @Override
     public void delete(String maHD) {
-        JdbcHelper.executeUpdate(INSERT_SQL, maHD);
+        JdbcHelper.executeUpdate(DELETE_SQL, maHD);
     }
 
     @Override
@@ -113,6 +113,10 @@ public class HoaDonDAO extends CoffeeDao<HoaDon, String> {
 //        }
 //        return list;
 //    }
+       public List<HoaDon> selectByKeyword(String keyword) {
+        String SQL = "SELECT * FROM HoaDon WHERE MaHD LIKE ?";
+        return this.selectBySQL(SQL, "%" + keyword + "%");
+    }
     public int getDoanhThu(int nam) {
         int doanhthu = 0;
         try {

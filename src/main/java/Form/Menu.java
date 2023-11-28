@@ -77,8 +77,6 @@ public class Menu extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         cbxLoai = new javax.swing.JComboBox<>();
         jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        txtTimKiem = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         cbxMaBan = new javax.swing.JComboBox<>();
         jButton5 = new javax.swing.JButton();
@@ -110,6 +108,7 @@ public class Menu extends javax.swing.JInternalFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         tableHDCT = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
+        txttimkiem = new JavaSwingThuVien.TextField();
 
         setBorder(null);
 
@@ -120,12 +119,6 @@ public class Menu extends javax.swing.JInternalFrame {
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel14.setText("Loại: ");
-
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel15.setText("Tìm kiếm: ");
-
-        txtTimKiem.setBackground(new java.awt.Color(250, 250, 250));
-        txtTimKiem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel13.setText("Mã Bàn :");
@@ -396,6 +389,13 @@ public class Menu extends javax.swing.JInternalFrame {
             }
         });
 
+        txttimkiem.setLabelText("Tìm kiếm");
+        txttimkiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txttimkiemActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -407,10 +407,8 @@ public class Menu extends javax.swing.JInternalFrame {
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cbxLoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(58, 58, 58)
-                        .addComponent(jLabel15)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(txttimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -431,26 +429,25 @@ public class Menu extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel14)
                         .addComponent(cbxLoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel15)
                         .addComponent(jLabel13)
                         .addComponent(cbxMaBan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton5)
-                        .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2)))
-                .addGap(10, 10, 10)
+                        .addComponent(jButton2)
+                        .addComponent(txttimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(5, 5, 5)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(panelHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -521,6 +518,11 @@ public class Menu extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnMoiActionPerformed
 
+    private void txttimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttimkiemActionPerformed
+        filltableSanPham();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txttimkiemActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDuavaohoadon;
@@ -535,7 +537,6 @@ public class Menu extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -555,11 +556,11 @@ public class Menu extends javax.swing.JInternalFrame {
     private javax.swing.JSpinner spinnerSoLuong;
     private javax.swing.JTable tableHDCT;
     private javax.swing.JTable tableSanPham;
-    private javax.swing.JTextField txtTimKiem;
     private JavaSwingThuVien.TextField txtmaHoaDon;
     private JavaSwingThuVien.TextField txtmaKH;
     private JavaSwingThuVien.TextField txtsdt;
     private JavaSwingThuVien.TextField txttenKh;
+    private JavaSwingThuVien.TextField txttimkiem;
     // End of variables declaration//GEN-END:variables
 
     void fillcomboBoxBan() {
@@ -573,7 +574,8 @@ public class Menu extends javax.swing.JInternalFrame {
 
     void filltableSanPham() {
         MyQuery mq = new MyQuery();
-        ArrayList<Product2> list = mq.BindTable();
+        String keyword = txttimkiem.getText();
+        ArrayList<Product2> list = mq.selectByKeyword(keyword);
         String[] columnName = {"MaSP", "TenSP", "Gia", "MaLoai", "MoTa", "HinhAnh"};
         Object[][] rows = new Object[list.size()][6];
         for (int i = 0; i < list.size(); i++) {
@@ -724,6 +726,10 @@ public class Menu extends javax.swing.JInternalFrame {
     }
 
     public void InsertHoadonchitiet() {
+        if (lbltenSP.getText().equals("")) {
+            DialogHelper.alert(this, "Bạn cần chọn sản phẩm để thêm");
+            return;
+        }
         ChiTietHoaDon hdct = getFormCTHD();
         try {
             daohdct.insert(hdct);
@@ -776,6 +782,9 @@ public class Menu extends javax.swing.JInternalFrame {
 
     void updateDuaVaohoadon() {
         String mahd = txtmaHoaDon.getText();
+        if(mahd.equals("")){
+            DialogHelper.alert(this, "Bạn cần tạo hóa đơn");
+        }
         int thanhtien = Integer.parseInt(lblthanhTien.getText());
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");

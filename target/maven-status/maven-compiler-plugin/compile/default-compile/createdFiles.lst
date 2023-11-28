@@ -61,11 +61,13 @@ Entity\Loai.class
 Main\Main$7.class
 Entity\Ban.class
 FormImport\addStaff$2.class
+Form\Bill$6.class
 Form\Product.class
 Main\Main$5.class
 Form\Menu$1.class
 FormImport\addtable$4.class
 Entity\NhanVien.class
+Form\Bill$5.class
 Form\Statistical$2.class
 Form\Custom$5.class
 FormImport\addProduct$4.class
@@ -88,6 +90,7 @@ FormImport\addtable$5.class
 Form\Custom.class
 Form\Bill.class
 JavaSwingThuVien\MyQuery.class
+JavaSwingThuVien\TheModel1.class
 Main\Main$4.class
 Form\Product$5.class
 FormImport\addStaff.class
@@ -115,6 +118,7 @@ ThuVien\ImageAvatar.class
 FormImport\addtable1$3.class
 Main\Main$11.class
 Entity\ChiTietHoaDon.class
+Form\Menu$15.class
 Form\Menu$3.class
 FormLogin\Login$6.class
 Form\Menu.class
@@ -124,6 +128,7 @@ FormImport\addProduct$3.class
 Entity\HoaDon.class
 FormImport\NewJDialog.class
 Form\Staff$5.class
+Form\Custom$7.class
 FormImport\NewJDialog$2.class
 Form\Menu$4.class
 FormImport\addtable1$2.class

@@ -7,9 +7,15 @@ package Form;
 import DAO.NhanVienDAO;
 import Entity.NhanVien;
 import FormImport.addStaff;
+import JavaSwingThuVien.MyQuery;
+import JavaSwingThuVien.TheModel;
+import JavaSwingThuVien.TheModel1;
 import ThuVien.Auth;
 import ThuVien.DialogHelper;
+import java.awt.Image;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
@@ -31,7 +37,8 @@ public class Staff extends javax.swing.JInternalFrame {
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
-        filltable();
+        //    filltable();
+        filltableSanPham();
         addstaff = new addStaff();
 
     }
@@ -146,9 +153,10 @@ public class Staff extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -195,7 +203,8 @@ public class Staff extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
-        filltable();
+        //   filltable();
+        filltableSanPham();
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTimKiemActionPerformed
 
@@ -214,24 +223,23 @@ public class Staff extends javax.swing.JInternalFrame {
     private JavaSwingThuVien.TextField txtTimKiem;
     // End of variables declaration//GEN-END:variables
 
-    void filltable() {
-        DefaultTableModel model = (DefaultTableModel) tableNhanVien.getModel();
-        model.setRowCount(0);
-        try {
-            String keyword = txtTimKiem.getText();
-            List<NhanVien> list = dao.selectByKeyword(keyword);
-            for (NhanVien nhanVien : list) {
-                Object[] row = {nhanVien.getMaNV(), nhanVien.getMatKhau(), nhanVien.getTenNV(), nhanVien.getSDT(), nhanVien.getDiaChi(),
-                    nhanVien.isChucVu() ? "Quản lý" : "Nhân viên", nhanVien.isGioiTinh() ? "Nam" : "Nữ", nhanVien.getHinhanh()};
-                model.addRow(row);
-            }
-
-        } catch (Exception e) {
-            DialogHelper.alert(this, "Lỗi filltable Nhân viên");
-            System.out.println(e);
-        }
-    }
-
+//    void filltable() {
+//        DefaultTableModel model = (DefaultTableModel) tableNhanVien.getModel();
+//        model.setRowCount(0);
+//        try {
+//            String keyword = txtTimKiem.getText();
+//            List<NhanVien> list = dao.selectByKeyword(keyword);
+//            for (NhanVien nhanVien : list) {
+//                Object[] row = {nhanVien.getMaNV(), nhanVien.getMatKhau(), nhanVien.getTenNV(), nhanVien.getSDT(), nhanVien.getDiaChi(),
+//                    nhanVien.isChucVu() ? "Quản lý" : "Nhân viên", nhanVien.isGioiTinh() ? "Nam" : "Nữ", nhanVien.getHinhanh()};
+//                model.addRow(row);
+//            }
+//
+//        } catch (Exception e) {
+//            DialogHelper.alert(this, "Lỗi filltable Nhân viên");
+//            System.out.println(e);
+//        }
+//    }
     void edit() {
         try {
             String maNV = (String) tableNhanVien.getValueAt(this.row, 0);
@@ -249,7 +257,6 @@ public class Staff extends javax.swing.JInternalFrame {
     void delete() {
         if (!Auth.isManager()) {
             DialogHelper.alert(this, "Bạn không có quyền xóa học viên!");
-
         } else {
             try {
                 int[] rows = tableNhanVien.getSelectedRows();
@@ -258,7 +265,7 @@ public class Staff extends javax.swing.JInternalFrame {
                         String MaNV = (String) tableNhanVien.getValueAt(row, 0);
                         dao.delete(MaNV);
                         DialogHelper.alert(this, "Xóa nhân viên thành công");
-                        filltable();
+                        //  filltable();
                     }
                 }
             } catch (Exception e) {
@@ -267,6 +274,33 @@ public class Staff extends javax.swing.JInternalFrame {
             }
 
         }
+    }
+
+    void filltableSanPham() {
+        MyQuery mq = new MyQuery();
+        String keyword = txtTimKiem.getText();
+        ArrayList<NhanVien> list = mq.selectByKeywordSaff(keyword);
+        String[] columnName = {"MaNV", "MatKhau", "TenNV", "SDT", "DaiChi", "ChucVu", "GioiTinh","HinhAnh"};
+        Object[][] rows = new Object[list.size()][8];
+        for (int i = 0; i < list.size(); i++) {
+            rows[i][0] = list.get(i).getMaNV();
+            rows[i][1] = list.get(i).getMatKhau();
+            rows[i][2] = list.get(i).getTenNV();
+            rows[i][3] = list.get(i).getSDT();
+            rows[i][4] = list.get(i).getDiaChi();
+            rows[i][5] = list.get(i).getChucVu() ? "Quản lý" : "Nhân viên";
+            rows[i][6] = list.get(i).getGioiTinh() ? "Nam" : "Nữ";
+            if (list.get(i).getHinhanh() != null) {
+                ImageIcon image = new ImageIcon(new ImageIcon(list.get(i).getHinhanh()).getImage().getScaledInstance(150, 120, Image.SCALE_SMOOTH));
+                rows[i][7] = image;
+            } else {
+                rows[i][7] = null;
+            }
+        }
+        TheModel1 model = new TheModel1(rows, columnName);
+        tableNhanVien.setModel(model);
+        tableNhanVien.setRowHeight(120);
+        tableNhanVien.getColumnModel().getColumn(7).setPreferredWidth(150);
     }
 
 }

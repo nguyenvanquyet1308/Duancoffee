@@ -16,6 +16,6 @@ public class Auth {
     }
 
     public static boolean isManager() {
-        return Auth.isLogin() && user.isChucVu();
+        return Auth.isLogin() && user.getChucVu();
     }
 }

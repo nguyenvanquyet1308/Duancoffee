@@ -14,20 +14,19 @@ public class NhanVien {
     public String TenNV;
     public String SDT;
     public String DiaChi;
-    public Boolean ChucVu=false;
+    public Boolean ChucVu;
     public Boolean GioiTinh;
-    public String Hinhanh;
+    public byte[] Hinhanh;
 
     public NhanVien() {
     }
 
-    public NhanVien(String MaNV, String MatKhau, String TenNV, String SDT, String DiaChi, boolean ChucVu, boolean GioiTinh, String Hinhanh) {
+    public NhanVien(String MaNV, String MatKhau, String TenNV, String SDT, String DiaChi, Boolean GioiTinh, byte[] Hinhanh) {
         this.MaNV = MaNV;
         this.MatKhau = MatKhau;
         this.TenNV = TenNV;
         this.SDT = SDT;
         this.DiaChi = DiaChi;
-        this.ChucVu = ChucVu;
         this.GioiTinh = GioiTinh;
         this.Hinhanh = Hinhanh;
     }
@@ -72,7 +71,7 @@ public class NhanVien {
         this.DiaChi = DiaChi;
     }
 
-    public Boolean isChucVu() {
+    public Boolean getChucVu() {
         return ChucVu;
     }
 
@@ -80,7 +79,7 @@ public class NhanVien {
         this.ChucVu = ChucVu;
     }
 
-    public Boolean isGioiTinh() {
+    public Boolean getGioiTinh() {
         return GioiTinh;
     }
 
@@ -88,13 +87,13 @@ public class NhanVien {
         this.GioiTinh = GioiTinh;
     }
 
-    public String getHinhanh() {
+    public byte[] getHinhanh() {
         return Hinhanh;
     }
 
-    public void setHinhanh(String Hinhanh) {
+    public void setHinhanh(byte[] Hinhanh) {
         this.Hinhanh = Hinhanh;
     }
-    
+
     
 }

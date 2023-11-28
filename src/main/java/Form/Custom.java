@@ -24,6 +24,7 @@ public class Custom extends javax.swing.JInternalFrame {
      * Creates new form Promotion
      */
     KhachHangDAO daokh = new KhachHangDAO();
+    int row =-1;
 
     public Custom() {
         initComponents();
@@ -179,6 +180,11 @@ public class Custom extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableKhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableKhachHangMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableKhachHang);
 
         btnThem.setText("Thêm");
@@ -318,6 +324,14 @@ public class Custom extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTimkiemActionPerformed
 
+    private void tableKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableKhachHangMouseClicked
+//       if(evt.getClickCount()==2){
+//           this.row = tableKhachHang.getSelectedRow();
+//           this.edit();
+//       }
+       // TODO add your handling code here:
+    }//GEN-LAST:event_tableKhachHangMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JavaSwingThuVien.MyButton btnSUa;
@@ -378,6 +392,14 @@ public class Custom extends javax.swing.JInternalFrame {
             DialogHelper.alert(this, "Lỗi khi xóa Khách hàng");
             System.out.println(e);
 
+        }
+    }
+    void edit(){
+         try {
+            String maKH = (String) tableKhachHang.getValueAt(this.row, 0);
+            KhachHang nv = daokh.selectById(maKH);
+        } catch (Exception e) {
+            DialogHelper.alert(this, "Lỗi truy vấn dữ liệu!");
         }
     }
 }

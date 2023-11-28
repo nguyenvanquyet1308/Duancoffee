@@ -2,13 +2,13 @@ package JavaSwingThuVien;
 import javax.swing.Icon;
 import javax.swing.table.AbstractTableModel;
 
-public class TheModel extends AbstractTableModel {
+public class TheModel1 extends AbstractTableModel {
 
     private String[] columns;
     private Object[][] rows;
-    public TheModel(){}
+    public TheModel1(){}
     
-    public TheModel(Object[][] data, String[] columnName){
+    public TheModel1(Object[][] data, String[] columnName){
     
         this.rows = data;
         this.columns = columnName;
@@ -18,15 +18,6 @@ public class TheModel extends AbstractTableModel {
     public Class getColumnClass(int column){
 // 4 is the index of the column image
         if(column == 5){
-            return Icon.class;
-        }
-        else{
-            return getValueAt(0,column).getClass();
-        }
-    }
-       public Class getColumnClass1(int column){
-// 4 is the index of the column image
-        if(column == 7){
             return Icon.class;
         }
         else{
