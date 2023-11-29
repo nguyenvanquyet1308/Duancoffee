@@ -136,6 +136,7 @@ public class addtable1 extends javax.swing.JDialog {
 
     private void btnDongyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongyActionPerformed
         themBan();  
+        fill();
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDongyActionPerformed
     /**
@@ -211,6 +212,10 @@ public class addtable1 extends javax.swing.JDialog {
 
     public void addEvenFillTable(ActionListener evt) {
         btnDongy.addActionListener(evt);
+    }
+    public void fill(){
+        addtable ad =  new addtable();
+        ad.filltable();
     }
 
 }
