@@ -57,7 +57,6 @@ public class Main extends javax.swing.JFrame {
         myButton1 = new JavaSwingThuVien.MyButton();
         clickMenu = new JavaSwingThuVien.MyButton();
         clickProduct = new JavaSwingThuVien.MyButton();
-        clickBill = new JavaSwingThuVien.MyButton();
         clickStatistical = new JavaSwingThuVien.MyButton();
         clickStaff = new JavaSwingThuVien.MyButton();
         ClickCustomer = new JavaSwingThuVien.MyButton();
@@ -114,24 +113,24 @@ public class Main extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(284, 284, 284)
+                .addGap(327, 327, 327)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(250, Short.MAX_VALUE)
+                .addContainerGap(281, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 24, Short.MAX_VALUE)))
-                .addGap(120, 120, 120)
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(112, 112, 112)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -149,7 +148,7 @@ public class Main extends javax.swing.JFrame {
                 myButton1MousePressed(evt);
             }
         });
-        panelMenu.add(myButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 560, 130, 40));
+        panelMenu.add(myButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, 130, 50));
 
         clickMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imageMain/buttonMenu.png"))); // NOI18N
         clickMenu.setText("MENU");
@@ -161,7 +160,7 @@ public class Main extends javax.swing.JFrame {
                 clickMenuMousePressed(evt);
             }
         });
-        panelMenu.add(clickMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 130, 40));
+        panelMenu.add(clickMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 130, 50));
 
         clickProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imageMain/iconSanPham.png"))); // NOI18N
         clickProduct.setText("SẢN PHẨM");
@@ -173,19 +172,7 @@ public class Main extends javax.swing.JFrame {
                 clickProductMousePressed(evt);
             }
         });
-        panelMenu.add(clickProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 130, 40));
-
-        clickBill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imageMain/iconHoaDon.png"))); // NOI18N
-        clickBill.setText("HÓA ĐƠN");
-        clickBill.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
-        clickBill.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        clickBill.setRadius(20);
-        clickBill.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                clickBillMousePressed(evt);
-            }
-        });
-        panelMenu.add(clickBill, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 130, 40));
+        panelMenu.add(clickProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 130, 50));
 
         clickStatistical.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imageMain/iconThongke.png"))); // NOI18N
         clickStatistical.setText("THỐNG KÊ");
@@ -197,7 +184,7 @@ public class Main extends javax.swing.JFrame {
                 clickStatisticalMousePressed(evt);
             }
         });
-        panelMenu.add(clickStatistical, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 130, 40));
+        panelMenu.add(clickStatistical, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 130, 50));
 
         clickStaff.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imageMain/iconNhanViên.png"))); // NOI18N
         clickStaff.setText("NHÂN VIÊN");
@@ -209,7 +196,7 @@ public class Main extends javax.swing.JFrame {
                 clickStaffMousePressed(evt);
             }
         });
-        panelMenu.add(clickStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 130, 40));
+        panelMenu.add(clickStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 130, 50));
 
         ClickCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imageMain/iconKhachHang.png"))); // NOI18N
         ClickCustomer.setText("KHÁCH HÀNG");
@@ -224,7 +211,7 @@ public class Main extends javax.swing.JFrame {
                 ClickCustomerMousePressed(evt);
             }
         });
-        panelMenu.add(ClickCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, 130, 40));
+        panelMenu.add(ClickCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 130, 50));
 
         imageAvatar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/parkseoJun.jpg"))); // NOI18N
         panelMenu.add(imageAvatar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 110, 90));
@@ -249,7 +236,7 @@ public class Main extends javax.swing.JFrame {
         );
         panelMainMenuLayout.setVerticalGroup(
             panelMainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 625, Short.MAX_VALUE)
+            .addGap(0, 651, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -257,21 +244,19 @@ public class Main extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                .addComponent(panelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(panelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelMainMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(panelMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, 0))
+            .addComponent(panelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(panelMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -306,20 +291,6 @@ public class Main extends javax.swing.JFrame {
         panelMainMenu.add(product).setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_clickProductMousePressed
-
-    private void clickBillMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickBillMousePressed
-//        clickMenu.setBackground(Defaultcolor);
-//        clickBill.setBackground(clickColor);
-//        clickProduct.setBackground(Defaultcolor);
-//        ClickCustomer.setBackground(Defaultcolor);
-//        clickStaff.setBackground(Defaultcolor);
-//        clickStatistical.setBackground(Defaultcolor);
-////        Bill bill = new Bill();
-        Bill bill = new Bill();
-        panelMainMenu.removeAll();
-        panelMainMenu.add(bill).setVisible(true);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_clickBillMousePressed
 
     private void clickStatisticalMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickStatisticalMousePressed
 //        clickMenu.setBackground(Defaultcolor);
@@ -423,7 +394,6 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JavaSwingThuVien.MyButton ClickCustomer;
-    private JavaSwingThuVien.MyButton clickBill;
     private JavaSwingThuVien.MyButton clickMenu;
     private JavaSwingThuVien.MyButton clickProduct;
     private JavaSwingThuVien.MyButton clickStaff;
