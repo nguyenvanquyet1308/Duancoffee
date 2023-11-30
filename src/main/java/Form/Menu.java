@@ -18,10 +18,13 @@ import JavaSwingThuVien.Product2;
 import JavaSwingThuVien.TheModel;
 import ThuVien.Auth;
 import ThuVien.DialogHelper;
+import ThuVien.JdbcHelper;
 import java.awt.Image;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -109,41 +112,41 @@ public class Menu extends javax.swing.JInternalFrame {
         btnXoa = new javax.swing.JButton();
         btnThem = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        Ban1 = new javax.swing.JLabel();
+        ban1 = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        ban2 = new javax.swing.JLabel();
         jPanel16 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        ban3 = new javax.swing.JLabel();
         jPanel17 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        ban4 = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
+        ban5 = new javax.swing.JLabel();
         jPanel19 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
+        ban6 = new javax.swing.JLabel();
         jPanel20 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
+        ban7 = new javax.swing.JLabel();
         jPanel21 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
+        ban8 = new javax.swing.JLabel();
         jPanel22 = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
+        ban9 = new javax.swing.JLabel();
         jPanel23 = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
+        ban10 = new javax.swing.JLabel();
         jPanel24 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
+        ban11 = new javax.swing.JLabel();
         jPanel25 = new javax.swing.JPanel();
         jLabel30 = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
+        ban12 = new javax.swing.JLabel();
 
         setBorder(null);
 
@@ -274,15 +277,14 @@ public class Menu extends javax.swing.JInternalFrame {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lbltenSP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(panelHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelHoaDonLayout.createSequentialGroup()
-                            .addComponent(jLabel5)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(spinnerSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelHoaDonLayout.createSequentialGroup()
-                            .addComponent(jLabel8)
-                            .addGap(18, 18, 18)
-                            .addComponent(lblthanhTien, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(panelHoaDonLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(spinnerSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelHoaDonLayout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblthanhTien, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelHoaDonLayout.setVerticalGroup(
@@ -452,9 +454,14 @@ public class Menu extends javax.swing.JInternalFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel2.setText("jLabel2");
+        Ban1.setText("Ban1");
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Table_2.png"))); // NOI18N
+        ban1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Table_2.png"))); // NOI18N
+        ban1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ban1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -463,26 +470,26 @@ public class Menu extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ban1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(Ban1)))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jLabel2)
+                .addComponent(Ban1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(ban1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel15.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel9.setText("jLabel2");
+        jLabel9.setText("Ban2");
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Table_2.png"))); // NOI18N
+        ban2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Table_2.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
@@ -495,7 +502,7 @@ public class Menu extends javax.swing.JInternalFrame {
                         .addComponent(jLabel9))
                     .addGroup(jPanel15Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ban2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel15Layout.setVerticalGroup(
@@ -503,14 +510,14 @@ public class Menu extends javax.swing.JInternalFrame {
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(ban2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel16.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel11.setText("jLabel2");
+        jLabel11.setText("Ban3");
 
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Table_2.png"))); // NOI18N
+        ban3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Table_2.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
@@ -523,7 +530,7 @@ public class Menu extends javax.swing.JInternalFrame {
                         .addComponent(jLabel11))
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ban3, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel16Layout.setVerticalGroup(
@@ -531,14 +538,14 @@ public class Menu extends javax.swing.JInternalFrame {
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(ban3, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel17.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel13.setText("jLabel2");
+        jLabel13.setText("Ban4");
 
-        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Table_2.png"))); // NOI18N
+        ban4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Table_2.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
@@ -551,7 +558,7 @@ public class Menu extends javax.swing.JInternalFrame {
                         .addComponent(jLabel13))
                     .addGroup(jPanel17Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ban4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel17Layout.setVerticalGroup(
@@ -559,14 +566,14 @@ public class Menu extends javax.swing.JInternalFrame {
             .addGroup(jPanel17Layout.createSequentialGroup()
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(ban4, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel18.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel16.setText("jLabel2");
+        jLabel16.setText("Ban5");
 
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Table_2.png"))); // NOI18N
+        ban5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Table_2.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
@@ -579,7 +586,7 @@ public class Menu extends javax.swing.JInternalFrame {
                         .addComponent(jLabel16))
                     .addGroup(jPanel18Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ban5, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel18Layout.setVerticalGroup(
@@ -587,14 +594,14 @@ public class Menu extends javax.swing.JInternalFrame {
             .addGroup(jPanel18Layout.createSequentialGroup()
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(ban5, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel19.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel18.setText("jLabel2");
+        jLabel18.setText("Ban6");
 
-        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Table_2.png"))); // NOI18N
+        ban6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Table_2.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
         jPanel19.setLayout(jPanel19Layout);
@@ -607,7 +614,7 @@ public class Menu extends javax.swing.JInternalFrame {
                         .addComponent(jLabel18))
                     .addGroup(jPanel19Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ban6, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel19Layout.setVerticalGroup(
@@ -615,14 +622,14 @@ public class Menu extends javax.swing.JInternalFrame {
             .addGroup(jPanel19Layout.createSequentialGroup()
                 .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(ban6, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel20.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel20.setText("jLabel2");
+        jLabel20.setText("Ban7");
 
-        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Table_2.png"))); // NOI18N
+        ban7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Table_2.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
         jPanel20.setLayout(jPanel20Layout);
@@ -635,7 +642,7 @@ public class Menu extends javax.swing.JInternalFrame {
                         .addComponent(jLabel20))
                     .addGroup(jPanel20Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ban7, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel20Layout.setVerticalGroup(
@@ -643,14 +650,14 @@ public class Menu extends javax.swing.JInternalFrame {
             .addGroup(jPanel20Layout.createSequentialGroup()
                 .addComponent(jLabel20)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(ban7, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel21.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel22.setText("jLabel2");
+        jLabel22.setText("Ban8");
 
-        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Table_2.png"))); // NOI18N
+        ban8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Table_2.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
@@ -663,7 +670,7 @@ public class Menu extends javax.swing.JInternalFrame {
                         .addComponent(jLabel22))
                     .addGroup(jPanel21Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ban8, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel21Layout.setVerticalGroup(
@@ -671,14 +678,14 @@ public class Menu extends javax.swing.JInternalFrame {
             .addGroup(jPanel21Layout.createSequentialGroup()
                 .addComponent(jLabel22)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(ban8, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel22.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel24.setText("jLabel2");
+        jLabel24.setText("Ban9");
 
-        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Table_2.png"))); // NOI18N
+        ban9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Table_2.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
         jPanel22.setLayout(jPanel22Layout);
@@ -691,7 +698,7 @@ public class Menu extends javax.swing.JInternalFrame {
                         .addComponent(jLabel24))
                     .addGroup(jPanel22Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ban9, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel22Layout.setVerticalGroup(
@@ -699,14 +706,14 @@ public class Menu extends javax.swing.JInternalFrame {
             .addGroup(jPanel22Layout.createSequentialGroup()
                 .addComponent(jLabel24)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(ban9, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel23.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel26.setText("jLabel2");
+        jLabel26.setText("Ban10");
 
-        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Table_2.png"))); // NOI18N
+        ban10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Table_2.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
         jPanel23.setLayout(jPanel23Layout);
@@ -719,7 +726,7 @@ public class Menu extends javax.swing.JInternalFrame {
                         .addComponent(jLabel26))
                     .addGroup(jPanel23Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ban10, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel23Layout.setVerticalGroup(
@@ -727,14 +734,14 @@ public class Menu extends javax.swing.JInternalFrame {
             .addGroup(jPanel23Layout.createSequentialGroup()
                 .addComponent(jLabel26)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(ban10, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel24.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel28.setText("jLabel2");
+        jLabel28.setText("Ban11");
 
-        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Table_2.png"))); // NOI18N
+        ban11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Table_2.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
         jPanel24.setLayout(jPanel24Layout);
@@ -747,7 +754,7 @@ public class Menu extends javax.swing.JInternalFrame {
                         .addComponent(jLabel28))
                     .addGroup(jPanel24Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ban11, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel24Layout.setVerticalGroup(
@@ -755,14 +762,14 @@ public class Menu extends javax.swing.JInternalFrame {
             .addGroup(jPanel24Layout.createSequentialGroup()
                 .addComponent(jLabel28)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(ban11, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel25.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel30.setText("jLabel2");
+        jLabel30.setText("Ban12");
 
-        jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Table_2.png"))); // NOI18N
+        ban12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Table_2.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
         jPanel25.setLayout(jPanel25Layout);
@@ -775,7 +782,7 @@ public class Menu extends javax.swing.JInternalFrame {
                         .addComponent(jLabel30))
                     .addGroup(jPanel25Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ban12, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel25Layout.setVerticalGroup(
@@ -783,7 +790,7 @@ public class Menu extends javax.swing.JInternalFrame {
             .addGroup(jPanel25Layout.createSequentialGroup()
                 .addComponent(jLabel30)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(ban12, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -951,8 +958,30 @@ public class Menu extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txttimkiemActionPerformed
 
+    private void ban1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ban1MouseClicked
+        if (evt.getClickCount() == 2) {
+            String ban = Ban1.getText();
+            getkhachhang(1);
+            System.out.println(ban);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ban1MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Ban1;
+    private javax.swing.JLabel ban1;
+    private javax.swing.JLabel ban10;
+    private javax.swing.JLabel ban11;
+    private javax.swing.JLabel ban12;
+    private javax.swing.JLabel ban2;
+    private javax.swing.JLabel ban3;
+    private javax.swing.JLabel ban4;
+    private javax.swing.JLabel ban5;
+    private javax.swing.JLabel ban6;
+    private javax.swing.JLabel ban7;
+    private javax.swing.JLabel ban8;
+    private javax.swing.JLabel ban9;
     private javax.swing.JButton btnDuavaohoadon;
     private javax.swing.JButton btnMoi;
     private javax.swing.JButton btnThem;
@@ -963,34 +992,21 @@ public class Menu extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -1121,6 +1137,13 @@ public class Menu extends javax.swing.JInternalFrame {
         lbltenSP.setText(sp.getTenSP());
     }
 
+    public void setForm(HoaDon hd, KhachHang kh) {
+        txtmaHoaDon.setText(hd.getMaHD());
+        txtmaKH.setText(hd.getMaKH());
+        txttenKh.setText(kh.getMaKH());
+        txtsdt.setText(kh.getSDT());
+    }
+
     public HoaDon getFormHoaDon() {
         HoaDon hd = new HoaDon();
         hd.setMaHD(txtmaHoaDon.getText());
@@ -1245,7 +1268,7 @@ public class Menu extends javax.swing.JInternalFrame {
 
     void updateDuaVaohoadon() {
         String mahd = txtmaHoaDon.getText();
-        if(mahd.equals("")){
+        if (mahd.equals("")) {
             DialogHelper.alert(this, "Bạn cần tạo hóa đơn");
         }
         int thanhtien = Integer.parseInt(lblthanhTien.getText());
@@ -1303,6 +1326,32 @@ public class Menu extends javax.swing.JInternalFrame {
             return false;
         }
         return true;
+    }
+
+    public void getkhachhang(int maban) {
+        try {
+            try {
+                ResultSet rs = null;
+                try {
+                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                    String url = "jdbc:sqlserver://localhost:1433;databaseName=DuanCoffee1";
+                    Connection con = DriverManager.getConnection(url, "sa", "123456");
+                    String sql = "select MaHD,khachhang.MaKH,TenKH,SDT from hoadon inner join KhachHang on HoaDon.MaKH = KhachHang.MaKH where MaBan = ?";
+                    rs = JdbcHelper.executeQuery(sql, maban);
+                    while (rs.next()) {
+                        txtmaHoaDon.setText(rs.getString("Mahd"));
+                        txtmaKH.setText(rs.getString("MaKH"));
+                        txttenKh.setText(rs.getString("TenKH"));
+                        txtsdt.setText(rs.getString("SDT"));
+                    }
+                } finally {
+                    rs.getStatement().getConnection().close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } catch (Exception e) {
+        }
     }
 
 //    void upadtethanhtien() {

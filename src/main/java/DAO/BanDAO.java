@@ -1,4 +1,3 @@
-
 package DAO;
 
 import ThuVien.JdbcHelper;
@@ -19,10 +18,11 @@ public class BanDAO extends CoffeeDao<Ban, Integer> {
     String DELETE_SQL = "DELETE FROM Ban WHERE MaBan=?";
     String SELECT_ALL_SQL = "SELECT * FROM Ban";
     String SELECT_BY_ID_SQL = "SELECT * FROM Ban WHERE MaBan=?";
+    String SELECT_HOADON__BAN = "select MaHD,khachhang.MaKH,TenKH,SDT from hoadon inner join KhachHang on HoaDon.MaKH = KhachHang.MaKH where MaBan = ?";
 
     @Override
     public void insert(Ban entity) {
-        JdbcHelper.executeUpdate(INSERT_SQL, 
+        JdbcHelper.executeUpdate(INSERT_SQL,
                 entity.getTenBan(),
                 entity.getTrangThai()
         );
@@ -30,7 +30,7 @@ public class BanDAO extends CoffeeDao<Ban, Integer> {
 
     @Override
     public void update(Ban entity) {
-        JdbcHelper.executeUpdate(UPDATE_SQL, 
+        JdbcHelper.executeUpdate(UPDATE_SQL,
                 entity.getTenBan(),
                 entity.getTrangThai(),
                 entity.getMaBan()
@@ -44,7 +44,7 @@ public class BanDAO extends CoffeeDao<Ban, Integer> {
 
     @Override
     public Ban selectById(Integer id) {
-          List<Ban> list = this.selectBySQL(SELECT_BY_ID_SQL, id);
+        List<Ban> list = this.selectBySQL(SELECT_BY_ID_SQL, id);
         if (list.isEmpty()) {
             return null;
         }
@@ -53,9 +53,10 @@ public class BanDAO extends CoffeeDao<Ban, Integer> {
 
     @Override
     public List<Ban> selectAll() {
-       return this.selectBySQL(SELECT_ALL_SQL);
+        return this.selectBySQL(SELECT_ALL_SQL);
     }
 
+    
     @Override
     protected List<Ban> selectBySQL(String sql, Object... args) {
         List<Ban> list = new ArrayList<>();
