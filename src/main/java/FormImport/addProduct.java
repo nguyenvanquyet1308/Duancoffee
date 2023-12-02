@@ -38,12 +38,13 @@ public class addProduct extends javax.swing.JDialog {
     int row = -1;
     SanPhamDAO daosp = new SanPhamDAO();
     LoaiDAO daoloai = new LoaiDAO();
-    JFileChooser fileChooser = new JFileChooser("H:\\MonDuAnMau\\BaiTap\\DuAnCoffee\\src\\main\\java\\ImageProduct");
+    JFileChooser fileChooser = new JFileChooser("H:\\MonDuAn1\\BaiTap\\Duancoffee\\src\\main\\java\\ImageProduct");
 
     public addProduct() {
         initComponents();
         setLocationRelativeTo(this);
         filltable();
+        fillcomboboxLoai();
         //  filltable();
         //     fillcomboboxLoai();
     }
@@ -64,7 +65,7 @@ public class addProduct extends javax.swing.JDialog {
         lblhinhAnh = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         txtmoTa = new javax.swing.JTextArea();
-        txtmaloai = new JavaSwingThuVien.TextField();
+        cbxLoai = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         TableSP = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
@@ -104,8 +105,7 @@ public class addProduct extends javax.swing.JDialog {
         txtmoTa.setBorder(javax.swing.BorderFactory.createTitledBorder("Mô tả"));
         jScrollPane4.setViewportView(txtmoTa);
 
-        txtmaloai.setLabelText("Mã Loại");
-        txtmaloai.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        cbxLoai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -121,9 +121,9 @@ public class addProduct extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(lblhinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txttenSP, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtmaloai, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txttenSP, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                            .addComponent(cbxLoai, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -147,8 +147,8 @@ public class addProduct extends javax.swing.JDialog {
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(txttenSP, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtmaloai, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(cbxLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -280,6 +280,9 @@ public class addProduct extends javax.swing.JDialog {
     private void TableSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableSPMouseClicked
         if (evt.getClickCount() == 2) {
             this.row = TableSP.getSelectedRow();
+            Object Maloai = TableSP.getValueAt(row, 3);
+            cbxLoai.setSelectedItem("L123");
+            System.out.println(Maloai);
             this.edit();
         }
         // TODO add your handling code here:
@@ -359,6 +362,7 @@ public class addProduct extends javax.swing.JDialog {
     private JavaSwingThuVien.MyButton btnSua;
     private JavaSwingThuVien.MyButton btnThem;
     private JavaSwingThuVien.MyButton btnXoa;
+    private javax.swing.JComboBox<String> cbxLoai;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
@@ -366,7 +370,6 @@ public class addProduct extends javax.swing.JDialog {
     private javax.swing.JLabel lblhinhAnh;
     private JavaSwingThuVien.TextField txtGia;
     private JavaSwingThuVien.TextField txtmaSanPham;
-    private JavaSwingThuVien.TextField txtmaloai;
     private javax.swing.JTextArea txtmoTa;
     private JavaSwingThuVien.TextField txttenSP;
     // End of variables declaration//GEN-END:variables
@@ -390,11 +393,18 @@ public class addProduct extends javax.swing.JDialog {
         txtmaSanPham.setText(sp.getMaSP());
         txttenSP.setText(sp.getTenSP());
         txtGia.setText(String.valueOf(sp.getGia()));
-        txtmaloai.setText(sp.getMaLoai());
+        //   c.setText(sp.getMaLoai());
+        int rowcout = TableSP.getRowCount();
+//        for (int i = 0; i < rowcout; i++) {
+//            Object Maloai = TableSP.getValueAt(i, 3);
+//            cbxLoai.setSelectedItem(Maloai);
+//            System.out.println(Maloai);
+//        }
         txtmoTa.setText(sp.getMoTa());
         txttenSP.setText(sp.getTenSP());
         ImageIcon imageIcon = new ImageIcon(sp.getHinhanh());
         lblhinhAnh.setIcon(imageIcon);
+
     }
 
     private static byte[] convertIconToByteArray(Icon icon) {
@@ -423,7 +433,7 @@ public class addProduct extends javax.swing.JDialog {
         sp.setTenSP(txttenSP.getText());
         sp.setGia(Float.parseFloat(txtGia.getText()));
         sp.setMoTa(txtmoTa.getText());
-        sp.setMaLoai(txtmaloai.getText());
+        sp.setMaLoai((String) cbxLoai.getSelectedItem());
         Icon icon = lblhinhAnh.getIcon();
         byte[] imageBytes = convertIconToByteArray(lblhinhAnh.getIcon());
         sp.setHinhanh(imageBytes);
@@ -431,31 +441,6 @@ public class addProduct extends javax.swing.JDialog {
         System.out.println("chạy tới");
         System.out.println("chạy tới icon");
         System.out.println(imageBytes);
-        // Kiểm tra xem Icon có phải là ImageIcon không
-//        if (icon instanceof ImageIcon) {
-//            // Chuyển đổi ImageIcon thành mảng byte
-//            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-//            try {
-//                BufferedImage bufferedImage = new BufferedImage(
-//                        icon.getIconWidth(),
-//                        icon.getIconHeight(),
-//                        BufferedImage.TYPE_INT_ARGB
-//                );
-//                Graphics g = bufferedImage.getGraphics();
-//                icon.paintIcon(null, g, 0, 0);
-//                g.dispose();
-//
-//                // Write the image data to the ByteArrayOutputStream
-//                ImageIO.write(bufferedImage, "png", byteArrayOutputStream);
-//            } catch (IOException e) {
-//                DialogHelper.alert(this, "Lỗi ");
-//                System.out.println(e);
-//            }
-//            byte[] imageData = byteArrayOutputStream.toByteArray();
-//            // Đặt mảng byte vào đối tượng SanPham
-//            sp.setHinhanh(imageData);
-//        }
-
         return sp;
     }
 
@@ -471,46 +456,16 @@ public class addProduct extends javax.swing.JDialog {
         }
     }
 
-//    void filltable() {
-//        try {
-//            SanPhamDAO sp = new SanPhamDAO();
-//            ArrayList<SanPham> list = sp.BindTable();
-//            String[] columnName = {"MaSP", "TenSP", "Gia", "MaLoai", "MoTa", "HinhAnh"};
-//            Object[][] rows = new Object[list.size()][6];
-//            for (int i = 0; i < list.size(); i++) {
-//                rows[i][0] = list.get(i).getMaSP();
-//                rows[i][1] = list.get(i).getTenSP();
-//                rows[i][2] = list.get(i).getGia();
-//                rows[i][3] = list.get(i).getMaLoai();
-//                rows[i][4] = list.get(i).getMoTa();
-//                if (list.get(i).getHinhanh() != null) {
-//                    ImageIcon image = new ImageIcon(new ImageIcon(list.get(i).getHinhanh()).getImage()
-//                            .getScaledInstance(150, 120, Image.SCALE_SMOOTH));
-//                    System.out.println(list.get(i).getHinhanh().toString());
-//                    rows[i][5] = image;
-//                } else {
-//                    rows[i][5] = null;
-//                }
-//                //    rows[i][5] = list.get(i).getCatID();
-//            }
-//            TheModel model = new TheModel(rows, columnName);
-//            TableSP.setModel(model);
-//            TableSP.setRowHeight(120);
-//            TableSP.getColumnModel().getColumn(5).setPreferredWidth(150);
-//        } catch (Exception e) {
-//            DialogHelper.alert(this, "Lỗi fill table");
-//            System.out.println(e);
-//        }
-//    }
+//
+    void fillcomboboxLoai() {
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cbxLoai.getModel();
+        model.removeAllElements();
+        List<Loai> list = daoloai.selectAll();
+        for (Loai kh : list) {
+            model.addElement(kh);
+        }
+    }
 
-//    void fillcomboboxLoai() {
-//        DefaultComboBoxModel model = (DefaultComboBoxModel) cbxLoai.getModel();
-//        model.removeAllElements();
-//        List<Loai> list = daoloai.selectAll();
-//        for (Loai kh : list) {
-//            model.addElement(kh);
-//        }
-//    }
     void chonAnh() {
         if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
@@ -547,7 +502,7 @@ public class addProduct extends javax.swing.JDialog {
             rows[i][4] = list.get(i).getMoTa();
             if (list.get(i).getHinhanh() != null) {
                 ImageIcon image = new ImageIcon(new ImageIcon(list.get(i).getHinhanh()).getImage()
-                        .getScaledInstance(150, 120, Image.SCALE_SMOOTH));
+                        .getScaledInstance(130, 100, Image.SCALE_SMOOTH));
                 System.out.println(list.get(i).getHinhanh().toString());
                 rows[i][5] = image;
             } else {
@@ -557,8 +512,8 @@ public class addProduct extends javax.swing.JDialog {
         }
         TheModel model = new TheModel(rows, columnName);
         TableSP.setModel(model);
-        TableSP.setRowHeight(120);
-        TableSP.getColumnModel().getColumn(5).setPreferredWidth(150);
+        TableSP.setRowHeight(100);
+        TableSP.getColumnModel().getColumn(5).setPreferredWidth(130);
     }
 
 }

@@ -13,17 +13,17 @@ import java.util.ArrayList;
  */
 public class BanDAO extends CoffeeDao<Ban, Integer> {
 
-    String INSERT_SQL = "INSERT INTO Ban (TenBan,TrangThai) VALUES (?,?)";
-    String UPDATE_SQL = "UPDATE Ban SET TenBan = ?,TrangThai =? where MaBan=?";
+    String INSERT_SQL = "INSERT INTO Ban (MaBan,TrangThai) VALUES (?,?)";
+    String UPDATE_SQL = "UPDATE Ban SET TrangThai =? where MaBan=?";
     String DELETE_SQL = "DELETE FROM Ban WHERE MaBan=?";
     String SELECT_ALL_SQL = "SELECT * FROM Ban";
     String SELECT_BY_ID_SQL = "SELECT * FROM Ban WHERE MaBan=?";
     String SELECT_HOADON__BAN = "select MaHD,khachhang.MaKH,TenKH,SDT from hoadon inner join KhachHang on HoaDon.MaKH = KhachHang.MaKH where MaBan = ?";
-
+    String UPDATE_TRANGTHAI = "update trangthai = 1 where maban = ?";
     @Override
     public void insert(Ban entity) {
         JdbcHelper.executeUpdate(INSERT_SQL,
-                entity.getTenBan(),
+                entity.getMaBan(),
                 entity.getTrangThai()
         );
     }
@@ -31,9 +31,8 @@ public class BanDAO extends CoffeeDao<Ban, Integer> {
     @Override
     public void update(Ban entity) {
         JdbcHelper.executeUpdate(UPDATE_SQL,
-                entity.getTenBan(),
-                entity.getTrangThai(),
-                entity.getMaBan()
+                entity.getMaBan(),
+                entity.getTrangThai()
         );
     }
 
@@ -64,8 +63,7 @@ public class BanDAO extends CoffeeDao<Ban, Integer> {
             ResultSet rs = JdbcHelper.executeQuery(sql, args);
             while (rs.next()) {
                 Ban entity = new Ban();
-                entity.setMaBan(rs.getInt("MaBan"));
-                entity.setTenBan(rs.getString("TenBan"));
+                entity.setMaBan(rs.getString("MaBan"));
                 entity.setTrangThai(rs.getBoolean("TrangThai"));
                 list.add(entity);
             }

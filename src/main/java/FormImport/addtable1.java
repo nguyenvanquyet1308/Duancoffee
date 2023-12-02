@@ -199,7 +199,6 @@ public class addtable1 extends javax.swing.JDialog {
 
     public void themBan() {
         Ban ban = new Ban();
-        ban.setTenBan(txttenBan.getText());
         ban.setTrangThai(RdoHoatDong.isSelected());
         try {
             dao.insert(ban);

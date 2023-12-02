@@ -19,8 +19,8 @@ import Entity.SanPham;
  */
 public class KhachHangDAO extends CoffeeDao<KhachHang, String> {
 
-    String INSERT_SQL = "INSERT INTO KhachHang (MaKH,TenKH,SDT,Ban) VALUES (?,?,?,?)";
-    String UPDATE_SQL = "UPDATE KhachHang SET TenKH = ?,SDT =?,Ban=? where MaKH=?";
+    String INSERT_SQL = "INSERT INTO KhachHang (MaKH,TenKH,SDT,MaBan) VALUES (?,?,?,?)";
+    String UPDATE_SQL = "UPDATE KhachHang SET TenKH = ?,SDT =?,MaBan=? where MaKH=?";
     String DELETE_SQL = "DELETE FROM KhachHang WHERE MaKH=?";
     String SELECT_ALL_SQL = "SELECT * FROM KhachHang";
     String SELECT_BY_ID_SQL = "SELECT * FROM KhachHang WHERE MaKH=?";
@@ -40,7 +40,7 @@ public class KhachHangDAO extends CoffeeDao<KhachHang, String> {
         JdbcHelper.executeUpdate(UPDATE_SQL,
                 entity.getTenKH(),
                 entity.getSDT(),
-                entity.getMaKH(),
+                entity.getMaban(),
                 entity.getMaKH()
         );
     }
@@ -74,7 +74,7 @@ public class KhachHangDAO extends CoffeeDao<KhachHang, String> {
                 entity.setMaKH(rs.getString("MaKH"));
                 entity.setTenKH(rs.getString("TenKH"));
                 entity.setSDT(rs.getString("SDT"));
-                entity.setMaban(rs.getInt("Ban"));
+                entity.setMaban(rs.getString("MaBan"));
                 list.add(entity);
             }
             rs.getStatement().getConnection().close();
@@ -83,7 +83,8 @@ public class KhachHangDAO extends CoffeeDao<KhachHang, String> {
             throw new RuntimeException(e);
         }
     }
-        public List<KhachHang> selectByKeyword(String keyword) {
+
+    public List<KhachHang> selectByKeyword(String keyword) {
         String SQL = "SELECT * FROM Khachhang WHERE TenKH LIKE ?";
         return this.selectBySQL(SQL, "%" + keyword + "%");
     }

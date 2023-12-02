@@ -50,6 +50,7 @@ public class NhanVienDAO extends CoffeeDao<NhanVien, String> {
                 entity.getMaNV()
         );
     }
+
     @Override
     public void delete(String MaNV) {
         JdbcHelper.executeUpdate(DELETE_SQL, MaNV);
@@ -92,7 +93,8 @@ public class NhanVienDAO extends CoffeeDao<NhanVien, String> {
             throw new RuntimeException(e);
         }
     }
-      public List<NhanVien> selectByKeyword(String keyword) {
+
+    public List<NhanVien> selectByKeyword(String keyword) {
         String SQL = "SELECT * FROM NhanVien WHERE TenNV LIKE ?";
         return this.selectBySQL(SQL, "%" + keyword + "%");
     }

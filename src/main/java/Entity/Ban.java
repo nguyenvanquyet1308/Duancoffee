@@ -10,33 +10,23 @@ package Entity;
  */
 public class Ban {
 
-    int MaBan;
-    String TenBan;
+    String MaBan;
     Boolean TrangThai;
 
     public Ban() {
     }
 
-    public Ban(int MaBan, String TenBan, Boolean TrangThai) {
+    public Ban(String MaBan, Boolean TrangThai) {
         this.MaBan = MaBan;
-        this.TenBan = TenBan;
         this.TrangThai = TrangThai;
     }
 
-    public int getMaBan() {
+    public String getMaBan() {
         return MaBan;
     }
 
-    public void setMaBan(int MaBan) {
+    public void setMaBan(String MaBan) {
         this.MaBan = MaBan;
-    }
-
-    public String getTenBan() {
-        return TenBan;
-    }
-
-    public void setTenBan(String TenBan) {
-        this.TenBan = TenBan;
     }
 
     public Boolean getTrangThai() {
@@ -47,6 +37,7 @@ public class Ban {
         this.TrangThai = TrangThai;
     }
 
+   
 
     @Override
     public String toString() {

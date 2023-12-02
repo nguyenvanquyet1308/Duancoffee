@@ -33,7 +33,6 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         init();
         setLocationRelativeTo(this);
-        
 
     }
 
@@ -329,10 +328,15 @@ public class Main extends javax.swing.JFrame {
 //        ClickCustomer.setBackground(Defaultcolor);
 //        clickStaff.setBackground(clickColor);
 //        clickStatistical.setBackground(Defaultcolor);
-        
-        Staff staff = new Staff();
-        panelMainMenu.removeAll();
-        panelMainMenu.add(staff).setVisible(true);
+        if (!Auth.isManager()) {
+            DialogHelper.alert(this, "Bạn không có quyền vào xem Nhân viên");
+
+        } else {
+            Staff staff = new Staff();
+            panelMainMenu.removeAll();
+            panelMainMenu.add(staff).setVisible(true);
+        }
+
         // TODO add your handling code here:
     }//GEN-LAST:event_clickStaffMousePressed
 
@@ -451,7 +455,8 @@ void init() {
         }).start();
 
     }
-    public void hienThithongtinnhanvien(){
+
+    public void hienThithongtinnhanvien() {
 //        String userID = Auth.user.getMaNV();
 //        String role = Auth.user.isChucVu()? "Quản lý" : "Nhân Viên";
 //        lblChucVu.setText(role);

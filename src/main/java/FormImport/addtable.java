@@ -164,7 +164,7 @@ public class addtable extends javax.swing.JDialog {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        Sua();
+   //     Sua();
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSuaActionPerformed
 
@@ -227,7 +227,7 @@ public class addtable extends javax.swing.JDialog {
         try {
             List<Ban> list = dao.selectAll();
             for (Ban ban : list) {
-                Object[] row = {ban.getMaBan(), ban.getTenBan(), ban.getTrangThai() ? "Đang Hoạt động" : "Không hoạt động"};
+                Object[] row = {ban.getMaBan(), ban.getTrangThai() ? "Đang Hoạt động" : "Không hoạt động"};
                 model.addRow(row);
             }
         } catch (Exception e) {
@@ -247,22 +247,22 @@ public class addtable extends javax.swing.JDialog {
         filltable();
     }
 
-    void Sua() {
-        int n = tableBan.getRowCount();
-        try {
-            for (int i = 0; i < n; i++) {
-                int maban = (int) tableBan.getValueAt(i, 0);
-                String khuvuc = (String) tableBan.getValueAt(i, 1);
-                Ban ban = dao.selectById(maban);
-                ban.setTenBan(khuvuc);
-                dao.update(ban);
-            }
-            DialogHelper.alert(this, "Sửa thành công");
-
-        } catch (Exception e) {
-            DialogHelper.alert(this, "Bạn cần chọn cột để sửa");
-        }
-        filltable();
-    }
+//    void Sua() {
+//        int n = tableBan.getRowCount();
+//        try {
+//            for (int i = 0; i < n; i++) {
+//                int maban = (int) tableBan.getValueAt(i, 0);
+//                String khuvuc = (String) tableBan.getValueAt(i, 1);
+//                Ban ban = dao.selectById(maban);
+//                ban.setTenBan(khuvuc);
+//                dao.update(ban);
+//            }
+//            DialogHelper.alert(this, "Sửa thành công");
+//
+//        } catch (Exception e) {
+//            DialogHelper.alert(this, "Bạn cần chọn cột để sửa");
+//        }
+//        filltable();
+//    }
 
 }

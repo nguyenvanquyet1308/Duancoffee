@@ -12,12 +12,12 @@ public class KhachHang {
     public String MaKH;
     public String TenKH;
     public String SDT;
-    public int Maban;
+    public String Maban;
 
     public KhachHang() {
     }
 
-    public KhachHang(String MaKH, String TenKH, String SDT, int Maban) {
+    public KhachHang(String MaKH, String TenKH, String SDT, String Maban) {
         this.MaKH = MaKH;
         this.TenKH = TenKH;
         this.SDT = SDT;
@@ -48,13 +48,15 @@ public class KhachHang {
         this.SDT = SDT;
     }
 
-    public int getMaban() {
+    public String getMaban() {
         return Maban;
     }
 
-    public void setMaban(int Maban) {
+    public void setMaban(String Maban) {
         this.Maban = Maban;
     }
+
+  
 
   
  

@@ -4,15 +4,11 @@
  */
 package DAO;
 
-import Entity.ChiTietHoaDon;
 import Entity.HoaDon;
-import Entity.SanPham;
 import ThuVien.JdbcHelper;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +24,10 @@ public class HoaDonDAO extends CoffeeDao<HoaDon, String> {
     String SELECT_ALL_SQL = "SELECT * FROM HoaDon";
     String SELECT_BY_ID_SQL = "SELECT * FROM HoaDon WHERE MaHD=?";
     String UPDATE_THANHTIEN = "update HoaDon set ThanhTien = ? where MaHD =?";
+    String SELECT_HOADON_YEAR = "select * from hoadon where year(NgayDonHang) = ? ";
+    String SELECT_HOADON_YEAR1 = "select * from hoadon where NgayDonHang = ? ";
+    String SELECT_HOADON_BAN = "select * from hoadon where maban = ?";
+    String SELECT_HOADON_TRANGTHAI = "select * from hoadon where trangthai = 0";
 
     @Override
     public void insert(HoaDon entity) {
@@ -53,7 +53,6 @@ public class HoaDonDAO extends CoffeeDao<HoaDon, String> {
                 entity.getMaHD()
         );
     }
-
     @Override
     public void delete(String maHD) {
         JdbcHelper.executeUpdate(DELETE_SQL, maHD);
@@ -84,7 +83,7 @@ public class HoaDonDAO extends CoffeeDao<HoaDon, String> {
                 entity.setMaKH(rs.getString("MaKH"));
                 entity.setMaNV(rs.getString("MaNV"));
                 entity.setNgayDatHang(rs.getDate("NgayDonHang"));
-                entity.setMaBan(rs.getInt("MaBan"));
+                entity.setMaBan(rs.getString("MaBan"));
                 entity.setThanhTien(rs.getFloat("ThanhTien"));
                 entity.setTrangThai(rs.getBoolean("TrangThai"));
                 list.add(entity);
@@ -113,16 +112,32 @@ public class HoaDonDAO extends CoffeeDao<HoaDon, String> {
 //        }
 //        return list;
 //    }
-       public List<HoaDon> selectByKeyword(String keyword) {
+    public List<HoaDon> selectByKeyword(String keyword) {
         String SQL = "SELECT * FROM HoaDon WHERE MaHD LIKE ?";
         return this.selectBySQL(SQL, "%" + keyword + "%");
     }
+
+    public List<HoaDon> selecthoadonBan() {
+        String SQL = SELECT_HOADON_TRANGTHAI;
+        return this.selectBySQL(SQL);
+    }
+
+    public List<HoaDon> selectThongkeHoaDon(int date) {
+        String SQL = SELECT_HOADON_YEAR;
+        return this.selectBySQL(SQL, date);
+    }
+
+    public List<HoaDon> selectThongkeHoaDonjdate(LocalDate date) {
+        String SQL = SELECT_HOADON_YEAR1;
+        return this.selectBySQL(SQL, date);
+    }
+
     public int getDoanhThu(int nam) {
         int doanhthu = 0;
         try {
             ResultSet rs = null;
             try {
-                String sql = "exec doanhThu ?";
+                String sql = "exec Doanhthunam ?";
                 rs = JdbcHelper.executeQuery(sql, nam);
                 while (rs.next()) {
                     doanhthu = (int) rs.getFloat("DoanhThuNam");
@@ -192,7 +207,6 @@ public class HoaDonDAO extends CoffeeDao<HoaDon, String> {
         }
         return tongdoanhthu;
     }
-
     public int getkhachhang(int ngay, int thang, int nam) {
         int tongkhachang = 0;
         try {

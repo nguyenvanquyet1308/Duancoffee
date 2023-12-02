@@ -10,14 +10,14 @@ public class HoaDon {
     public String MaKH;
     public String MaNV;
     public Date NgayDatHang;
-    public int MaBan;
+    public String MaBan;
     public float ThanhTien;
     public Boolean TrangThai;
 
     public HoaDon() {
     }
 
-    public HoaDon(String MaHD, String MaKH, String MaNV, Date NgayDatHang, int MaBan, float ThanhTien, Boolean TrangThai) {
+    public HoaDon(String MaHD, String MaKH, String MaNV, Date NgayDatHang, String MaBan, float ThanhTien, Boolean TrangThai) {
         this.MaHD = MaHD;
         this.MaKH = MaKH;
         this.MaNV = MaNV;
@@ -59,11 +59,11 @@ public class HoaDon {
         this.NgayDatHang = NgayDatHang;
     }
 
-    public int getMaBan() {
+    public String getMaBan() {
         return MaBan;
     }
 
-    public void setMaBan(int MaBan) {
+    public void setMaBan(String MaBan) {
         this.MaBan = MaBan;
     }
 
@@ -82,6 +82,8 @@ public class HoaDon {
     public void setTrangThai(Boolean TrangThai) {
         this.TrangThai = TrangThai;
     }
+
+ 
 
    
 

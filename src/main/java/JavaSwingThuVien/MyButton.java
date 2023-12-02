@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 
 public class MyButton extends JButton {
-      private boolean over;
+    private boolean over;
     private Color color;
     private Color colorOver;
     private Color colorClick;

@@ -303,7 +303,7 @@ public class Product extends javax.swing.JInternalFrame {
             rows[i][3] = list.get(i).getMaLoai();
             rows[i][4] = list.get(i).getMoTa();
             if (list.get(i).getHinhanh() != null) {
-                ImageIcon image = new ImageIcon(new ImageIcon(list.get(i).getHinhanh()).getImage().getScaledInstance(150, 120, Image.SCALE_SMOOTH));
+                ImageIcon image = new ImageIcon(new ImageIcon(list.get(i).getHinhanh()).getImage().getScaledInstance(130, 100, Image.SCALE_SMOOTH));
                 rows[i][5] = image;
             } else {
                 rows[i][5] = null;
@@ -311,8 +311,8 @@ public class Product extends javax.swing.JInternalFrame {
         }
         TheModel model = new TheModel(rows, columnName);
         tableSanPham.setModel(model);
-        tableSanPham.setRowHeight(120);
-        tableSanPham.getColumnModel().getColumn(5).setPreferredWidth(150);
+        tableSanPham.setRowHeight(100);
+        tableSanPham.getColumnModel().getColumn(5).setPreferredWidth(130);
     }
 
     void filltableLoaiSP() {
@@ -352,7 +352,6 @@ public class Product extends javax.swing.JInternalFrame {
             }
         }
     }
-
     public void deleteType() {
         if (!Auth.isManager()) {
             DialogHelper.alert(this, "Bạn không có quyền xóa học viên!");

@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -49,7 +50,7 @@ public class Statistical extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        Thongkedoanhthu = new javax.swing.JTable();
+        tablethongkedoanhthu = new javax.swing.JTable();
         cbbNam = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -61,24 +62,32 @@ public class Statistical extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         lblkhachHang = new javax.swing.JLabel();
         jdate = new com.toedter.calendar.JDateChooser();
-        jButton1 = new javax.swing.JButton();
+        btnTimKiem = new javax.swing.JButton();
 
         setBorder(null);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        Thongkedoanhthu.setModel(new javax.swing.table.DefaultTableModel(
+        tablethongkedoanhthu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "MaHD", "MaKH", "MaNV", "NgayDonHang", "MaBan", "ThanhTien", "TrangThai"
             }
-        ));
-        jScrollPane1.setViewportView(Thongkedoanhthu);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tablethongkedoanhthu);
 
         cbbNam.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbbNam.addActionListener(new java.awt.event.ActionListener() {
@@ -186,10 +195,10 @@ public class Statistical extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton1.setText("Tìm kiếm");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnTimKiem.setText("Tìm kiếm");
+        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnTimKiemActionPerformed(evt);
             }
         });
 
@@ -217,7 +226,7 @@ public class Statistical extends javax.swing.JInternalFrame {
                 .addGap(26, 26, 26)
                 .addComponent(jdate, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(btnTimKiem)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -227,14 +236,14 @@ public class Statistical extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cbbNam, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
                     .addComponent(jdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 49, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -256,21 +265,22 @@ public class Statistical extends javax.swing.JInternalFrame {
         fillDoanhThu();
         fillhoadonNam();
         filltongkhachhangtheonam();
+        filltableThongkeHoaDon();
         // TODO add your handling code here:
     }//GEN-LAST:event_cbbNamActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
         fillNgayThangNamDoanhthu();
         fillNgayThangNamHoaDon();
         fillNgayThangNamKhachhang();
+        filltableThongkeHoaDonjdate();
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnTimKiemActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable Thongkedoanhthu;
+    private javax.swing.JButton btnTimKiem;
     private javax.swing.JComboBox<String> cbbNam;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -283,6 +293,7 @@ public class Statistical extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lbldoanhthu;
     private javax.swing.JLabel lblhoaDon;
     private javax.swing.JLabel lblkhachHang;
+    private javax.swing.JTable tablethongkedoanhthu;
     // End of variables declaration//GEN-END:variables
 
     void fillComboBoxNam() {
@@ -339,9 +350,10 @@ public class Statistical extends javax.swing.JInternalFrame {
         int nam = localDate.getYear();
         if (localDate != null) {
             int tongdoanhthu = daohd.getdoanhThu(ngay, thang, nam);
-            lbldoanhthu.setText(String.valueOf(tongdoanhthu+ " "+ "VND"));
+            lbldoanhthu.setText(String.valueOf(tongdoanhthu + " " + "VND"));
         }
     }
+
     void fillNgayThangNamKhachhang() {
         Date ngaythangnam = jdate.getDate();
         LocalDate localDate = ngaythangnam.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -364,5 +376,46 @@ public class Statistical extends javax.swing.JInternalFrame {
             int tonghoadon = daohd.gethoadon(ngay, thang, nam);
             lblhoaDon.setText(String.valueOf(tonghoadon));
         }
+    }
+
+    void filltableThongkeHoaDon() {
+        Object date = cbbNam.getSelectedItem();
+        System.out.println(date);
+        if (date != null) {
+            DefaultTableModel model = (DefaultTableModel) tablethongkedoanhthu.getModel();
+            model.setRowCount(0);
+            List<HoaDon> list = daohd.selectThongkeHoaDon((int) date);
+            try {
+                for (HoaDon hoaDon : list) {
+                    Object[] row = {hoaDon.getMaHD(), hoaDon.getMaKH(), hoaDon.getMaNV(), hoaDon.getNgayDatHang(), hoaDon.getMaBan(), hoaDon.getThanhTien(), hoaDon.getThanhTien()};
+                    model.addRow(row);
+                }
+            } catch (Exception e) {
+                DialogHelper.alert(this, "Lỗi fill table thongke");
+                System.out.println(e);
+            }
+        }
+
+    }
+
+    void filltableThongkeHoaDonjdate() {
+        Date date = jdate.getDate();
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        if (localDate != null) {
+            System.out.println(localDate);
+            DefaultTableModel model = (DefaultTableModel) tablethongkedoanhthu.getModel();
+            model.setRowCount(0);
+            List<HoaDon> list = daohd.selectThongkeHoaDonjdate(localDate);
+            try {
+                for (HoaDon hoaDon : list) {
+                    Object[] row = {hoaDon.getMaHD(), hoaDon.getMaKH(), hoaDon.getMaNV(), hoaDon.getNgayDatHang(), hoaDon.getMaBan(), hoaDon.getThanhTien(), hoaDon.getThanhTien()};
+                    model.addRow(row);
+                }
+            } catch (Exception e) {
+                DialogHelper.alert(this, "Lỗi fill table thongke");
+                System.out.println(e);
+            }
+        }
+
     }
 }
