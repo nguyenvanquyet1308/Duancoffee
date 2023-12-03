@@ -66,7 +66,7 @@ public class Login extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         btnConMat = new javax.swing.JButton();
         txtUser = new JavaSwingThuVien.TextField();
-        txtPassword = new JavaSwingThuVien.TextField();
+        txtPassword = new JavaSwingThuVien.PasswordField1();
 
         textField1.setText("textField1");
 
@@ -116,7 +116,7 @@ public class Login extends javax.swing.JDialog {
             }
         });
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Close_1.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Close.png"))); // NOI18N
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel2MouseClicked(evt);
@@ -130,6 +130,7 @@ public class Login extends javax.swing.JDialog {
             }
         });
 
+        txtUser.setText("quyetnv");
         txtUser.setLabelText("Tên tài khoản");
         txtUser.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -137,12 +138,8 @@ public class Login extends javax.swing.JDialog {
             }
         });
 
+        txtPassword.setText("1234");
         txtPassword.setLabelText("Mật khẩu");
-        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtPasswordKeyPressed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -155,8 +152,7 @@ public class Login extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(88, 88, 88)
-                        .addComponent(Login)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(Login))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -170,9 +166,9 @@ public class Login extends javax.swing.JDialog {
                                 .addComponent(btnThoat, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnConMat, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addContainerGap(8, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,17 +180,12 @@ public class Login extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
                     .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnConMat, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(txtPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnConMat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDongY, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnThoat, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -220,16 +211,16 @@ public class Login extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConMatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConMatActionPerformed
-//        flag = !flag;
-//        if (flag) {
-//            txtPassword.setEchoChar(
-//                '\u0000');
-//            btnConMat.setIcon(new ImageIcon("H:\\MonDuAnMau\\BaiTap\\DuAnMau\\src\\main\\resources\\Hinh\\rsz_mở_mắt.png"));
-//        } else {
-//            txtPassword.setEchoChar('*');
-//            btnConMat.setIcon(new ImageIcon("H:\\MonDuAnMau\\BaiTap\\DuAnMau\\src\\main\\resources\\Hinh\\rsz_nhắm_mắt.png"));
-//
-//        }
+        flag = !flag;
+        if (flag) {
+            txtPassword.setEchoChar(
+                '\u0000');
+            btnConMat.setIcon(new ImageIcon("H:\\MonDuAnMau\\BaiTap\\DuAnMau\\src\\main\\resources\\Hinh\\rsz_mở_mắt.png"));
+        } else {
+            txtPassword.setEchoChar('*');
+            btnConMat.setIcon(new ImageIcon("H:\\MonDuAnMau\\BaiTap\\DuAnMau\\src\\main\\resources\\Hinh\\rsz_nhắm_mắt.png"));
+
+        }
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnConMatActionPerformed
@@ -253,15 +244,11 @@ public class Login extends javax.swing.JDialog {
     }//GEN-LAST:event_btnDongYActionPerformed
 
     private void txtUserKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserKeyPressed
+    if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            dangNhap();
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUserKeyPressed
-
-    private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
-
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            dangNhap();
-        }        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPasswordKeyPressed
 
     /**
      * @param args the command line arguments
@@ -320,7 +307,7 @@ public class Login extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private JavaSwingThuVien.TextField textField1;
-    private JavaSwingThuVien.TextField txtPassword;
+    private JavaSwingThuVien.PasswordField1 txtPassword;
     private JavaSwingThuVien.TextField txtUser;
     // End of variables declaration//GEN-END:variables
 }

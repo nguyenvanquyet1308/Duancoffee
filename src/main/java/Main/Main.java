@@ -4,6 +4,18 @@
  */
 package Main;
 
+import DAO.BanDAO;
+import DAO.ChiTietHoaDonDAO;
+import DAO.HoaDonDAO;
+import DAO.KhachHangDAO;
+import DAO.LoaiDAO;
+import DAO.SanPhamDAO;
+import Entity.Ban;
+import Entity.ChiTietHoaDon;
+import Entity.HoaDon;
+import Entity.KhachHang;
+import Entity.Loai;
+import Entity.SanPham;
 import Form.Bill;
 import Form.Menu;
 import Form.Product;
@@ -11,9 +23,29 @@ import Form.Custom;
 import Form.Menu;
 import Form.Staff;
 import Form.Statistical;
+import FormImport.addtable;
+import JavaSwingThuVien.MyQuery;
+import JavaSwingThuVien.Product2;
+import JavaSwingThuVien.TheModel;
 import ThuVien.Auth;
 import ThuVien.DialogHelper;
+import ThuVien.JdbcHelper;
+import ThuVien.XDate;
 import java.awt.Color;
+import java.awt.Image;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * [689, 551]
@@ -28,11 +60,25 @@ public class Main extends javax.swing.JFrame {
     Color Defaultcolor, clickColor;
     int width = 182;
     int height = 595;
+    BanDAO daoBan = new BanDAO();
+    SanPhamDAO daosp = new SanPhamDAO();
+    LoaiDAO daoloai = new LoaiDAO();
+    HoaDonDAO daohd = new HoaDonDAO();
+    KhachHangDAO daokh = new KhachHangDAO();
+    ChiTietHoaDonDAO daohdct = new ChiTietHoaDonDAO();
+    LocalDate ngay = LocalDate.now();
+    addtable showAddtable;
+    Color red = new Color(255, 51, 51);
+    int row = -1;
+    Color white = new Color(193, 244, 197);
 
     public Main() {
         initComponents();
         init();
         setLocationRelativeTo(this);
+//        Menu men= new Menu();
+//        panelMainMenu.removeAll();
+//        panelMainMenu.add(men).setVisible(true);
 
     }
 
@@ -59,9 +105,10 @@ public class Main extends javax.swing.JFrame {
         clickStatistical = new JavaSwingThuVien.MyButton();
         clickStaff = new JavaSwingThuVien.MyButton();
         ClickCustomer = new JavaSwingThuVien.MyButton();
-        imageAvatar1 = new ThuVien.ImageAvatar();
         lblTenNV = new javax.swing.JLabel();
         lblChucVu = new javax.swing.JLabel();
+        myButton2 = new JavaSwingThuVien.MyButton();
+        imageAvatar1 = new ThuVien.ImageAvatar();
         panelMainMenu = new javax.swing.JPanel();
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -111,14 +158,16 @@ public class Main extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(327, 327, 327)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(281, Short.MAX_VALUE)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(327, 327, 327)
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(313, Short.MAX_VALUE)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -147,7 +196,7 @@ public class Main extends javax.swing.JFrame {
                 myButton1MousePressed(evt);
             }
         });
-        panelMenu.add(myButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, 130, 50));
+        panelMenu.add(myButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 560, 130, 46));
 
         clickMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imageMain/buttonMenu.png"))); // NOI18N
         clickMenu.setText("MENU");
@@ -159,7 +208,7 @@ public class Main extends javax.swing.JFrame {
                 clickMenuMousePressed(evt);
             }
         });
-        panelMenu.add(clickMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 130, 50));
+        panelMenu.add(clickMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 130, 46));
 
         clickProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imageMain/iconSanPham.png"))); // NOI18N
         clickProduct.setText("SẢN PHẨM");
@@ -171,7 +220,7 @@ public class Main extends javax.swing.JFrame {
                 clickProductMousePressed(evt);
             }
         });
-        panelMenu.add(clickProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 130, 50));
+        panelMenu.add(clickProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 130, 46));
 
         clickStatistical.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imageMain/iconThongke.png"))); // NOI18N
         clickStatistical.setText("THỐNG KÊ");
@@ -183,7 +232,7 @@ public class Main extends javax.swing.JFrame {
                 clickStatisticalMousePressed(evt);
             }
         });
-        panelMenu.add(clickStatistical, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 130, 50));
+        panelMenu.add(clickStatistical, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 130, 46));
 
         clickStaff.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imageMain/iconNhanViên.png"))); // NOI18N
         clickStaff.setText("NHÂN VIÊN");
@@ -195,7 +244,7 @@ public class Main extends javax.swing.JFrame {
                 clickStaffMousePressed(evt);
             }
         });
-        panelMenu.add(clickStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 130, 50));
+        panelMenu.add(clickStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 130, 46));
 
         ClickCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imageMain/iconKhachHang.png"))); // NOI18N
         ClickCustomer.setText("KHÁCH HÀNG");
@@ -210,10 +259,7 @@ public class Main extends javax.swing.JFrame {
                 ClickCustomerMousePressed(evt);
             }
         });
-        panelMenu.add(ClickCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 130, 50));
-
-        imageAvatar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/parkseoJun.jpg"))); // NOI18N
-        panelMenu.add(imageAvatar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 110, 90));
+        panelMenu.add(ClickCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, 130, 46));
 
         lblTenNV.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblTenNV.setForeground(new java.awt.Color(255, 255, 255));
@@ -225,6 +271,20 @@ public class Main extends javax.swing.JFrame {
         lblChucVu.setText("Quản lý");
         panelMenu.add(lblChucVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
 
+        myButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imageMain/iconHoaDon.png"))); // NOI18N
+        myButton2.setText("Hóa đơn");
+        myButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        myButton2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        myButton2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        myButton2.setRadius(20);
+        myButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                myButton2MousePressed(evt);
+            }
+        });
+        panelMenu.add(myButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 130, 46));
+        panelMenu.add(imageAvatar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 83, 70));
+
         panelMainMenu.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout panelMainMenuLayout = new javax.swing.GroupLayout(panelMainMenu);
@@ -235,7 +295,7 @@ public class Main extends javax.swing.JFrame {
         );
         panelMainMenuLayout.setVerticalGroup(
             panelMainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 651, Short.MAX_VALUE)
+            .addGap(0, 656, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -244,29 +304,34 @@ public class Main extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                 .addComponent(panelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelMainMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelMainMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(panelMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(panelMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1151, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -355,11 +420,21 @@ public class Main extends javax.swing.JFrame {
 //        ClickCustomer.setBackground(Defaultcolor);
 //        clickStaff.setBackground(Defaultcolor);
 //        clickStatistical.setBackground(Defaultcolor);
-        Menu menu = new Menu();
-        panelMainMenu.removeAll();
+         Menu menu = new Menu();
+        //jPanel1.add(panelMainMenu).setVisible(true);
+        //panelMainMenu.setSize(500, 500);
+       // System.out.println("eeeeee");
+       panelMainMenu.removeAll();
         panelMainMenu.add(menu).setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_clickMenuMousePressed
+
+    private void myButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myButton2MousePressed
+        Bill bill = new Bill();
+        panelMainMenu.removeAll();
+        panelMainMenu.add(bill).setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_myButton2MousePressed
 
     /**
      * @param args the command line arguments
@@ -413,6 +488,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel lblChucVu;
     private javax.swing.JLabel lblTenNV;
     private JavaSwingThuVien.MyButton myButton1;
+    private JavaSwingThuVien.MyButton myButton2;
     private javax.swing.JPanel panelMainMenu;
     private javax.swing.JPanel panelMenu;
     // End of variables declaration//GEN-END:variables
@@ -420,7 +496,11 @@ void init() {
         setLocationRelativeTo(this);
         Defaultcolor = new Color(171, 196, 170);
         clickColor = new Color(255, 255, 255);
-        hienThithongtinnhanvien();
+        //   hienThithongtinnhanvien();
+//          fillcomboBoxBan();
+//        filltableSanPham();
+//        fillcomboboxLoai();
+//        filltableHoaDon();
 
     }
 
@@ -456,10 +536,533 @@ void init() {
 
     }
 
-    public void hienThithongtinnhanvien() {
-//        String userID = Auth.user.getMaNV();
-//        String role = Auth.user.isChucVu()? "Quản lý" : "Nhân Viên";
-//        lblChucVu.setText(role);
-//        lblTenNV.setText(userID);
-    }
+//
+//    void filltableSanPham() {
+//        MyQuery mq = new MyQuery();
+//        String keyword = txttimkiem.getText();
+//        ArrayList<Product2> list = mq.selectByKeyword(keyword);
+//        String[] columnName = {"MaSP", "TenSP", "Gia", "MaLoai", "MoTa", "HinhAnh"};
+//        Object[][] rows = new Object[list.size()][6];
+//        for (int i = 0; i < list.size(); i++) {
+//            rows[i][0] = list.get(i).getMaSP();
+//            rows[i][1] = list.get(i).getTenSP();
+//         //   rows[i][2] = list.get(i).getGia();
+//            rows[i][3] = list.get(i).getMaLoai();
+//            rows[i][4] = list.get(i).getMoTa();
+//            if (list.get(i).getHinhanh() != null) {
+//                ImageIcon image = new ImageIcon(new ImageIcon(list.get(i).getHinhanh()).getImage().getScaledInstance(100, 70, Image.SCALE_SMOOTH));
+//                rows[i][5] = image;
+//            } else {
+//                rows[i][5] = null;
+//            }
+//        }
+//        TheModel model = new TheModel(rows, columnName);
+//        tableSanPham.setModel(model);
+//        tableSanPham.setRowHeight(70);
+//        tableSanPham.getColumnModel().getColumn(5).setPreferredWidth(100);
+//    }
+//    
+//    void fillTableHDCT() {
+//        if(txtmaHoaDon.getText().equals("")){
+//            DialogHelper.alert(this, "Bạn cần nhập mã hóa đơn cần tìm !");
+//        }
+//        DefaultTableModel model = (DefaultTableModel) tableHDCT.getModel();
+//        model.setRowCount(0);
+//        try {
+//            String mahd = txtmaHoaDon.getText();
+//            List<ChiTietHoaDon> list = daohdct.selectMaHD(mahd);
+//            for (ChiTietHoaDon hdct : list) {
+//                Object[] row = {hdct.getHoaDonCT(), hdct.getMaHD(), hdct.getTenSP(), hdct.getSoLuong(), hdct.getGiaTien()};
+//                model.addRow(row);
+//            }
+//        } catch (Exception e) {
+//        }
+//    }
+//    
+//    public void fillcomboboxLoai() {
+//        DefaultComboBoxModel model = (DefaultComboBoxModel) cbxLoai.getModel();
+//        model.removeAllElements();
+//        List<Loai> list = daoloai.selectAll();
+//        for (Loai kh : list) {
+//            model.addElement(kh);
+//        }
+//    }
+//    
+////    void OpenMenu() {
+////        new Thread(new Runnable() {
+////            @Override
+////            public void run() {
+////                for (int i = 0; i < width; i++) {
+////                    panelHoaDon.setSize(i, height);
+////                    try {
+////                        Thread.sleep(1);
+////                    } catch (Exception e) {
+////                    }
+////                }
+////            }
+////        }).start();
+////    }
+////    
+////    void CloseMenu() {
+////        new Thread(new Runnable() {
+////            @Override
+////            public void run() {
+////                for (int i = width - 1; i > 0; i--) {
+////                    panelHoaDon.setSize(i, height);
+////                    try {
+////                        Thread.sleep(1);
+////                    } catch (Exception e) {
+////                    }
+////                    
+////                }
+////            }
+////        }).start();
+////    }
+//    
+//    public void setForm(SanPham sp) {
+//        lblGia.setText(String.valueOf(sp.getGia()));
+//        lblLoai.setText(sp.getMaLoai());
+//        lblmaSP.setText(sp.getMaSP());
+//        lbltenSP.setText(sp.getTenSP());
+//    }
+//    
+//    public void setForm(HoaDon hd, KhachHang kh) {
+//        txtmaHoaDon.setText(hd.getMaHD());
+//        txtmaKH.setText(hd.getMaKH());
+//        txttenKh.setText(kh.getMaKH());
+//        txtsdt.setText(kh.getSDT());
+//    }
+//    
+//    public HoaDon getFormHoaDon() {
+//        HoaDon hd = new HoaDon();
+//        hd.setMaHD(txtmaHoaDon.getText());
+//        hd.setMaKH(txtmaKH.getText());
+//        hd.setMaBan(lblBan.getText());
+//        hd.setMaNV(Auth.user.getMaNV());
+//        Date Ngaychuyendoi = Date.from(ngay.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+//        hd.setNgayDatHang(Ngaychuyendoi);
+//        hd.setThanhTien(0);
+//        hd.setTrangThai(false);
+//        return hd;
+//    }
+//    
+//    public KhachHang getFormKhachHang() {
+//        KhachHang kh = new KhachHang();
+//        kh.setMaKH(txtmaKH.getText());
+//        kh.setTenKH(txttenKh.getText());
+//        kh.setSDT(txtsdt.getText());
+//        kh.setMaban(lblBan.getText());
+//        return kh;
+//    }
+//    
+//    public ChiTietHoaDon getFormCTHD() {
+//        ChiTietHoaDon cthd = new ChiTietHoaDon();
+//        cthd.setMaHD(txtmaHoaDon.getText());
+//        cthd.setMaSP(lblmaSP.getText());
+//        cthd.setSoLuong((int) spinnerSoLuong.getValue());
+//        cthd.setGiaTien(Float.parseFloat(lblGia.getText()));
+//        return cthd;
+//    }
+//    
+//    public void InsertKhachang() {
+//        KhachHang kh = getFormKhachHang();
+//        try {
+//            daokh.insert(kh);
+//            filltableSanPham();
+//            //   fillcomboBoxBan();
+//            fillcomboboxLoai();
+//            System.out.println("insert khách hàng thành công");
+//        } catch (Exception e) {
+//            DialogHelper.alert(this, "Lỗi khách hàng khi tạo hóa đơn");
+//            System.out.println(e);
+//        }
+//    }
+//    
+//    public void InsertHoaDon() {
+//        if (KiemThu() == false) {
+//            return;
+//        }
+//        
+//        HoaDon hd = getFormHoaDon();
+//        try {
+//            InsertKhachang();
+//            daohd.insert(hd);
+//            fillTableHDCT();
+//            filltableSanPham();
+//            //      fillcomboBoxBan();
+//            fillcomboboxLoai();
+//            TinhTien();
+//            setEnabled();
+//            selectBanchuathanhtoan(lblBan.getText());
+//            trangthaiban(lblBan.getText());
+//            DialogHelper.alert(this, "Tạo hóa đơn thành công");
+//        } catch (Exception e) {
+//            DialogHelper.alert(this, "Tạo hóa đơn thất bại");
+//            System.out.println(e);
+//        }
+//    }
+//    
+//    public void InsertHoadonchitiet() {
+//        if (KiemthuinsertHDCT() == false) {
+//            return;
+//        }
+//        ChiTietHoaDon hdct = getFormCTHD();
+//        try {
+//            daohdct.insert(hdct);
+//            fillTableHDCT();
+//            spinnerSoLuong.setValue(1);
+//            //   fillcomboBoxBan();
+//            filltableSanPham();
+//            TinhTien();
+//            System.out.println("thêm thành công");
+//        } catch (Exception e) {
+//            DialogHelper.alert(this, "Insert lỗi");
+//            System.out.println(e);
+//        }
+//    }
+//    
+//    public void deleteChitiethoadon() {
+//        try {
+//            int[] rows = tableHDCT.getSelectedRows();
+//            if (rows.length == 0) {
+//                DialogHelper.alert(this, "Bạn cần chọn sản phẩm để xóa !");
+//                return;
+//            }
+//            if (rows.length > 0 && DialogHelper.confirm(this, "Bạn có muốn xóa sản phẩm này không?")) {
+//                for (int row : rows) {
+//                    int makh = (int) tableHDCT.getValueAt(row, 0);
+//                    daohdct.delete(makh);
+//                    DialogHelper.alert(this, "Xóa sản phẩm thành công");
+//                    fillTableHDCT();
+//                    filltableSanPham();
+//                    TinhTien();
+//                }
+//            }
+//        } catch (Exception e) {
+//            DialogHelper.alert(this, "Lỗi khi xóa sản phẩm");
+//            System.out.println(e);
+//        }
+//    }
+//    
+//    public void edit() {
+//        String maSp = (String) tableSanPham.getValueAt(row, 0);
+//        SanPham sp = daosp.selectById(maSp);
+//        this.setForm(sp);
+//    }
+//    
+//    public void TinhTien() {
+//        int tong = 0;
+//        int rowcout = tableHDCT.getRowCount();
+//        for (int i = 0; i < rowcout; i++) {
+//            Object gia = tableHDCT.getValueAt(i, 4);
+//            tong += ((Number) gia).intValue();
+//        }
+//        System.out.println(tong);
+//        lblthanhTien.setText(String.valueOf(tong));
+//    }
+//    
+//    void updateDuaVaohoadon() {
+//        String mahd = txtmaHoaDon.getText();
+//        if (mahd.equals("")) {
+//            DialogHelper.alert(this, "Bạn cần tạo hóa đơn");
+//        }
+//        int thanhtien = Integer.parseInt(lblthanhTien.getText());
+//        try {
+//            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+//            String url = "jdbc:sqlserver://localhost:1433;databaseName=DuanCoffee";
+//            Connection con = DriverManager.getConnection(url, "sa", "123456");
+//            String sql = "update HoaDon set ThanhTien = ? ,trangthai = 1 where MaHD = ?";
+//            PreparedStatement pstt = con.prepareStatement(sql);
+//            pstt.setFloat(1, Float.parseFloat(lblthanhTien.getText()));
+//            pstt.setString(2, txtmaHoaDon.getText());
+//            pstt.executeUpdate();
+//            DialogHelper.alert(this, "Đưa vào hóa đơn thành công");
+////            String giatri = lblban2.getText();
+////            lblBan.setText(giatri);
+//            String maban = lblBan.getText();
+//            trangthaiban1(maban);
+//            Moi();
+//            selectBanchuathanhtoan(maban);
+//            con.close();
+//            
+//        } catch (Exception e) {
+//            DialogHelper.alert(this, "lỖI ĐƯA VÒA HĐ");
+//            System.out.println(e);
+//        }
+//    }
+//    
+//    void setEnabled() {
+//        txtmaHoaDon.setEnabled(false);
+//        txtmaKH.setEnabled(false);
+//        txtsdt.setEnabled(false);
+//        txttenKh.setEnabled(false);
+//    }
+//    
+//    void Moi() {
+//        txtmaHoaDon.setEnabled(true);
+//        txtmaKH.setEnabled(true);
+//        txtsdt.setEnabled(true);
+//        txttenKh.setEnabled(true);
+//        txtmaHoaDon.setText("");
+//        txtmaKH.setText("");
+//        txtsdt.setText("");
+//        txttenKh.setText("");
+//        System.out.println(ngay);
+//        newSP();
+//        DefaultTableModel model = (DefaultTableModel) tableHDCT.getModel();
+//        model.setRowCount(0);
+////        DefaultTableModel model1 = (DefaultTableModel) tabelhoadon.getModel();
+////        model1.setRowCount(0);
+//    }
+//    
+//    void newSP() {
+//        lblthanhTien.setText("0");
+//        lblGia.setText("");
+//        lblmaSP.setText("");
+//        lbltenSP.setText("");
+//        lblLoai.setText("");
+//        spinnerSoLuong.setValue(1);
+//        DefaultTableModel model = (DefaultTableModel) tableHDCT.getModel();
+//        model.setRowCount(0);
+//    }
+//    
+//    boolean KiemthuinsertHDCT() {
+//        if (txtmaHoaDon.getText().equals("")) {
+//            DialogHelper.alert(this, "Bạn cần chọn hóa đơn để thêm sản phẩm !");
+//            return false;
+//        }
+//        if (lbltenSP.getText().equals("")) {
+//            DialogHelper.alert(this, "Bạn cần chọn sản phẩm để thêm");
+//            return false;
+//        }
+//        return true;
+//    }
+//    
+//    boolean KiemThu() {
+//        if (txtmaHoaDon.getText().equals("")) {
+//            DialogHelper.alert(this, "Không được bỏ trống Mã hóa đơn");
+//            return false;
+//        }
+//        if (txtmaKH.getText().equals("")) {
+//            DialogHelper.alert(this, "Không được bỏ trống mã khách hàng");
+//            return false;
+//        }
+//        if (txtsdt.getText().equals("")) {
+//            DialogHelper.alert(this, "Không được bỏ trống SDT");
+//            return false;
+//        }
+//        if (txttenKh.getText().length() < 3) {
+//            DialogHelper.alert(this, "Không được bỏ trống Tên khách hàng");
+//            return false;
+//        }
+//        if (lblBan.getText().equalsIgnoreCase("")) {
+//            DialogHelper.alert(this, "Vui lòng chọn bàn!");
+//            return false;
+//        }
+//        List<KhachHang> list = daokh.selectAll();
+//        for (KhachHang kh : list) {
+//            if (txtmaKH.getText().equalsIgnoreCase(kh.getMaKH())) {
+//                DialogHelper.alert(this, "Mã khách hàng đã có!");
+//                return false;
+//            }
+//        }
+//        List<HoaDon> listhd = daohd.selectAll();
+//        for (HoaDon hoaDon : listhd) {
+//            if (txtmaHoaDon.getText().equalsIgnoreCase(hoaDon.getMaHD())) {
+//                DialogHelper.alert(this, "Mã hóa đơn đã có!");
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
+//    
+//    public void getban(String maban) {
+//        try {
+//            try {
+//                ResultSet rs = null;
+//                try {
+//                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+//                    String url = "jdbc:sqlserver://localhost:1433;databaseName=DuanCoffee";
+//                    Connection con = DriverManager.getConnection(url, "sa", "123456");
+//                    String sql = "select MaHD,khachhang.MaKH,TenKH,SDT from hoadon inner join KhachHang on HoaDon.MaKH = KhachHang.MaKH where KhachHang.MaBan = ?";
+//                    rs = JdbcHelper.executeQuery(sql, maban);
+//                    while (rs.next()) {
+//                        txtmaHoaDon.setText(rs.getString("Mahd"));
+//                        txtmaKH.setText(rs.getString("MaKH"));
+//                        txttenKh.setText(rs.getString("TenKH"));
+//                        txtsdt.setText(rs.getString("SDT"));
+//                    }
+//                } finally {
+//                    rs.getStatement().getConnection().close();
+//                }
+//            } catch (SQLException e) {
+//                throw new RuntimeException(e);
+//            }
+//        } catch (Exception e) {
+//        }
+//    }
+//    
+//    void selectBanchuathanhtoan(String maban) {
+//        try {
+//            try {
+//                ResultSet rs = null;
+//                try {
+//                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+//                    String url = "jdbc:sqlserver://localhost:1433;databaseName=DuanCoffee";
+//                    Connection con = DriverManager.getConnection(url, "sa", "123456");
+//                    String sql = "select MaHD,khachhang.MaKH,TenKH,SDT from hoadon inner join KhachHang on HoaDon.MaKH = KhachHang.MaKH where KhachHang.MaBan = ? and trangthai =0";
+//                    rs = JdbcHelper.executeQuery(sql, maban);
+//                    while (rs.next()) {
+//                        txtmaHoaDon.setText(rs.getString("Mahd"));
+//                        txtmaKH.setText(rs.getString("MaKH"));
+//                        txttenKh.setText(rs.getString("TenKH"));
+//                        txtsdt.setText(rs.getString("SDT"));
+//                    }
+//                } finally {
+//                    rs.getStatement().getConnection().close();
+//                }
+//            } catch (SQLException e) {
+//                throw new RuntimeException(e);
+//            }
+//            filltableHoaDon();
+//            fillTableHDCT();
+//            TinhTien();
+//            //  setEnabled();
+//        } catch (Exception e) {
+//        }
+//    }
+//    
+//    public void filltableHoaDon() {
+//        DefaultTableModel model = (DefaultTableModel) tabelhoadon.getModel();
+//        model.setRowCount(0);
+//        try {
+//            String maban = lblBan.getText();
+//            List<HoaDon> list = daohd.selecthoadonBan();
+//            for (HoaDon hoaDon : list) {
+//                Object[] row = {hoaDon.getMaHD(), hoaDon.getMaKH(), hoaDon.getMaNV(), XDate.toString(hoaDon.getNgayDatHang(), "dd-MM-YYYY"), hoaDon.getMaBan(), hoaDon.getThanhTien(), hoaDon.getTrangThai() ? "Đã Thanh toán" : "Chưa thanh toán"};
+//                model.addRow(row);
+//                if (hoaDon.getTrangThai() == false) {
+//                    //System.out.println("mabanlaytutrangthai: " + hoaDon.getMaBan());
+//                    String banchuathanhtoan = hoaDon.getMaBan();
+//                    trangthaiban(banchuathanhtoan);
+//                    System.out.println("-- : " + banchuathanhtoan);
+//                }
+////                if (hoaDon.getTrangThai() == true) {
+////                    String bandathanhtoan = hoaDon.getMaBan();
+////                    trangthaiban1(bandathanhtoan);
+////                    System.out.println("bandathanhtoan: ");
+////                }
+//            }
+//        } catch (Exception e) {
+//            DialogHelper.alert(this, "Lỗi filltable Hóa đơn");
+//            System.out.println(e);
+//        }
+//    }
+//    
+//    void fillhoadonchuathanhtoan() {
+//        
+//    }
+//    
+//    void trangthaiban(String banchuathanhtoan) {
+//        // String ban = lblBan.getText();
+//        if (lblban1.getText().equalsIgnoreCase(banchuathanhtoan)) {
+//            jpanelban1.setBackground(red);
+//        }
+//        if (lblban2.getText().equalsIgnoreCase(banchuathanhtoan)) {
+//            jpanelban2.setBackground(red);
+//        }
+//        
+//        if (lblban3.getText().equalsIgnoreCase(banchuathanhtoan)) {
+//            jpanelban3.setBackground(red);
+//        }
+//        
+//        if (lblban4.getText().equalsIgnoreCase(banchuathanhtoan)) {
+//            jpanelban4.setBackground(red);
+//        }
+//        
+//        if (lblban5.getText().equalsIgnoreCase(banchuathanhtoan)) {
+//            jpanelban5.setBackground(red);
+//        }
+//        
+//        if (lblban6.getText().equalsIgnoreCase(banchuathanhtoan)) {
+//            jpanelban6.setBackground(red);
+//        }
+//        
+//        if (lblban7.getText().equalsIgnoreCase(banchuathanhtoan)) {
+//            jpanelban7.setBackground(red);
+//        }
+//        
+//        if (lblban8.getText().equalsIgnoreCase(banchuathanhtoan)) {
+//            jpanelban8.setBackground(red);
+//        }
+//        
+//        if (lblban9.getText().equalsIgnoreCase(banchuathanhtoan)) {
+//            jpanelban9.setBackground(red);
+//        }
+//        
+//        if (lblban10.getText().equalsIgnoreCase(banchuathanhtoan)) {
+//            jpanelban10.setBackground(red);
+//        }
+//        
+//        if (lblban11.getText().equalsIgnoreCase(banchuathanhtoan)) {
+//            jpanelban11.setBackground(red);
+//        }
+//        
+//        if (lblban12.getText().equalsIgnoreCase(banchuathanhtoan)) {
+//            jpanelban12.setBackground(red);
+//        }
+//        
+//    }
+//    
+//    void trangthaiban1(String banchuathanhtoan) {
+//        // String ban = lblBan.getText();
+//        if (lblban1.getText().equalsIgnoreCase(banchuathanhtoan)) {
+//            jpanelban1.setBackground(white);
+//        }
+//        
+//        if (lblban2.getText().equalsIgnoreCase(banchuathanhtoan)) {
+//            jpanelban2.setBackground(white);
+//        }
+//        
+//        if (lblban3.getText().equalsIgnoreCase(banchuathanhtoan)) {
+//            jpanelban3.setBackground(white);
+//        }
+//        
+//        if (lblban4.getText().equalsIgnoreCase(banchuathanhtoan)) {
+//            jpanelban4.setBackground(white);
+//        }
+//        
+//        if (lblban5.getText().equalsIgnoreCase(banchuathanhtoan)) {
+//            jpanelban5.setBackground(white);
+//        }
+//        
+//        if (lblban6.getText().equalsIgnoreCase(banchuathanhtoan)) {
+//            jpanelban6.setBackground(white);
+//        }
+//        
+//        if (lblban7.getText().equalsIgnoreCase(banchuathanhtoan)) {
+//            jpanelban7.setBackground(white);
+//        }
+//        
+//        if (lblban8.getText().equalsIgnoreCase(banchuathanhtoan)) {
+//            jpanelban8.setBackground(white);
+//        }
+//        
+//        if (lblban9.getText().equalsIgnoreCase(banchuathanhtoan)) {
+//            jpanelban9.setBackground(white);
+//        }
+//        
+//        if (lblban10.getText().equalsIgnoreCase(banchuathanhtoan)) {
+//            jpanelban10.setBackground(white);
+//        }
+//        
+//        if (lblban11.getText().equalsIgnoreCase(banchuathanhtoan)) {
+//            jpanelban11.setBackground(white);
+//        }
+//        
+//        if (lblban12.getText().equalsIgnoreCase(banchuathanhtoan)) {
+//            jpanelban12.setBackground(white);
+//        }
+//        
+//    }
 }

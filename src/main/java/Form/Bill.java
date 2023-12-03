@@ -49,8 +49,6 @@ public class Bill extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         myButton1 = new JavaSwingThuVien.MyButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        table = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablehoadon = new javax.swing.JTable();
         btnxoahd = new JavaSwingThuVien.MyButton();
@@ -61,34 +59,13 @@ public class Bill extends javax.swing.JInternalFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        myButton1.setText("Thanh Toán");
+        myButton1.setText("In hóa đơn");
         myButton1.setRadius(20);
         myButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 myButton1ActionPerformed(evt);
             }
         });
-
-        table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(table);
 
         tablehoadon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -98,11 +75,11 @@ public class Bill extends javax.swing.JInternalFrame {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7"
+                "MaHD", "MaKH", "MaNV", "NgayDonHang", "MaBAN", "ThanhTien", "TrangThai"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -137,32 +114,22 @@ public class Bill extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
-                            .addComponent(txtTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnxoahd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(btnxoahd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 932, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTimKiem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -214,27 +181,25 @@ public class Bill extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JavaSwingThuVien.MyButton btnxoahd;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private JavaSwingThuVien.MyButton myButton1;
-    private javax.swing.JTable table;
     private javax.swing.JTable tablehoadon;
     private JavaSwingThuVien.TextField txtTimKiem;
     // End of variables declaration//GEN-END:variables
-  public void filsltableHDCT() {
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-        model.setRowCount(0);
-        try {
-            List<ChiTietHoaDon> list = daohdct.selectAll();
-            for (ChiTietHoaDon cthd : list) {
-                Object[] row = {cthd.getHoaDonCT(), cthd.getMaHD(), cthd.getMaSP(), cthd.getSoLuong(), cthd.getGiaTien()};
-                model.addRow(row);
-            }
-        } catch (Exception e) {
-            DialogHelper.alert(this, "Lỗi filltable Hóa đơn chi tiết ");
-            System.out.println(e);
-        }
-    }
+//  public void filsltableHDCT() {
+//        DefaultTableModel model = (DefaultTableModel) table.getModel();
+//        model.setRowCount(0);
+//        try {
+//            List<ChiTietHoaDon> list = daohdct.selectAll();
+//            for (ChiTietHoaDon cthd : list) {
+//                Object[] row = {cthd.getHoaDonCT(), cthd.getMaHD(), cthd.getMaSP(), cthd.getSoLuong(), cthd.getGiaTien()};
+//                model.addRow(row);
+//            }
+//        } catch (Exception e) {
+//            DialogHelper.alert(this, "Lỗi filltable Hóa đơn chi tiết ");
+//            System.out.println(e);
+//        }
+//    }
 
     public void filltableHoaDon() {
         DefaultTableModel model = (DefaultTableModel) tablehoadon.getModel();
@@ -244,7 +209,9 @@ public class Bill extends javax.swing.JInternalFrame {
             List<HoaDon> list = daohd.selectByKeyword(keyword);
             for (HoaDon hoaDon : list) {
                 Object[] row = {hoaDon.getMaHD(), hoaDon.getMaKH(), hoaDon.getMaNV(), XDate.toString(hoaDon.getNgayDatHang(), "dd-MM-YYYY"), hoaDon.getMaBan(), hoaDon.getThanhTien(), hoaDon.getTrangThai() ? "Đã Thanh toán" : "Chưa thanh toán"};
-                model.addRow(row);
+                if (hoaDon.getTrangThai() == true) {
+                    model.addRow(row);
+                }
             }
         } catch (Exception e) {
             DialogHelper.alert(this, "Lỗi filltable Hóa đơn");

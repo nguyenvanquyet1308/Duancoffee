@@ -92,7 +92,6 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
                           <Component id="Login" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
@@ -110,11 +109,11 @@
                               <Component id="txtUser" max="32767" attributes="0"/>
                               <Component id="txtPassword" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="14" max="32767" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="btnConMat" min="-2" pref="37" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace pref="8" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -129,21 +128,13 @@
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtUser" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="btnConMat" min="-2" pref="25" max="-2" attributes="0"/>
-                              <Component id="txtPassword" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="txtPassword" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel4" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnConMat" alignment="1" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnDongY" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
                       <Component id="btnThoat" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
@@ -210,7 +201,7 @@
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Image/Close_1.png"/>
+              <Image iconType="3" name="/Image/Close.png"/>
             </Property>
           </Properties>
           <Events>
@@ -229,19 +220,18 @@
         </Component>
         <Component class="JavaSwingThuVien.TextField" name="txtUser">
           <Properties>
+            <Property name="text" type="java.lang.String" value="quyetnv"/>
             <Property name="labelText" type="java.lang.String" value="T&#xea;n t&#xe0;i kho&#x1ea3;n"/>
           </Properties>
           <Events>
             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtUserKeyPressed"/>
           </Events>
         </Component>
-        <Component class="JavaSwingThuVien.TextField" name="txtPassword">
+        <Component class="JavaSwingThuVien.PasswordField1" name="txtPassword">
           <Properties>
+            <Property name="text" type="java.lang.String" value="1234"/>
             <Property name="labelText" type="java.lang.String" value="M&#x1ead;t kh&#x1ea9;u"/>
           </Properties>
-          <Events>
-            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPasswordKeyPressed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

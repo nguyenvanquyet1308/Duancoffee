@@ -33,7 +33,7 @@ public class Loai {
     }
   @Override
     public String toString() {
-        return String.valueOf(MaLoai);
+        return String.valueOf(TenLoai);
     }
 
     
