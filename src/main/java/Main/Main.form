@@ -83,7 +83,7 @@
                   <Component id="jPanel2" min="-2" pref="52" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   <Component id="panelMainMenu" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="6" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -376,9 +376,14 @@
               </Constraints>
             </Component>
             <Container class="ThuVien.ImageAvatar" name="imageAvatar1">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Image/parkseoJun.jpg"/>
+                </Property>
+              </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="30" y="10" width="83" height="70"/>
+                  <AbsoluteConstraints x="23" y="10" width="100" height="80"/>
                 </Constraint>
               </Constraints>
 

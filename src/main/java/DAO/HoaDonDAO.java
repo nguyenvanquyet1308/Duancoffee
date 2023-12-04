@@ -23,7 +23,7 @@ public class HoaDonDAO extends CoffeeDao<HoaDon, String> {
     String DELETE_SQL = "DELETE FROM HoaDon WHERE MaHD=?";
     String SELECT_ALL_SQL = "SELECT * FROM HoaDon";
     String SELECT_BY_ID_SQL = "SELECT * FROM HoaDon WHERE MaHD=?";
-    String UPDATE_THANHTIEN = "update HoaDon set ThanhTien = ? where MaHD =?";
+    String UPDATE_THANHTIEN = "update HoaDon set ThanhTien = ? , trangthai = 1 where MaHD =?";
     String SELECT_HOADON_YEAR = "select * from hoadon where year(NgayDonHang) = ? ";
     String SELECT_HOADON_YEAR1 = "select * from hoadon where NgayDonHang = ? ";
     String SELECT_HOADON_BAN = "select * from hoadon where maban = ?";
@@ -53,6 +53,7 @@ public class HoaDonDAO extends CoffeeDao<HoaDon, String> {
                 entity.getMaHD()
         );
     }
+
     @Override
     public void delete(String maHD) {
         JdbcHelper.executeUpdate(DELETE_SQL, maHD);
@@ -121,6 +122,11 @@ public class HoaDonDAO extends CoffeeDao<HoaDon, String> {
         String SQL = SELECT_HOADON_TRANGTHAI;
         return this.selectBySQL(SQL);
     }
+
+//    public List<HoaDon> UpdateThanhTienhoadon(String mahd,float thanhtien) {
+//        String SQL = UPDATE_THANHTIEN;
+//        return this.selectBySQL(SQL,mahd,thanhtien);
+//    }
 
     public List<HoaDon> selectThongkeHoaDon(int date) {
         String SQL = SELECT_HOADON_YEAR;
@@ -207,6 +213,7 @@ public class HoaDonDAO extends CoffeeDao<HoaDon, String> {
         }
         return tongdoanhthu;
     }
+
     public int getkhachhang(int ngay, int thang, int nam) {
         int tongkhachang = 0;
         try {

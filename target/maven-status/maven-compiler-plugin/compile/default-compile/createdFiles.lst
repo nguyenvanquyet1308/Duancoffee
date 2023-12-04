@@ -9,6 +9,7 @@ Form\Menu$24.class
 FormImport\addProduct$1.class
 Form\Staff$7.class
 Form\Menu$9.class
+Form\Staff$13.class
 Form\Custom$2.class
 Form\Menu$12.class
 Form\Staff$1.class
@@ -82,6 +83,7 @@ Form\Statistical$2.class
 Form\Custom$5.class
 JavaSwingThuVien\PasswordField1$2.class
 FormImport\addProduct$4.class
+Form\Staff$10.class
 FormImport\addStaff$4.class
 FormImport\addtable1$1.class
 FormLogin\HelloApp.class
@@ -112,6 +114,7 @@ Form\Custom$4.class
 Form\Product$1.class
 Form\Statistical$3.class
 JavaSwingThuVien\TextField.class
+Form\Staff$12.class
 Form\Menu$13.class
 Form\Menu$20.class
 FormImport\addProduct$5.class
@@ -143,6 +146,7 @@ Form\Product$3.class
 Form\Staff$6.class
 FormImport\addProduct$3.class
 Entity\HoaDon.class
+Form\Staff$11.class
 Form\Staff$5.class
 Form\Custom$7.class
 Form\Menu$4.class

@@ -69,16 +69,19 @@ public class Main extends javax.swing.JFrame {
     LocalDate ngay = LocalDate.now();
     addtable showAddtable;
     Color red = new Color(255, 51, 51);
-    int row = -1;
     Color white = new Color(193, 244, 197);
+    int row = -1;
 
     public Main() {
         initComponents();
+//        filltableSanPham();
+//        fillcomboboxLoai();
+//        filltableHoaDon();
         init();
         setLocationRelativeTo(this);
-//        Menu men= new Menu();
-//        panelMainMenu.removeAll();
-//        panelMainMenu.add(men).setVisible(true);
+        Menu men= new Menu();
+        panelMainMenu.removeAll();
+        panelMainMenu.add(men).setVisible(true);
 
     }
 
@@ -283,7 +286,9 @@ public class Main extends javax.swing.JFrame {
             }
         });
         panelMenu.add(myButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 130, 46));
-        panelMenu.add(imageAvatar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 83, 70));
+
+        imageAvatar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/parkseoJun.jpg"))); // NOI18N
+        panelMenu.add(imageAvatar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 10, 100, 80));
 
         panelMainMenu.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -316,7 +321,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(panelMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -380,9 +385,14 @@ public class Main extends javax.swing.JFrame {
 //        ClickCustomer.setBackground(clickColor);
 //        clickStaff.setBackground(Defaultcolor);
 //        clickStatistical.setBackground(Defaultcolor);
-        Custom custom = new Custom();
-        panelMainMenu.removeAll();
-        panelMainMenu.add(custom).setVisible(true);
+        if (!Auth.isManager()) {
+            DialogHelper.alert(this, "Bạn không có quyền vào xem Nhân viên");
+
+        } else {
+            Custom custom = new Custom();
+            panelMainMenu.removeAll();
+            panelMainMenu.add(custom).setVisible(true);
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_ClickCustomerMousePressed
 
@@ -420,11 +430,9 @@ public class Main extends javax.swing.JFrame {
 //        ClickCustomer.setBackground(Defaultcolor);
 //        clickStaff.setBackground(Defaultcolor);
 //        clickStatistical.setBackground(Defaultcolor);
-         Menu menu = new Menu();
-        //jPanel1.add(panelMainMenu).setVisible(true);
-        //panelMainMenu.setSize(500, 500);
-       // System.out.println("eeeeee");
-       panelMainMenu.removeAll();
+        Menu menu = new Menu();
+        // System.out.println("eeeeee");
+        panelMainMenu.removeAll();
         panelMainMenu.add(menu).setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_clickMenuMousePressed

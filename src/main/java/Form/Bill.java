@@ -152,10 +152,10 @@ public class Bill extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tablehoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablehoadonMouseClicked
-//        if (evt.getClickCount() == 2) {
-//            this.row = tablehoadon.getSelectedRow();
-//            this.edit();
-//        }
+        if (evt.getClickCount() == 2) {
+            this.row = tablehoadon.getSelectedRow();
+            this.edit();
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_tablehoadonMouseClicked
 

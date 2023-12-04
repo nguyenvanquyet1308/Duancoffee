@@ -47,7 +47,7 @@ public class Staff extends javax.swing.JInternalFrame {
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
         //    filltable();
-        filltableSanPham();
+        filltablenhanvien();
         addstaff = new addStaff();
 
     }
@@ -62,6 +62,10 @@ public class Staff extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
+        buttonGroup3 = new javax.swing.ButtonGroup();
+        buttonGroup4 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableNhanVien = new javax.swing.JTable();
@@ -72,7 +76,6 @@ public class Staff extends javax.swing.JInternalFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        btnHuy = new JavaSwingThuVien.MyButton();
         txtmaNhanVien = new JavaSwingThuVien.TextField();
         txttenNhanVien = new JavaSwingThuVien.TextField();
         txtsdt = new JavaSwingThuVien.TextField();
@@ -145,19 +148,30 @@ public class Staff extends javax.swing.JInternalFrame {
         });
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Right Arrow.png"))); // NOI18N
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Circled Right.png"))); // NOI18N
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Go Back.png"))); // NOI18N
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Left Arrow.png"))); // NOI18N
-
-        btnHuy.setText("Hủy ");
-        btnHuy.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnHuy.setRadius(20);
-        btnHuy.addActionListener(new java.awt.event.ActionListener() {
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHuyActionPerformed(evt);
+                jButton7ActionPerformed(evt);
             }
         });
 
@@ -176,6 +190,7 @@ public class Staff extends javax.swing.JInternalFrame {
 
         txtmatKhau.setLabelText("Mật khẩu");
 
+        buttonGroup1.add(rdoquanLy);
         rdoquanLy.setText("Quản lý");
 
         lblhinhAnh.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Hình ảnh", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
@@ -185,14 +200,17 @@ public class Staff extends javax.swing.JInternalFrame {
             }
         });
 
+        buttonGroup1.add(rdonhanVien);
         rdonhanVien.setText("Nhân viên");
 
+        buttonGroup2.add(rdoNam);
         rdoNam.setText("Nam");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(51, 51, 51));
         jLabel7.setText("Gioi tính: ");
 
+        buttonGroup2.add(rdoNu);
         rdoNu.setText("Nữ");
 
         btnThem1.setText("Thêm");
@@ -216,6 +234,11 @@ public class Staff extends javax.swing.JInternalFrame {
         btnMoi.setText("Mới");
         btnMoi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnMoi.setRadius(20);
+        btnMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoiActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -261,22 +284,18 @@ public class Staff extends javax.swing.JInternalFrame {
                                 .addComponent(btnThem1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(27, 27, 27)
                                 .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(27, 27, 27)
+                                .addComponent(btnMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(rdoquanLy)
-                                .addGap(18, 18, 18)
+                                .addGap(13, 13, 13)
                                 .addComponent(rdonhanVien)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(rdoNam)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(rdoNu)
-                                .addGap(84, 84, 84))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)))))
+                        .addGap(13, 13, 13)
+                        .addComponent(rdoNu)
+                        .addGap(84, 84, 84)))
                 .addGap(17, 17, 17))
         );
         jPanel1Layout.setVerticalGroup(
@@ -326,8 +345,7 @@ public class Staff extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnThem1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
@@ -354,7 +372,7 @@ public class Staff extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void tableNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableNhanVienMouseClicked
-        if (evt.getClickCount() == 2) {
+        if (evt.getClickCount() == 1) {
             this.row = tableNhanVien.getSelectedRow();
             this.edit();
         }
@@ -368,14 +386,9 @@ public class Staff extends javax.swing.JInternalFrame {
 
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
         //   filltable();
-        filltableSanPham();
+        filltablenhanvien();
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTimKiemActionPerformed
-
-    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
-        this.dispose();
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnHuyActionPerformed
 
     private void lblhinhAnhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblhinhAnhMouseClicked
 
@@ -393,14 +406,39 @@ public class Staff extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSuaActionPerformed
 
+    private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
+        Moi();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnMoiActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        first();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        last();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        next();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        prev();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JavaSwingThuVien.MyButton btnHuy;
     private JavaSwingThuVien.MyButton btnMoi;
     private JavaSwingThuVien.MyButton btnSua;
     private JavaSwingThuVien.MyButton btnThem;
     private JavaSwingThuVien.MyButton btnThem1;
     private JavaSwingThuVien.MyButton btnXoa;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
+    private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -500,8 +538,8 @@ public class Staff extends javax.swing.JInternalFrame {
         txtmaNhanVien.setText(nv.getMaNV());
         rdoNam.setSelected(nv.getGioiTinh());
         rdoNu.setSelected(!nv.getGioiTinh());
-        rdonhanVien.setSelected(nv.getChucVu());
-        rdoquanLy.setSelected(!nv.getChucVu());
+        rdonhanVien.setSelected(!nv.getChucVu());
+        rdoquanLy.setSelected(nv.getChucVu());
         ImageIcon imageIcon = new ImageIcon(nv.getHinhanh());
         lblhinhAnh.setIcon(imageIcon);
     }
@@ -531,7 +569,7 @@ public class Staff extends javax.swing.JInternalFrame {
         }
     }
 
-    void filltableSanPham() {
+    void filltablenhanvien() {
         MyQuery mq = new MyQuery();
         String keyword = txtTimKiem.getText();
         ArrayList<NhanVien> list = mq.selectByKeywordSaff(keyword);
@@ -543,7 +581,7 @@ public class Staff extends javax.swing.JInternalFrame {
             rows[i][2] = list.get(i).getTenNV();
             rows[i][3] = list.get(i).getSDT();
             rows[i][4] = list.get(i).getDiaChi();
-            rows[i][5] = list.get(i).getChucVu() ? "Nhân Viên" : "Quản lý";
+            rows[i][5] = list.get(i).getChucVu() ? "Quản lý" : "Nhân Viên";
             rows[i][6] = list.get(i).getGioiTinh() ? "Nam" : "Nữ";
             if (list.get(i).getHinhanh() != null) {
                 ImageIcon image = new ImageIcon(new ImageIcon(list.get(i).getHinhanh()).getImage().getScaledInstance(110, 80, Image.SCALE_SMOOTH));
@@ -559,10 +597,14 @@ public class Staff extends javax.swing.JInternalFrame {
     }
 
     void insertNhanVien() {
+        if (kiemthunhanvien() == false) {
+            return;
+        }
         NhanVien model = getForm();
         try {
             daonv.insert(model);
             DialogHelper.alert(this, "Thêm mới thành công!");
+            filltablenhanvien();
         } catch (Exception e) {
             DialogHelper.alert(this, "Thêm mới thất bại!");
             System.out.println(e);
@@ -573,11 +615,86 @@ public class Staff extends javax.swing.JInternalFrame {
         NhanVien nv = getForm();
         try {
             daonv.update(nv);
-            filltableSanPham();
+            filltablenhanvien();
             DialogHelper.alert(this, "Sửa nhân viên thành công");
         } catch (Exception e) {
             DialogHelper.alert(this, "Lỗi sửa nhân viên");
         }
+    }
+
+    public void Moi() {
+        txtdiaChi.setText("");
+        txtmaNhanVien.setText("");
+        txtmatKhau.setText("");
+        txtsdt.setText("");
+        txttenNhanVien.setText("");
+        buttonGroup1.clearSelection();
+        buttonGroup2.clearSelection();
+        lblhinhAnh.setIcon(null);
+    }
+
+    boolean kiemthunhanvien() {
+        if (txtmaNhanVien.getText().equals("")) {
+            DialogHelper.alert(this, "Bạn cần điền mã nhân viên !");
+            return false;
+        }
+        if (txtdiaChi.getText().equals("")) {
+            DialogHelper.alert(this, "Bạn cần điền địa chỉ nhân viên !");
+            return false;
+        }
+        if (txtmatKhau.getText().equals("")) {
+            DialogHelper.alert(this, "Bạn cần điền mật khẩu nhân viên !");
+            return false;
+        }
+        if (txtsdt.getText().equals("")) {
+            DialogHelper.alert(this, "Bạn cần điền SDT nhân viên !");
+            return false;
+        }
+        if (txttenNhanVien.getText().equals("")) {
+            DialogHelper.alert(this, "Bạn cần điền Tên nhân viên !");
+            return false;
+        }
+        if (!rdoNam.isSelected() && !rdoNam.isSelected()) {
+            DialogHelper.alert(this, "Bạn cần chọn giới tính cho nhân viên !");
+            return false;
+        }
+        if (!rdonhanVien.isSelected() && !rdoquanLy.isSelected()) {
+            DialogHelper.alert(this, "Bạn cần chọn chức vụ !");
+            return false;
+        }
+        List<NhanVien> nv = daonv.selectAll();
+        for (NhanVien nhanVien : nv) {
+            if (txtmaNhanVien.getText().equals(nhanVien.getMaNV())) {
+                DialogHelper.alert(this, "Mã nhân viên đã có !");
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    void first() {
+        this.row = 0;
+        this.edit();
+    }
+
+    void prev() {
+        if (this.row > 0) {
+            this.row--;
+            this.edit();
+        }
+    }
+
+    void next() {
+        if (this.row < tableNhanVien.getRowCount() - 1) {
+            this.row++;
+            this.edit();
+        }
+    }
+
+    void last() {
+        this.row = tableNhanVien.getRowCount() - 1;
+        this.edit();
     }
 
 }

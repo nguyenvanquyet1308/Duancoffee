@@ -22,8 +22,9 @@ public class ChiTietHoaDonDAO extends CoffeeDao<ChiTietHoaDon, Integer> {
     String UPDATE_SQL = "UPDATE ChiTietHoaDon SET MaHD = ?,MaSP =?,SoLuong=?,GiaTien =? where ChiTietHoaDon=?";
     String DELETE_SQL = "DELETE FROM ChiTietHoaDon WHERE MaHDCT=?";
     String SELECT_ALL_SQL = "SELECT * FROM ChiTietHoaDon";
-    String SELETE_INNER_IOIN = "select mahdct,mahd,TenSp,soluong,giatien * soluong as GiaTien from ChiTietHoaDon inner join SanPham on ChiTietHoaDon.MaSP = SanPham.MaSP WHERE MaHD =?";
+    String SELETE_INNER_IOIN = "select mahdct,mahd,sanpham.MaSP,TenSp,soluong,giatien * soluong as GiaTien from ChiTietHoaDon inner join SanPham on ChiTietHoaDon.MaSP = SanPham.MaSP WHERE MaHD = ?";
     String SELECT_BY_ID_SQL = "SELECT * FROM ChiTietHoaDon WHERE ChiTietHoaDon=?";
+    String UPDATE_SOLUONG = "UPDATE CHITIETHOADON SET SOLUONG = ? WHERE MASP = ?";
 
     @Override
     public void insert(ChiTietHoaDon entity) {
@@ -48,12 +49,12 @@ public class ChiTietHoaDonDAO extends CoffeeDao<ChiTietHoaDon, Integer> {
 
     @Override
     public void delete(Integer maHDCT) {
-         JdbcHelper.executeUpdate(DELETE_SQL, maHDCT);
+        JdbcHelper.executeUpdate(DELETE_SQL, maHDCT);
     }
 
     @Override
     public ChiTietHoaDon selectById(Integer maHDCT) {
-           List<ChiTietHoaDon> list = this.selectBySQL(SELECT_BY_ID_SQL, maHDCT);
+        List<ChiTietHoaDon> list = this.selectBySQL(SELECT_BY_ID_SQL, maHDCT);
         if (list.isEmpty()) {
             return null;
         }
@@ -62,19 +63,20 @@ public class ChiTietHoaDonDAO extends CoffeeDao<ChiTietHoaDon, Integer> {
 
     @Override
     public List<ChiTietHoaDon> selectAll() {
-         return this.selectBySQL(SELETE_INNER_IOIN);
+        return this.selectBySQL(SELETE_INNER_IOIN);
     }
+
     @Override
     protected List<ChiTietHoaDon> selectBySQL(String sql, Object... args) {
-          List<ChiTietHoaDon> list = new ArrayList<>();
+        List<ChiTietHoaDon> list = new ArrayList<>();
         try {
             ResultSet rs = JdbcHelper.executeQuery(sql, args);
             while (rs.next()) {
                 ChiTietHoaDon entity = new ChiTietHoaDon();
                 entity.setHoaDonCT(rs.getInt("MaHDCT"));
                 entity.setMaHD(rs.getString("MaHD"));
+                entity.setMaSP(rs.getString("MaSP"));
                 entity.setTenSP(rs.getString("TenSP"));
-           //     entity.setMaSP(rs.getString("MaSP"));
                 entity.setSoLuong(rs.getInt("SoLuong"));
                 entity.setGiaTien(rs.getFloat("GiaTien"));
                 list.add(entity);
@@ -86,10 +88,24 @@ public class ChiTietHoaDonDAO extends CoffeeDao<ChiTietHoaDon, Integer> {
             throw new RuntimeException(e);
         }
     }
+
     public List<ChiTietHoaDon> selectMaHD(String maHD) {
         String SQL = SELETE_INNER_IOIN;
         return selectBySQL(SQL, maHD);
     }
-    
+
+    public void updateSoluong(int soluong, String masp) {
+        JdbcHelper.executeUpdate(UPDATE_SOLUONG, soluong, masp);
+    }
+
+    public List<ChiTietHoaDon> selectSoLuong(String masp) {
+        String SQL = "select Soluong from chitiethoadon where masp = ?";
+        return selectBySQL(SQL, masp);
+    }
+
+    public List<ChiTietHoaDon> selectMaHD1(String mahd) {
+        String SQL = "select * from chitiethoadon where MaHD = ?";
+        return selectBySQL(SQL, mahd);
+    }
 
 }
