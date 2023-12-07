@@ -104,7 +104,7 @@ public class ChiTietHoaDonDAO extends CoffeeDao<ChiTietHoaDon, Integer> {
     }
 
     public List<ChiTietHoaDon> selectMaHD1(String mahd) {
-        String SQL = "select * from chitiethoadon where MaHD = ?";
+        String SQL = SELETE_INNER_IOIN;
         return selectBySQL(SQL, mahd);
     }
 

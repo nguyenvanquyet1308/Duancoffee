@@ -53,6 +53,8 @@ public class Bill extends javax.swing.JInternalFrame {
         tablehoadon = new javax.swing.JTable();
         btnxoahd = new JavaSwingThuVien.MyButton();
         txtTimKiem = new JavaSwingThuVien.TextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablechitiethoadon = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
@@ -108,20 +110,43 @@ public class Bill extends javax.swing.JInternalFrame {
             }
         });
 
+        tablechitiethoadon.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "MaHDCT", "MaHD", "MaSP", "SoLuong", "GiaTien"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tablechitiethoadon);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnxoahd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 932, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTimKiem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(45, Short.MAX_VALUE))
+                    .addComponent(txtTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,11 +154,13 @@ public class Bill extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnxoahd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnxoahd, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40))
         );
 
@@ -154,6 +181,8 @@ public class Bill extends javax.swing.JInternalFrame {
     private void tablehoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablehoadonMouseClicked
         if (evt.getClickCount() == 2) {
             this.row = tablehoadon.getSelectedRow();
+            String mahd = (String) tablehoadon.getValueAt(row, 0);
+            filsltableHDCT(mahd);
             this.edit();
         }
         // TODO add your handling code here:
@@ -181,25 +210,27 @@ public class Bill extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JavaSwingThuVien.MyButton btnxoahd;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private JavaSwingThuVien.MyButton myButton1;
+    private javax.swing.JTable tablechitiethoadon;
     private javax.swing.JTable tablehoadon;
     private JavaSwingThuVien.TextField txtTimKiem;
     // End of variables declaration//GEN-END:variables
-//  public void filsltableHDCT() {
-//        DefaultTableModel model = (DefaultTableModel) table.getModel();
-//        model.setRowCount(0);
-//        try {
-//            List<ChiTietHoaDon> list = daohdct.selectAll();
-//            for (ChiTietHoaDon cthd : list) {
-//                Object[] row = {cthd.getHoaDonCT(), cthd.getMaHD(), cthd.getMaSP(), cthd.getSoLuong(), cthd.getGiaTien()};
-//                model.addRow(row);
-//            }
-//        } catch (Exception e) {
-//            DialogHelper.alert(this, "Lỗi filltable Hóa đơn chi tiết ");
-//            System.out.println(e);
-//        }
-//    }
+  public void filsltableHDCT(String mahd) {
+        DefaultTableModel model = (DefaultTableModel) tablechitiethoadon.getModel();
+        model.setRowCount(0);
+        try {
+            List<ChiTietHoaDon> list = daohdct.selectMaHD1(mahd);
+            for (ChiTietHoaDon cthd : list) {
+                Object[] row = {cthd.getHoaDonCT(), cthd.getMaHD(), cthd.getMaSP(), cthd.getSoLuong(), cthd.getGiaTien()};
+                model.addRow(row);
+            }
+        } catch (Exception e) {
+            DialogHelper.alert(this, "Lỗi filltable Hóa đơn chi tiết ");
+            System.out.println(e);
+        }
+    }
 
     public void filltableHoaDon() {
         DefaultTableModel model = (DefaultTableModel) tablehoadon.getModel();
@@ -228,10 +259,29 @@ public class Bill extends javax.swing.JInternalFrame {
                     daohd.delete(Mahd);
                     DialogHelper.alert(this, "Xóa hóa đơn thành công");
                     filltableHoaDon();
+                    filsltableHDCT(Mahd);
                 }
             }
         } catch (Exception e) {
             DialogHelper.alert(this, "Lỗi khi xóa hóa đơn");
+            System.out.println(e);
+        }
+    }
+
+    public void deleteHdct() {
+        try {
+            int[] rows = tablechitiethoadon.getSelectedRows();
+            if (rows.length > 0) {
+                for (int row : rows) {
+                    int mahdct = (Integer) tablechitiethoadon.getValueAt(row, 0);
+                    String Mahd = (String) tablehoadon.getValueAt(row, 0);
+                    daohdct.delete(mahdct);
+                    filltableHoaDon();
+                 //   filsltableHDCT(Mahd);
+                    System.out.println("xoa");
+                }
+            }
+        } catch (Exception e) {
             System.out.println(e);
         }
     }

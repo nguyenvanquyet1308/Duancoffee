@@ -102,6 +102,7 @@ public class SanPhamDAO extends CoffeeDao<SanPham, String> {
         }
         return con;
     }
+
     public ArrayList<SanPham> BindTable() {
         ArrayList<SanPham> list = new ArrayList<SanPham>();
         Connection con = getConnection();
@@ -127,9 +128,11 @@ public class SanPhamDAO extends CoffeeDao<SanPham, String> {
         }
         return list;
     }
+
     public List<SanPham> selectByKeyword(String keyword) {
         String SQL = "SELECT * FROM SanPham WHERE TenSP LIKE ?";
         return this.selectBySQL(SQL, "%" + keyword + "%");
     }
+     
 
 }

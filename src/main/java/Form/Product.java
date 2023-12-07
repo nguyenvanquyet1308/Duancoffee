@@ -142,9 +142,9 @@ public class Product extends javax.swing.JInternalFrame {
         });
 
         textField1.setLabelText("Tìm kiếm sản phẩm");
-        textField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textField1ActionPerformed(evt);
+        textField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textField1KeyReleased(evt);
             }
         });
 
@@ -270,9 +270,10 @@ public class Product extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnXoaLoaiActionPerformed
 
-    private void textField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textField1ActionPerformed
+    private void textField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textField1KeyReleased
+
+        filltable();        // TODO add your handling code here:
+    }//GEN-LAST:event_textField1KeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -352,6 +353,7 @@ public class Product extends javax.swing.JInternalFrame {
             }
         }
     }
+
     public void deleteType() {
         if (!Auth.isManager()) {
             DialogHelper.alert(this, "Bạn không có quyền xóa học viên!");

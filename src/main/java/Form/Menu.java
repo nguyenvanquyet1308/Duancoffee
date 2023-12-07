@@ -22,6 +22,10 @@ import ThuVien.JdbcHelper;
 import ThuVien.XDate;
 import java.awt.Color;
 import java.awt.Image;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -34,8 +38,14 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -59,6 +69,7 @@ public class Menu extends javax.swing.JInternalFrame {
     int width = 421;
     int height = 374;
     int row = -1;
+    ArrayList<ChiTietHoaDon> arr = new ArrayList<ChiTietHoaDon>();
 
     public Menu() {
         initComponents();
@@ -172,6 +183,11 @@ public class Menu extends javax.swing.JInternalFrame {
 
         cbxLoai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbxLoai.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        cbxLoai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxLoaiActionPerformed(evt);
+            }
+        });
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel14.setText("Loại: ");
@@ -332,6 +348,11 @@ public class Menu extends javax.swing.JInternalFrame {
         txttimkiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txttimkiemActionPerformed(evt);
+            }
+        });
+        txttimkiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txttimkiemKeyReleased(evt);
             }
         });
 
@@ -1125,12 +1146,13 @@ public class Menu extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tableSanPhamMouseClicked
 
     private void txttimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttimkiemActionPerformed
-        filltableSanPham();
+//        filltableSanPham();
         // TODO add your handling code here:
     }//GEN-LAST:event_txttimkiemActionPerformed
 
     private void btnDuavaohoadonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuavaohoadonActionPerformed
         updateDuaVaohoadon();
+        inhoadon();
         Menu menu = new Menu();
         menu.repaint();
         // TODO add your handling code here:
@@ -1188,7 +1210,8 @@ public class Menu extends javax.swing.JInternalFrame {
         lblBan.setText(giatri);
         Moi();
         newSP();
-        selectBanchuathanhtoan(lblBan.getText());        // TODO add your handling code here:
+        selectBanchuathanhtoan(lblBan.getText());
+// TODO add your handling code here:
     }//GEN-LAST:event_jpanelban2MousePressed
 
     private void jpanelban3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpanelban3MousePressed
@@ -1196,7 +1219,8 @@ public class Menu extends javax.swing.JInternalFrame {
         lblBan.setText(giatri);
         Moi();
         newSP();
-        selectBanchuathanhtoan(lblBan.getText());        // TODO add your handling code here:
+        selectBanchuathanhtoan(lblBan.getText());
+        // TODO add your handling code here:
     }//GEN-LAST:event_jpanelban3MousePressed
 
     private void jpanelban4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpanelban4MousePressed
@@ -1274,6 +1298,16 @@ public class Menu extends javax.swing.JInternalFrame {
         selectBanchuathanhtoan(lblBan.getText());
         // TODO add your handling code here:
     }//GEN-LAST:event_jpanelban12MousePressed
+
+    private void txttimkiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttimkiemKeyReleased
+        filltableSanPham();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txttimkiemKeyReleased
+
+    private void cbxLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxLoaiActionPerformed
+        filltableTheoLoai();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxLoaiActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1362,14 +1396,6 @@ public class Menu extends javax.swing.JInternalFrame {
     private JavaSwingThuVien.TextField txttenKh;
     private JavaSwingThuVien.TextField txttimkiem;
     // End of variables declaration//GEN-END:variables
-//    void fillcomboBoxBan() {
-//        DefaultComboBoxModel model = (DefaultComboBoxModel) cbxMaBan.getModel();
-//        model.removeAllElements();
-//        List<Ban> list = daoBan.selectAll();
-//        for (Ban kh : list) {
-//            model.addElement(kh);
-//        }
-//    }
 
     void filltableSanPham() {
         MyQuery mq = new MyQuery();
@@ -1400,6 +1426,7 @@ public class Menu extends javax.swing.JInternalFrame {
 //        if (txtmaHoaDon.getText().equals("")) {
 //            DialogHelper.alert(this, "Bàn này không có hóa đơn đang chờ");
 //        }
+        arr.clear();
         DefaultTableModel model = (DefaultTableModel) tableHDCT.getModel();
         model.setRowCount(0);
         try {
@@ -1408,6 +1435,8 @@ public class Menu extends javax.swing.JInternalFrame {
             for (ChiTietHoaDon hdct : list) {
                 Object[] row = {hdct.getHoaDonCT(), hdct.getMaHD(), hdct.getMaSP(), hdct.getTenSP(), hdct.getSoLuong(), hdct.getGiaTien()};
                 model.addRow(row);
+                ChiTietHoaDon cthd = new ChiTietHoaDon(hdct.getHoaDonCT(), hdct.getMaHD(), hdct.getMaSP(), hdct.getTenSP(), hdct.getSoLuong(), hdct.getGiaTien());
+                arr.add(cthd);
             }
         } catch (Exception e) {
             System.out.println("lỗi filltable hdct: " + e);
@@ -1547,16 +1576,19 @@ public class Menu extends javax.swing.JInternalFrame {
         }
         ChiTietHoaDon hdct = getFormCTHD();
         try {
+            boolean kiemtra = false;
             int tongsoluong;
             List<ChiTietHoaDon> list = daohdct.selectMaHD(mahd);
             for (ChiTietHoaDon chiTietHoaDon : list) {
                 System.out.println("đã chạy đến đây" + list);
-                if (chiTietHoaDon.getMaSP().equals(masp) == true) {
+                if (chiTietHoaDon.getMaSP().equals(masp)) {
                     int soluong = chiTietHoaDon.getSoLuong();
                     tongsoluong = soluong + soluong1;
                     System.out.println("masp: " + chiTietHoaDon.getMaSP().equals(lblmaSP.getText()));
                     System.out.println("so luong; " + soluong);
                     daohdct.updateSoluong(tongsoluong, masp);
+                    kiemtra = true;
+                    break;
 //                for (int i = 0; i < rowcout; i++) {
 //                    Object masp = tableHDCT.getValueAt(i, 3);
 //                    //tongsoluong = soluong + Integer.parseInt((String) spinnerSoLuong.getValue());
@@ -1564,9 +1596,11 @@ public class Menu extends javax.swing.JInternalFrame {
 ////                        List<ChiTietHoaDon> soluong = daohdct.selectSoLuong((String) masp);
 ////                        hdct.setSoLuong(tongsoluong);
 //                        daohdct.updateSoluong((String) masp,tongsoluong);
-                } else {
-                    daohdct.insert(hdct);
                 }
+            }
+            if (!kiemtra) {
+                // Nếu không tìm thấy, thêm mới hdct
+                daohdct.insert(hdct);
             }
             fillTableHDCT();
             spinnerSoLuong.setValue(1);
@@ -1636,13 +1670,14 @@ public class Menu extends javax.swing.JInternalFrame {
             pstt.setFloat(1, Float.parseFloat(lblthanhTien.getText()));
             pstt.setString(2, txtmaHoaDon.getText());
             pstt.executeUpdate();
-            DialogHelper.alert(this, "Đưa vào hóa đơn thành công");
+            //  DialogHelper.alert(this, "Đưa vào hóa đơn thành công");
+            System.out.println("đưa vào hóa đơn thành công");
 ////            String giatri = lblban2.getText();
 ////            lblBan.setText(giatri);
             String maban = lblBan.getText();
             trangthaiban1(maban);
             Moi();
-            selectBanchuathanhtoan(maban);
+            //  selectBanchuathanhtoan(maban);
             con.close();
         } catch (Exception e) {
             DialogHelper.alert(this, "lỖI ĐƯA VÒA HĐ");
@@ -1702,6 +1737,10 @@ public class Menu extends javax.swing.JInternalFrame {
             DialogHelper.alert(this, "Không được bỏ trống Mã hóa đơn");
             return false;
         }
+        if (txtmaHoaDon.getText().trim().length() > 7) {
+            DialogHelper.alert(this, "Mã hóa đơn không quá 7 ký tự");
+            return false;
+        }
         if (txtmaKH.getText().equals("")) {
             DialogHelper.alert(this, "Không được bỏ trống mã khách hàng");
             return false;
@@ -1716,6 +1755,10 @@ public class Menu extends javax.swing.JInternalFrame {
         }
         if (lblBan.getText().equalsIgnoreCase("")) {
             DialogHelper.alert(this, "Vui lòng chọn bàn!");
+            return false;
+        }
+        if (txtsdt.getText().matches("/d") || txtsdt.getText().length() > 10) {
+            DialogHelper.alert(this, "SDT phải là số và bé hơn 10");
             return false;
         }
         List<KhachHang> list = daokh.selectAll();
@@ -1804,7 +1847,7 @@ public class Menu extends javax.swing.JInternalFrame {
                     //System.out.println("mabanlaytutrangthai: " + hoaDon.getMaBan());
                     String banchuathanhtoan = hoaDon.getMaBan();
                     trangthaiban(banchuathanhtoan);
-                    System.out.println("-- : " + banchuathanhtoan);
+                    //   System.out.println("-- : " + banchuathanhtoan);
                 }
 //                if (hoaDon.getTrangThai() == true) {
 //                    String bandathanhtoan = hoaDon.getMaBan();
@@ -1935,4 +1978,117 @@ public class Menu extends javax.swing.JInternalFrame {
 //            System.out.println(e);
 //        }
 //    }
+    public void inhoadon() {
+
+        //String mahd = txtmaHoaDon.getText();
+        //  List<InHoaDon> list = daoinhd.selectInhoadon(mahd);
+        //    arr.add((InHoaDon) list);
+        //  System.out.println(list);
+        try {
+            XSSFWorkbook wordkbook = new XSSFWorkbook();
+            XSSFSheet sheet = wordkbook.createSheet("HoaDon");
+            XSSFRow row = null;
+            Cell cell = null;
+            row = sheet.createRow(2);
+            cell = row.createCell(0, CellType.STRING);
+            cell.setCellValue("Hóa đơn");
+
+            row = sheet.createRow(3);
+            cell = row.createCell(0, CellType.STRING);
+            cell.setCellValue("MaHD");
+            cell = row.createCell(1, CellType.STRING);
+            cell.setCellValue("MaSP");
+            cell = row.createCell(2, CellType.STRING);
+            cell.setCellValue("TenSP");
+            cell = row.createCell(3, CellType.STRING);
+            cell.setCellValue("SoLuong");
+            cell = row.createCell(4, CellType.STRING);
+            cell.setCellValue("GiaTien");
+//            cell = row.createCell(5, CellType.STRING);
+//            cell.setCellValue("SoLuong");
+//            cell = row.createCell(6, CellType.STRING);
+//            cell.setCellValue("ThanhTien");
+            float tongtien = 0;
+            for (int i = 0; i < arr.size(); i++) {
+                row = sheet.createRow(4 + i);
+
+                cell = row.createCell(0, CellType.NUMERIC);
+                cell.setCellValue(i + 1);
+
+                cell = row.createCell(1, CellType.STRING);
+                cell.setCellValue(arr.get(i).getMaHD());
+
+                cell = row.createCell(2, CellType.STRING);
+                cell.setCellValue(arr.get(i).getMaSP());
+
+                cell = row.createCell(3, CellType.STRING);
+                cell.setCellValue(arr.get(i).getTenSP());
+
+                cell = row.createCell(4, CellType.STRING);
+                cell.setCellValue(arr.get(i).getSoLuong());
+
+                cell = row.createCell(5, CellType.STRING);
+                cell.setCellValue(arr.get(i).getGiaTien());
+                tongtien += arr.get(i).getGiaTien();
+
+//                cell = row.createCell(6, CellType.STRING);
+//                cell.setCellValue(arr.get(i).getSoluong);
+            }
+            row = sheet.createRow(4 + arr.size());
+            cell = row.createCell(0, CellType.STRING);
+            cell.setCellValue("Tổng tiền : ");
+            row = sheet.createRow(4 + arr.size());
+            cell = row.createCell(5, CellType.NUMERIC);
+            cell.setCellValue(tongtien);
+
+            File f = new File("C://Users//nguyenvanquyet//Desktop//HoaDon.xlsx");
+            try {
+                FileOutputStream fis = new FileOutputStream(f);
+                wordkbook.write(fis);
+                fis.close();
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
+            JOptionPane.showMessageDialog(this, "in thành công ngoài desktop");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Lỗi in file");
+        }
+
+    }
+
+    void filltableTheoLoai() {
+        MyQuery mq = new MyQuery();
+        Entity.Loai keyword = (Entity.Loai) cbxLoai.getSelectedItem();
+        if (keyword != null) {
+            String keywork1 = keyword.getTenLoai();
+
+            ArrayList<Product2> list = (ArrayList<Product2>) mq.selectTheoTenLoai(keywork1);
+            String[] columnName = {"MaSP", "TenSP", "Gia", "MaLoai", "MoTa", "HinhAnh"};
+            Object[][] rows = new Object[list.size()][6];
+            for (int i = 0; i < list.size(); i++) {
+                rows[i][0] = list.get(i).getMaSP();
+                rows[i][1] = list.get(i).getTenSP();
+                rows[i][2] = list.get(i).getGia();
+                rows[i][3] = list.get(i).getMaLoai();
+                rows[i][4] = list.get(i).getMoTa();
+                if (list.get(i).getHinhanh() != null) {
+                    ImageIcon image = new ImageIcon(new ImageIcon(list.get(i).getHinhanh()).getImage().getScaledInstance(100, 70, Image.SCALE_SMOOTH));
+                    rows[i][5] = image;
+                } else {
+                    rows[i][5] = null;
+                }
+            }
+            TheModel model = new TheModel(rows, columnName);
+            tableSanPham.setModel(model);
+            tableSanPham.setRowHeight(70);
+            tableSanPham.getColumnModel().getColumn(5).setPreferredWidth(100);
+        }
+    }
+
 }

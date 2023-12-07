@@ -55,6 +55,7 @@ public class LoaiDAO extends CoffeeDao<Loai, String> {
                return this.selectBySQL(SELECT_ALL_SQL);
 
     }
+ 
 
     @Override
     protected List<Loai> selectBySQL(String sql, Object... args) {

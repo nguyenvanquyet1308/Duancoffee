@@ -86,6 +86,11 @@ public class MyQuery {
         return this.selectBySQL(SQL, "%" + keyword + "%");
     }
 
+    public List<Product2> selectTheoTenLoai(String keyword) {
+        String SQL = "select Masp,tensp,gia,sanpham.maloai,mota,hinhanh from sanpham inner join loai on loai.MaLoai = SanPham.MaLoai where TenLoai like ?";
+        return this.selectBySQL(SQL, "%" + keyword + "%");
+    }
+
     protected ArrayList<NhanVien> selectBySQLStaff(String sql, Object... args) {
         ArrayList<NhanVien> list = new ArrayList<>();
         try {
@@ -113,4 +118,5 @@ public class MyQuery {
         String SQL = "SELECT * FROM NhanVien WHERE TenNV LIKE ?";
         return this.selectBySQLStaff(SQL, "%" + keyword + "%");
     }
+
 }

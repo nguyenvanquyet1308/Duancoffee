@@ -28,7 +28,7 @@ public class HoaDonDAO extends CoffeeDao<HoaDon, String> {
     String SELECT_HOADON_YEAR1 = "select * from hoadon where NgayDonHang = ? ";
     String SELECT_HOADON_BAN = "select * from hoadon where maban = ?";
     String SELECT_HOADON_TRANGTHAI = "select * from hoadon where trangthai = 0";
-
+    String SELECT_INHOADON = "select hoadon.mahd,manv,ngaydonhang,tensp,giatien,soluong,thanhtien from hoadon inner join ChiTietHoaDon on ChiTietHoaDon.MaHD = HoaDon.MaHD inner join SanPham on SanPham.MaSP = ChiTietHoaDon.MaSP where hoadon.mahd = ?";
     @Override
     public void insert(HoaDon entity) {
         JdbcHelper.executeUpdate(INSERT_SQL,
@@ -137,6 +137,12 @@ public class HoaDonDAO extends CoffeeDao<HoaDon, String> {
         String SQL = SELECT_HOADON_YEAR1;
         return this.selectBySQL(SQL, date);
     }
+     public List<HoaDon> selectInhoadon(String mahd) {
+        String SQL = SELECT_INHOADON;
+        return this.selectBySQL(SQL, mahd);
+    }
+    
+    
 
     public int getDoanhThu(int nam) {
         int doanhthu = 0;

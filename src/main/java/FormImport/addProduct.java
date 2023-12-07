@@ -11,6 +11,7 @@ import Entity.SanPham;
 import JavaSwingThuVien.MyQuery;
 import JavaSwingThuVien.Product2;
 import JavaSwingThuVien.TheModel;
+import ThuVien.Auth;
 import ThuVien.DialogHelper;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -39,6 +40,8 @@ public class addProduct extends javax.swing.JDialog {
     SanPhamDAO daosp = new SanPhamDAO();
     LoaiDAO daoloai = new LoaiDAO();
     JFileChooser fileChooser = new JFileChooser("H:\\MonDuAn1\\BaiTap\\Duancoffee\\src\\main\\java\\ImageProduct");
+    List<Loai> listaddproduct = new ArrayList<>();
+    int indexLoai;
 
     public addProduct() {
         initComponents();
@@ -106,6 +109,11 @@ public class addProduct extends javax.swing.JDialog {
         jScrollPane4.setViewportView(txtmoTa);
 
         cbxLoai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxLoai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxLoaiActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -196,6 +204,11 @@ public class addProduct extends javax.swing.JDialog {
         btnXoa.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnXoa.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnXoa.setRadius(20);
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
 
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Insert.png"))); // NOI18N
         btnThem.setText("Thêm");
@@ -281,7 +294,13 @@ public class addProduct extends javax.swing.JDialog {
         if (evt.getClickCount() == 2) {
             this.row = TableSP.getSelectedRow();
             Object Maloai = TableSP.getValueAt(row, 3);
-            cbxLoai.setSelectedItem("L123");
+            for (Loai loai : listaddproduct) {
+                if (Maloai.equals(loai.getMaLoai())) {
+                    cbxLoai.setSelectedItem(loai.getTenLoai());
+                }
+            }
+            //   listaddproduct.add((Loai) Maloai);
+            //   cbxLoai.setSelectedIndex(listaddproduct.get(TableSP.).getTenLoai());
             System.out.println(Maloai);
             this.edit();
         }
@@ -312,6 +331,15 @@ public class addProduct extends javax.swing.JDialog {
         UpdateSanPham();
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void cbxLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxLoaiActionPerformed
+        indexLoai = cbxLoai.getSelectedIndex();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxLoaiActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        deleteProduct();        // TODO add your handling code here:
+    }//GEN-LAST:event_btnXoaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -433,7 +461,10 @@ public class addProduct extends javax.swing.JDialog {
         sp.setTenSP(txttenSP.getText());
         sp.setGia(Float.parseFloat(txtGia.getText()));
         sp.setMoTa(txtmoTa.getText());
-        sp.setMaLoai((String) cbxLoai.getSelectedItem());
+
+        sp.setMaLoai(listaddproduct.get(indexLoai).getMaLoai());
+
+        //Object tenloai = cbxLoai.getSelectedItem();
         Icon icon = lblhinhAnh.getIcon();
         byte[] imageBytes = convertIconToByteArray(lblhinhAnh.getIcon());
         sp.setHinhanh(imageBytes);
@@ -460,9 +491,9 @@ public class addProduct extends javax.swing.JDialog {
     void fillcomboboxLoai() {
         DefaultComboBoxModel model = (DefaultComboBoxModel) cbxLoai.getModel();
         model.removeAllElements();
-        List<Loai> list = daoloai.selectAll();
-        for (Loai kh : list) {
-            model.addElement(kh);
+        listaddproduct = daoloai.selectAll();
+        for (Loai kh : listaddproduct) {
+            model.addElement(kh.getTenLoai());
         }
     }
 
@@ -486,6 +517,7 @@ public class addProduct extends javax.swing.JDialog {
             DialogHelper.alert(this, "Thêm SP thành công");
             filltable();
         } catch (Exception e) {
+            System.out.println(e);
         }
     }
 
@@ -514,6 +546,54 @@ public class addProduct extends javax.swing.JDialog {
         TableSP.setModel(model);
         TableSP.setRowHeight(100);
         TableSP.getColumnModel().getColumn(5).setPreferredWidth(130);
+    }
+
+    public void deleteProduct() {
+        if (!Auth.isManager()) {
+            DialogHelper.alert(this, "Bạn không có quyền xóa học viên!");
+        } else {
+            try {
+                int[] rows = TableSP.getSelectedRows();
+                if (rows.length == 0) {
+                    DialogHelper.alert(this, "Bạn cần chọn sản phẩm để xóa");
+                }
+                if (rows.length > 0 && DialogHelper.confirm(this, "Bạn có muốn xóa sản phẩm này không?")) {
+                    for (int row : rows) {
+                        String makh = (String) TableSP.getValueAt(row, 0);
+                        daosp.delete(makh);
+                        DialogHelper.alert(this, "Xóa sản phẩm thành công");
+                        filltable();
+                    }
+                }
+            } catch (Exception e) {
+                DialogHelper.alert(this, "Lỗi khi xóa sản phẩm");
+                System.out.println(e);
+            }
+        }
+    }
+
+    boolean kiemthu() {
+        if (txtmaSanPham.getText().equals("")) {
+            DialogHelper.alert(this, "Không được bỏ trống mã SP");
+            return false;
+        }
+        if (txttenSP.getText().equals("Không được bỏ trống tên SP")) {
+            DialogHelper.alert(this, "Không được bỏ trống tên SP");
+            return false;
+        }
+        if (txtGia.getText().equals("")) {
+            DialogHelper.alert(this, "Không được bỏ trống giá tiền");
+            return false;
+        }
+        if (txtGia.getText().matches("/d")) {
+            DialogHelper.alert(this, "Giá tiền phải là số");
+            return false;
+        }
+        if (lblhinhAnh.getIcon() == null) {
+            DialogHelper.alert(this, "Bạn cần chọn hình ảnh");
+            return false;
+        }
+        return true;
     }
 
 }
